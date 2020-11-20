@@ -19,14 +19,34 @@ Thứ tự chạy file:
    - Trong khi đó phần DELETE sẽ xóa toàn bộ dữ liệu trong các bảng tương ứng.
 3. [Tùy chọn] Xuất dữ liệu mẫu theo yêu cầu tương ứng với file SqlQuery_SelectData.sql: bôi đen toàn bộ hoặc một phần các lệnh cần dùng rồi chạy lệnh truy vấn.
 ## Các công việc trong project C# (WinForm)
-- [x] Cơ bản: Control đăng nhập
-- [x] Cơ bản: ListView xem danh sách
-- [ ] Bản ghi: Thêm
-- [ ] Bản ghi: Xóa
-- [ ] Bản ghi: Sửa
-- [ ] Bản ghi: Tìm kiếm
-- [x] Tài khoản: Đổi mật khẩu
-- [x] Tài khoản: Đăng xuất
-- [ ] Bộ cài đặt: Tạo bộ cài đặt/gỡ bỏ phần mềm (nếu cần thiết)
+- Cơ bản:
+  - [x] Control đăng nhập
+  - [x] ListView xem danh sách
+- Bảng:
+  - ComboPack
+    - [x] Thêm
+    - [x] Sửa
+    - [x] Xóa
+    - [ ] Tìm kiếm
+    - [x] Làm mới
+  - UserInfo
+    - [ ] Thêm
+    - [ ] Sửa
+    - [ ] Xóa
+    - [ ] Tìm kiếm
+    - [x] Làm mới
+  - UserPurchasedPack
+    - [ ] Thêm
+    - [ ] Sửa
+    - [ ] Xóa
+    - [ ] Tìm kiếm
+    - [x] Làm mới
+- Tài khoản:
+  - [x] Đổi mật khẩu
+  - [x] Đăng xuất
+  - Quyền hạn xem tài khoản
+    - [x] Full quyền (admin)
+    - [ ] Chỉ xem (user)
+- [ ] Bộ cài đặt: Tạo bộ cài đặt/gỡ bỏ phần mềm (chỉ làm nếu cần thiết)
 ## Tài liệu đã sử dụng
 - Mã hóa chuỗi ký tự sử dụng MD5: https://coderwall.com/p/4puszg/c-convert-string-to-md5-hash
