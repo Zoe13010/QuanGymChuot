@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace QuanGymChuot.Library.Controls
 {
@@ -234,7 +230,7 @@ namespace QuanGymChuot.Library.Controls
 
                 // Dang nhap va tra ket qua ve 'result'
                 Library.Result result = Library.SqlServer.Account.LogIn(tbUser.Text, Library.MD5Encrypt.Hash(tbPass.Text));
-                
+
                 if (result.Completed)
                     // Thong bao da thanh cong.
                     result.Message = "Logged in! You will be directed to main menu soon...";

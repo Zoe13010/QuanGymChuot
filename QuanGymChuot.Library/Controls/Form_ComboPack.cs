@@ -20,6 +20,7 @@ namespace QuanGymChuot.Library.Controls
         public Form_ComboPack()
         {
             InitializeComponent();
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void ComboPack_Edit_Load(object sender, EventArgs e)
@@ -33,6 +34,7 @@ namespace QuanGymChuot.Library.Controls
                 tbDayCount.Text = cpItemOld.DayCount.ToString();
                 tbInfo.Text = cpItemOld.Info;
                 cbCanUse.Checked = cpItemOld.CanUse;
+                dtpAddDate.Value = cpItemOld.AddedDate;
 
                 label7.Text = "Edit Combo Pack information";
                 btnAccept.Text = "Save";
@@ -42,6 +44,8 @@ namespace QuanGymChuot.Library.Controls
             {
                 this.Text = "New ComboPack";
                 tbID.Enabled = false;
+                dtpAddDate.Visible = false;
+                label8.Visible = false;
             }
         }
 
@@ -68,6 +72,7 @@ namespace QuanGymChuot.Library.Controls
                 ChangeObject(cpItemOld.ID, cpItemNew);
             }
 
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
     }

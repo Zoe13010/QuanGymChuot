@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
@@ -88,7 +87,7 @@ namespace QuanGymChuot.Library.Controls
         /// Sẽ chạy khi yêu cầu xóa dữ liệu.
         /// </summary>
         public event EventHandler RequestDelete;
-        
+
         /// <summary>
         /// Sẽ chạy khi yêu cầu làm mới dữ liệu.
         /// </summary>
@@ -104,7 +103,8 @@ namespace QuanGymChuot.Library.Controls
         /// </summary>
         public void ClearAll()
         {
-            listView.Clear();
+            if (listView.InvokeRequired) listView.Invoke((MethodInvoker)delegate { ClearAll(); });
+            else listView.Clear();
         }
 
         /// <summary>
@@ -112,7 +112,8 @@ namespace QuanGymChuot.Library.Controls
         /// </summary>
         public void ClearAllItems()
         {
-            listView.Items.Clear();
+            if (listView.InvokeRequired) listView.Invoke((MethodInvoker)delegate { ClearAllItems(); });
+            else listView.Items.Clear();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -144,6 +145,7 @@ namespace QuanGymChuot.Library.Controls
                     if (RequestDelete != null)
                         RequestDelete(this, new EventArgs());
                 }
+                else listView.Focus();
             }
         }
 

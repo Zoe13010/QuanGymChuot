@@ -15,6 +15,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             public long DayCount;
             public string Info;
             public bool CanUse;
+            public DateTime AddedDate;
         }
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                         dataPart.DayCount = data.GetInt64(3);
                         dataPart.Info = data.IsDBNull(4) ? null : data.GetString(4);
                         dataPart.CanUse = data.GetBoolean(5);
+                        dataPart.AddedDate = data.GetDateTime(6);
 
                         result.Add(dataPart);
                     }
@@ -130,6 +132,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                         cpitem.DayCount = data.GetInt64(3);
                         cpitem.Info = data.IsDBNull(4) ? null : data.GetString(4);
                         cpitem.CanUse = data.GetBoolean(5);
+                        cpitem.AddedDate = data.GetDateTime(6);
                     }
 
                     data.Close();
@@ -167,6 +170,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                         cpitem.DayCount = data.GetInt64(3);
                         cpitem.Info = data.IsDBNull(4) ? null : data.GetString(4);
                         cpitem.CanUse = data.GetBoolean(5);
+                        cpitem.AddedDate = data.GetDateTime(6);
                     }
 
                     data.Close();
@@ -193,7 +197,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                              cpitem.Info == null ? "NULL" : '\'' + cpitem.Info + '\'',
                              cpitem.CanUse ? 1 : 0);
 
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO ComboPack VALUES({0})", value),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO ComboPack (Name, Price, DayCount, Info, CanUse) VALUES({0})", value),
                                          Connection.SqlConnect);
 
                 try
