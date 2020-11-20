@@ -28,13 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lvComboPack = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvUserInfo = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -53,11 +46,7 @@
             this.btnChangePass = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageComboPack = new System.Windows.Forms.TabPage();
-            this.btnCPDelete = new System.Windows.Forms.Button();
-            this.btnCPEdit = new System.Windows.Forms.Button();
-            this.btnCPNew = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lvcComboPack = new QuanGymChuot.Library.Controls.ListViewControl();
             this.tabPageUserInfo = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -77,64 +66,6 @@
             this.tabPageUserPurPack.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lvComboPack
-            // 
-            this.lvComboPack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvComboPack.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader13,
-            this.columnHeader5,
-            this.columnHeader4});
-            this.lvComboPack.FullRowSelect = true;
-            this.lvComboPack.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvComboPack.HideSelection = false;
-            this.lvComboPack.Location = new System.Drawing.Point(6, 71);
-            this.lvComboPack.Name = "lvComboPack";
-            this.lvComboPack.Size = new System.Drawing.Size(760, 430);
-            this.lvComboPack.TabIndex = 1;
-            this.lvComboPack.UseCompatibleStateImageBehavior = false;
-            this.lvComboPack.View = System.Windows.Forms.View.Details;
-            this.lvComboPack.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lvComboPack_ItemSelectionChanged);
-            this.lvComboPack.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvComboPack_KeyDown);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "ID";
-            this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader1.Width = 43;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Package Name";
-            this.columnHeader2.Width = 147;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Package Price";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader3.Width = 115;
-            // 
-            // columnHeader13
-            // 
-            this.columnHeader13.Text = "Package Count";
-            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader13.Width = 98;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Can Be Used";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 87;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Package Info";
-            this.columnHeader4.Width = 243;
             // 
             // lvUserInfo
             // 
@@ -291,12 +222,7 @@
             // tabPageComboPack
             // 
             this.tabPageComboPack.BackColor = System.Drawing.Color.White;
-            this.tabPageComboPack.Controls.Add(this.btnCPDelete);
-            this.tabPageComboPack.Controls.Add(this.btnCPEdit);
-            this.tabPageComboPack.Controls.Add(this.btnCPNew);
-            this.tabPageComboPack.Controls.Add(this.label6);
-            this.tabPageComboPack.Controls.Add(this.label1);
-            this.tabPageComboPack.Controls.Add(this.lvComboPack);
+            this.tabPageComboPack.Controls.Add(this.lvcComboPack);
             this.tabPageComboPack.Location = new System.Drawing.Point(4, 5);
             this.tabPageComboPack.Name = "tabPageComboPack";
             this.tabPageComboPack.Padding = new System.Windows.Forms.Padding(3);
@@ -304,60 +230,23 @@
             this.tabPageComboPack.TabIndex = 1;
             this.tabPageComboPack.Text = "ComboPack";
             // 
-            // btnCPDelete
+            // lvcComboPack
             // 
-            this.btnCPDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCPDelete.Enabled = false;
-            this.btnCPDelete.Location = new System.Drawing.Point(675, 507);
-            this.btnCPDelete.Name = "btnCPDelete";
-            this.btnCPDelete.Size = new System.Drawing.Size(89, 30);
-            this.btnCPDelete.TabIndex = 4;
-            this.btnCPDelete.Text = "Delete";
-            this.btnCPDelete.UseVisualStyleBackColor = true;
-            this.btnCPDelete.Click += new System.EventHandler(this.btnCPDelete_Click);
-            // 
-            // btnCPEdit
-            // 
-            this.btnCPEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCPEdit.Enabled = false;
-            this.btnCPEdit.Location = new System.Drawing.Point(580, 507);
-            this.btnCPEdit.Name = "btnCPEdit";
-            this.btnCPEdit.Size = new System.Drawing.Size(89, 30);
-            this.btnCPEdit.TabIndex = 4;
-            this.btnCPEdit.Text = "Edit";
-            this.btnCPEdit.UseVisualStyleBackColor = true;
-            this.btnCPEdit.Click += new System.EventHandler(this.btnCPEdit_Click);
-            // 
-            // btnCPNew
-            // 
-            this.btnCPNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCPNew.Location = new System.Drawing.Point(465, 507);
-            this.btnCPNew.Name = "btnCPNew";
-            this.btnCPNew.Size = new System.Drawing.Size(109, 30);
-            this.btnCPNew.TabIndex = 4;
-            this.btnCPNew.Text = "Create New...";
-            this.btnCPNew.UseVisualStyleBackColor = true;
-            this.btnCPNew.Click += new System.EventHandler(this.btnCPNew_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.label6.Location = new System.Drawing.Point(8, 40);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(398, 28);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Manage combo pack which user can choose.";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.label1.Location = new System.Drawing.Point(6, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 37);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Combo Packs";
+            this.lvcComboPack.BackColor = System.Drawing.Color.White;
+            this.lvcComboPack.Description = "Manage combo pack which user can choose.";
+            this.lvcComboPack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvcComboPack.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lvcComboPack.Location = new System.Drawing.Point(3, 3);
+            this.lvcComboPack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lvcComboPack.MsgBoxDelTitle = null;
+            this.lvcComboPack.Name = "lvcComboPack";
+            this.lvcComboPack.Size = new System.Drawing.Size(766, 537);
+            this.lvcComboPack.TabIndex = 5;
+            this.lvcComboPack.Title = "Combo Pack";
+            this.lvcComboPack.RequestCreate += new System.EventHandler(this.lvcComboPack_RequestCreate);
+            this.lvcComboPack.RequestDelete += new System.EventHandler(this.lvcComboPack_RequestDelete);
+            this.lvcComboPack.RequestRefresh += new System.EventHandler(this.lvcComboPack_RequestRefresh);
+            this.lvcComboPack.RequestEdit += new System.EventHandler(this.lvcComboPack_RequestEdit);
             // 
             // tabPageUserInfo
             // 
@@ -504,7 +393,6 @@
             this.pnStatus.PerformLayout();
             this.tabControl.ResumeLayout(false);
             this.tabPageComboPack.ResumeLayout(false);
-            this.tabPageComboPack.PerformLayout();
             this.tabPageUserInfo.ResumeLayout(false);
             this.tabPageUserInfo.PerformLayout();
             this.tabPageUserPurPack.ResumeLayout(false);
@@ -517,12 +405,6 @@
         #endregion
 
         private Library.Controls.Login login1;
-        private System.Windows.Forms.ListView lvComboPack;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ListView lvUserInfo;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
@@ -535,7 +417,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader15;
         private System.Windows.Forms.ColumnHeader columnHeader16;
-        private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.Panel pnStatus;
         private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.Button btnLogout;
@@ -548,15 +429,11 @@
         private System.Windows.Forms.Button btnTabUserPurchasedPack;
         private System.Windows.Forms.Button btnTabUserInfo;
         private System.Windows.Forms.Button btnTabComboPack;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnCPNew;
         private System.ComponentModel.BackgroundWorker bwInitListView;
-        private System.Windows.Forms.Button btnCPEdit;
-        private System.Windows.Forms.Button btnCPDelete;
+        private Library.Controls.ListViewControl lvcComboPack;
     }
 }

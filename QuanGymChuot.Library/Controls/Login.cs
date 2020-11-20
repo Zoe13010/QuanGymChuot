@@ -50,9 +50,8 @@ namespace QuanGymChuot.Library.Controls
         /// <summary>
         /// Xoa thong tin da dien trong khung dang nhap.
         /// </summary>
-        public void ClearLoginArea()
+        public void ClearPassword()
         {
-            tbUser.Clear();
             tbPass.Clear();
         }
 

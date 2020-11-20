@@ -66,12 +66,13 @@ namespace QuanGymChuot
         private void bwInitListView_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // TODO: COMMENT HERE!
-            ChangeStatusPanel(true, String.Format("Logged in as {0}!", login1.UserName));
+            ChangeStatusPanel(true, String.Format("Logged in as {0}!", Account.CurrentAccount.UserName));
             // An control dang nhap.
             login1.Hide();
             // Xoa toan bo thong tin o control dang nhap.
-            login1.ClearLoginArea();
+            login1.ClearPassword();
 
+            // TODO: COMMENT HERE!
             ChangeTitleUserLoggedIn("Logged in as " + Account.CurrentAccount.UserName);
         }
 
@@ -81,36 +82,40 @@ namespace QuanGymChuot
         private void LoadDataFromSQLServer()
         {
             ClearListViewData();
-            LoadDataFromComboPack();
             LoadDataFromUserInfo();
             LoadDataFromUserPurchasedPack();
-
+            LoadDataFromComboPackNew();
         }
 
         /// <summary>
         /// Lay du lieu tu bang ComboPack.
         /// </summary>
-        private void LoadDataFromComboPack()
+        private void LoadDataFromComboPackNew()
         {
-            if (tabPageComboPack.InvokeRequired) tabPageComboPack.Invoke((MethodInvoker)delegate { LoadDataFromComboPack(); });
+            if (tabPageComboPack.InvokeRequired) tabPageComboPack.Invoke((MethodInvoker)delegate { LoadDataFromComboPackNew(); });
             else
             {
+                lvcComboPack.ClearAll();
+                lvcComboPack.ListView.Columns.Add("ID", 48);
+                lvcComboPack.ListView.Columns.Add("Name", 140);
+                lvcComboPack.ListView.Columns.Add("Price (VND)", 86);
+                lvcComboPack.ListView.Columns.Add("Days", 64);
+                lvcComboPack.ListView.Columns.Add("Can used?", 72);
+                lvcComboPack.ListView.Columns.Add("Info", 294);
+
                 foreach (ComboPack.ComboPackItem cpitem in ComboPack.GetAll())
                 {
                     string[] s = new string[]
                     {
                         cpitem.ID.ToString(),
                         cpitem.Name,
-                        cpitem.Price.ToString() + " VND",
-                        cpitem.DayCount.ToString() + " day(s)",
+                        cpitem.Price.ToString(),
+                        cpitem.DayCount.ToString(),
                         cpitem.CanUse ? "Yes" : "No",
                         cpitem.Info != null ? cpitem.Info : "(no information)"
                     };
-                    lvComboPack.Items.Add(new ListViewItem(s));
+                    lvcComboPack.ListView.Items.Add(new ListViewItem(s));
                 }
-
-                btnCPEdit.Enabled = false;
-                btnCPDelete.Enabled = false;
             }
         }
 
@@ -162,9 +167,9 @@ namespace QuanGymChuot
             if (tabControl.InvokeRequired) tabControl.Invoke((MethodInvoker)delegate { ClearListViewData(); });
             else
             {
-                lvComboPack.Items.Clear();
                 lvUserInfo.Items.Clear();
                 lvUserPurPack.Items.Clear();
+                lvcComboPack.ClearAllItems();
             }
         }
 
@@ -239,9 +244,10 @@ namespace QuanGymChuot
             form.ShowDialog();
         }
 
-        private void btnCPNew_Click(object sender, EventArgs e)
+        #region ComboPack
+        private void lvcComboPack_RequestCreate(object sender, EventArgs e)
         {
-            ComboPack_Edit form = new ComboPack_Edit();
+            Form_ComboPack form = new Form_ComboPack();
             form.CreateMode = true;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
@@ -250,11 +256,24 @@ namespace QuanGymChuot
             bwInitListView.RunWorkerAsync();
         }
 
-        private void btnCPEdit_Click(object sender, EventArgs e)
+        private void lvcComboPack_RequestDelete(object sender, EventArgs e)
         {
-            ComboPack_Edit form = new ComboPack_Edit();
+            ListViewControl lv = (ListViewControl)sender;
+            for (int i = 0; i < lv.SelectedItemCount; i++)
+            {
+                long ID;
+                long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
+                ComboPack.DeleteObject(ID);
+            }
+
+            bwInitListView.RunWorkerAsync();
+        }
+
+        private void lvcComboPack_RequestEdit(object sender, EventArgs e)
+        {
+            Form_ComboPack form = new Form_ComboPack();
             form.CreateMode = false;
-            int.TryParse(lvComboPack.SelectedItems[0].Text, out int idTemp);
+            int.TryParse(lvcComboPack.ListView.SelectedItems[0].Text, out int idTemp);
             form.ID = idTemp;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
@@ -263,37 +282,11 @@ namespace QuanGymChuot
             bwInitListView.RunWorkerAsync();
         }
 
-        private void lvComboPack_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        private void lvcComboPack_RequestRefresh(object sender, EventArgs e)
         {
-            ListView lv = (ListView)sender;
-            btnCPEdit.Enabled = (lv.SelectedItems.Count == 1);
-            btnCPDelete.Enabled = (lv.SelectedItems.Count > 0);
+            lvcComboPack.ClearAll();
+            LoadDataFromComboPackNew();
         }
-
-        private void btnCPDelete_Click(object sender, EventArgs e)
-        {
-            int count = lvComboPack.SelectedItems.Count;
-            DialogResult msgReturn = MessageBox.Show(
-                String.Format("You are about to delete {0}.\nThis action cannot be undone!\nAre you sure you want to continue?", count.ToString() + (count == 1 ? " item" : " items")),
-                this.DefaultTitle,
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-            if (msgReturn == DialogResult.Yes)
-            {
-                for (int i = 0; i < count; i++)
-                {
-                    long ID;
-                    long.TryParse(lvComboPack.SelectedItems[i].Text, out ID);
-                    ComboPack.DeleteObject(ID);
-                }
-                bwInitListView.RunWorkerAsync();
-            }
-        }
-
-        private void lvComboPack_KeyDown(object sender, KeyEventArgs e)
-        {
-            if ((lvComboPack.SelectedItems.Count > 0) && (e.KeyCode == Keys.Delete))
-            { btnCPDelete_Click(btnCPDelete, new EventArgs()); }
-        }
+        #endregion
     }
 }

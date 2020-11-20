@@ -31,11 +31,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\ComboPack_Edit.cs">
+    <Compile Include="Controls\Form_ComboPack.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\ComboPack_Edit.Designer.cs">
-      <DependentUpon>ComboPack_Edit.cs</DependentUpon>
+    <Compile Include="Controls\Form_ComboPack.Designer.cs">
+      <DependentUpon>Form_ComboPack.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Form_ChangePass.cs">
       <SubType>Form</SubType>
@@ -43,11 +43,11 @@
     <Compile Include="Controls\Form_ChangePass.Designer.cs">
       <DependentUpon>Form_ChangePass.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ListViewData.cs">
+    <Compile Include="Controls\ListViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ListViewData.Designer.cs">
-      <DependentUpon>ListViewData.cs</DependentUpon>
+    <Compile Include="Controls\ListViewControl.Designer.cs">
+      <DependentUpon>ListViewControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Login.cs">
       <SubType>UserControl</SubType>
@@ -65,14 +65,14 @@
     <Compile Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\ComboPack_Edit.resx">
-      <DependentUpon>ComboPack_Edit.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Form_ComboPack.resx">
+      <DependentUpon>Form_ComboPack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Form_ChangePass.resx">
       <DependentUpon>Form_ChangePass.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ListViewData.resx">
-      <DependentUpon>ListViewData.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ListViewControl.resx">
+      <DependentUpon>ListViewControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

@@ -11,13 +11,13 @@ using static QuanGymChuot.Library.SqlServer.DataFromTable.ComboPack;
 
 namespace QuanGymChuot.Library.Controls
 {
-    public partial class ComboPack_Edit : Form
+    public partial class Form_ComboPack : Form
     {
         public bool CreateMode = true;
         public int ID = 0;
         private ComboPackItem cpItemOld, cpItemNew;
 
-        public ComboPack_Edit()
+        public Form_ComboPack()
         {
             InitializeComponent();
         }

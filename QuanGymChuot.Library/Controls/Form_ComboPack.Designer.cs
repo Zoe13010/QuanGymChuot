@@ -1,7 +1,7 @@
 ﻿
 namespace QuanGymChuot.Library.Controls
 {
-    partial class ComboPack_Edit
+    partial class Form_ComboPack
     {
         /// <summary>
         /// Required designer variable.
@@ -170,6 +170,7 @@ namespace QuanGymChuot.Library.Controls
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(526, 342);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(102, 35);
@@ -178,7 +179,7 @@ namespace QuanGymChuot.Library.Controls
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // ComboPack_Edit
+            // Form_ComboPack
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -186,7 +187,6 @@ namespace QuanGymChuot.Library.Controls
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(718, 411);
-            this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.label7);
@@ -203,10 +203,11 @@ namespace QuanGymChuot.Library.Controls
             this.Controls.Add(this.tbID);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ComboPack_Edit";
+            this.Name = "Form_ComboPack";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Bảng ComboPack";
