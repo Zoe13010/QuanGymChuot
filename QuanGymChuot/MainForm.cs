@@ -87,7 +87,7 @@ namespace QuanGymChuot
                 lvcComboPack.ListView.Columns.Add("Name", 182);
                 lvcComboPack.ListView.Columns.Add("Price (VND)", 86);
                 lvcComboPack.ListView.Columns.Add("Days", 64);
-                lvcComboPack.ListView.Columns.Add("Can used?", 72);
+                lvcComboPack.ListView.Columns.Add("Can use?", 72);
                 lvcComboPack.ListView.Columns.Add("Added Date", 156);
                 lvcComboPack.ListView.Columns.Add("Info", 284);
 

@@ -209,7 +209,7 @@ namespace QuanGymChuot.Library.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(718, 449);
+            this.ClientSize = new System.Drawing.Size(709, 448);
             this.Controls.Add(this.dtpAddDate);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
@@ -235,7 +235,6 @@ namespace QuanGymChuot.Library.Controls
             this.Name = "Form_ComboPack";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Bảng ComboPack";
             this.Load += new System.EventHandler(this.ComboPack_Edit_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

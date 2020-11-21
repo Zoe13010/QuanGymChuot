@@ -37,9 +37,9 @@
             this.tabPageUserPurPack = new System.Windows.Forms.TabPage();
             this.tabPageUserInfo = new System.Windows.Forms.TabPage();
             this.tabPageComboPack = new System.Windows.Forms.TabPage();
-            this.lvcComboPack = new QuanGymChuot.Library.Controls.ListViewControl();
-            this.lvcUserInfo = new QuanGymChuot.Library.Controls.ListViewControl();
             this.lvcUserPurPack = new QuanGymChuot.Library.Controls.ListViewControl();
+            this.lvcUserInfo = new QuanGymChuot.Library.Controls.ListViewControl();
+            this.lvcComboPack = new QuanGymChuot.Library.Controls.ListViewControl();
             this.login1 = new QuanGymChuot.Library.Controls.Login();
             this.pnStatus.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -140,6 +140,36 @@
             this.tabPageComboPack.TabIndex = 1;
             this.tabPageComboPack.Text = "ComboPack";
             // 
+            // lvcUserPurPack
+            // 
+            this.lvcUserPurPack.BackColor = System.Drawing.Color.White;
+            this.lvcUserPurPack.Description = "Manage packs which user has purchased";
+            this.lvcUserPurPack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvcUserPurPack.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lvcUserPurPack.Location = new System.Drawing.Point(3, 3);
+            this.lvcUserPurPack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lvcUserPurPack.MsgBoxDelTitle = null;
+            this.lvcUserPurPack.Name = "lvcUserPurPack";
+            this.lvcUserPurPack.Size = new System.Drawing.Size(961, 516);
+            this.lvcUserPurPack.TabIndex = 4;
+            this.lvcUserPurPack.Title = "User Purchased Pack";
+            this.lvcUserPurPack.RequestRefresh += new System.EventHandler(this.lvcUserPurPack_RequestRefresh);
+            // 
+            // lvcUserInfo
+            // 
+            this.lvcUserInfo.BackColor = System.Drawing.Color.White;
+            this.lvcUserInfo.Description = "Manage information of users";
+            this.lvcUserInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvcUserInfo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lvcUserInfo.Location = new System.Drawing.Point(3, 3);
+            this.lvcUserInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lvcUserInfo.MsgBoxDelTitle = null;
+            this.lvcUserInfo.Name = "lvcUserInfo";
+            this.lvcUserInfo.Size = new System.Drawing.Size(961, 516);
+            this.lvcUserInfo.TabIndex = 4;
+            this.lvcUserInfo.Title = "User Information";
+            this.lvcUserInfo.RequestRefresh += new System.EventHandler(this.lvcUserInfo_RequestRefresh);
+            // 
             // lvcComboPack
             // 
             this.lvcComboPack.BackColor = System.Drawing.Color.White;
@@ -157,35 +187,6 @@
             this.lvcComboPack.RequestDelete += new System.EventHandler(this.lvcComboPack_RequestDelete);
             this.lvcComboPack.RequestRefresh += new System.EventHandler(this.lvcComboPack_RequestRefresh);
             this.lvcComboPack.RequestEdit += new System.EventHandler(this.lvcComboPack_RequestEdit);
-            // 
-            // lvcUserInfo
-            // 
-            this.lvcUserInfo.BackColor = System.Drawing.Color.White;
-            this.lvcUserInfo.Description = "Manage information of users";
-            this.lvcUserInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvcUserInfo.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lvcUserInfo.Location = new System.Drawing.Point(3, 3);
-            this.lvcUserInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lvcUserInfo.MsgBoxDelTitle = null;
-            this.lvcUserInfo.Name = "lvcUserInfo";
-            this.lvcUserInfo.Size = new System.Drawing.Size(961, 516);
-            this.lvcUserInfo.TabIndex = 4;
-            this.lvcUserInfo.Title = "User Information";
-            // 
-            // lvcUserPurPack
-            // 
-            this.lvcUserPurPack.BackColor = System.Drawing.Color.White;
-            this.lvcUserPurPack.Description = "Manage packs which user has purchased";
-            this.lvcUserPurPack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvcUserPurPack.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lvcUserPurPack.Location = new System.Drawing.Point(3, 3);
-            this.lvcUserPurPack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lvcUserPurPack.MsgBoxDelTitle = null;
-            this.lvcUserPurPack.Name = "lvcUserPurPack";
-            this.lvcUserPurPack.Size = new System.Drawing.Size(961, 516);
-            this.lvcUserPurPack.TabIndex = 4;
-            this.lvcUserPurPack.Title = "User Purchased Pack";
-            this.lvcUserPurPack.RequestRefresh += new System.EventHandler(this.lvcUserPurPack_RequestRefresh);
             // 
             // login1
             // 

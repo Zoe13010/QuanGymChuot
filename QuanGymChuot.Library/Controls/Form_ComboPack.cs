@@ -38,11 +38,9 @@ namespace QuanGymChuot.Library.Controls
 
                 label7.Text = "Edit Combo Pack information";
                 btnAccept.Text = "Save";
-                this.Text = String.Format("Edit ComboPack [{0}]", cpItemOld.Name);
             }
             else
             {
-                this.Text = "New ComboPack";
                 tbID.Enabled = false;
                 dtpAddDate.Visible = false;
                 label8.Visible = false;

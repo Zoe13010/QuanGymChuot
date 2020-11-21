@@ -79,7 +79,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 catch (Exception ex)
                 {
                     cmd.Dispose();
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Error while deleting selected objects.\nThis error may be occur when the selected item is used in another table.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+                                    "Quán Gym Chuột",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                 }
             }
         }
@@ -105,7 +108,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 catch (Exception ex)
                 {
                     cmd.Dispose();
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Error while changing selected objects.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+                                    "Quán Gym Chuột",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                 }
             }
         }
@@ -207,7 +213,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 catch (Exception ex)
                 {
                     cmd.Dispose();
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Error while creating objects.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+                                    "Quán Gym Chuột",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                 }
             }
         }
