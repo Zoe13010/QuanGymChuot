@@ -35,10 +35,10 @@
             this.bwInitListView = new System.ComponentModel.BackgroundWorker();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageUserPurPack = new System.Windows.Forms.TabPage();
-            this.tabPageUserInfo = new System.Windows.Forms.TabPage();
-            this.tabPageComboPack = new System.Windows.Forms.TabPage();
             this.lvcUserPurPack = new QuanGymChuot.Library.Controls.ListViewControl();
+            this.tabPageUserInfo = new System.Windows.Forms.TabPage();
             this.lvcUserInfo = new QuanGymChuot.Library.Controls.ListViewControl();
+            this.tabPageComboPack = new System.Windows.Forms.TabPage();
             this.lvcComboPack = new QuanGymChuot.Library.Controls.ListViewControl();
             this.login1 = new QuanGymChuot.Library.Controls.Login();
             this.pnStatus.SuspendLayout();
@@ -116,29 +116,7 @@
             this.tabPageUserPurPack.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageUserPurPack.Size = new System.Drawing.Size(967, 522);
             this.tabPageUserPurPack.TabIndex = 3;
-            this.tabPageUserPurPack.Text = "UserPurchasedPack";
-            // 
-            // tabPageUserInfo
-            // 
-            this.tabPageUserInfo.BackColor = System.Drawing.Color.White;
-            this.tabPageUserInfo.Controls.Add(this.lvcUserInfo);
-            this.tabPageUserInfo.Location = new System.Drawing.Point(4, 26);
-            this.tabPageUserInfo.Name = "tabPageUserInfo";
-            this.tabPageUserInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUserInfo.Size = new System.Drawing.Size(967, 522);
-            this.tabPageUserInfo.TabIndex = 2;
-            this.tabPageUserInfo.Text = "UserInfo";
-            // 
-            // tabPageComboPack
-            // 
-            this.tabPageComboPack.BackColor = System.Drawing.Color.White;
-            this.tabPageComboPack.Controls.Add(this.lvcComboPack);
-            this.tabPageComboPack.Location = new System.Drawing.Point(4, 26);
-            this.tabPageComboPack.Name = "tabPageComboPack";
-            this.tabPageComboPack.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageComboPack.Size = new System.Drawing.Size(967, 522);
-            this.tabPageComboPack.TabIndex = 1;
-            this.tabPageComboPack.Text = "ComboPack";
+            this.tabPageUserPurPack.Text = "User Purchased Pack";
             // 
             // lvcUserPurPack
             // 
@@ -155,6 +133,17 @@
             this.lvcUserPurPack.Title = "User Purchased Pack";
             this.lvcUserPurPack.RequestRefresh += new System.EventHandler(this.lvcUserPurPack_RequestRefresh);
             // 
+            // tabPageUserInfo
+            // 
+            this.tabPageUserInfo.BackColor = System.Drawing.Color.White;
+            this.tabPageUserInfo.Controls.Add(this.lvcUserInfo);
+            this.tabPageUserInfo.Location = new System.Drawing.Point(4, 26);
+            this.tabPageUserInfo.Name = "tabPageUserInfo";
+            this.tabPageUserInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageUserInfo.Size = new System.Drawing.Size(967, 522);
+            this.tabPageUserInfo.TabIndex = 2;
+            this.tabPageUserInfo.Text = "User Information";
+            // 
             // lvcUserInfo
             // 
             this.lvcUserInfo.BackColor = System.Drawing.Color.White;
@@ -168,7 +157,21 @@
             this.lvcUserInfo.Size = new System.Drawing.Size(961, 516);
             this.lvcUserInfo.TabIndex = 4;
             this.lvcUserInfo.Title = "User Information";
+            this.lvcUserInfo.RequestCreate += new System.EventHandler(this.lvcUserInfo_RequestCreate);
+            this.lvcUserInfo.RequestDelete += new System.EventHandler(this.lvcUserInfo_RequestDelete);
             this.lvcUserInfo.RequestRefresh += new System.EventHandler(this.lvcUserInfo_RequestRefresh);
+            this.lvcUserInfo.RequestEdit += new System.EventHandler(this.lvcUserInfo_RequestEdit);
+            // 
+            // tabPageComboPack
+            // 
+            this.tabPageComboPack.BackColor = System.Drawing.Color.White;
+            this.tabPageComboPack.Controls.Add(this.lvcComboPack);
+            this.tabPageComboPack.Location = new System.Drawing.Point(4, 26);
+            this.tabPageComboPack.Name = "tabPageComboPack";
+            this.tabPageComboPack.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageComboPack.Size = new System.Drawing.Size(967, 522);
+            this.tabPageComboPack.TabIndex = 1;
+            this.tabPageComboPack.Text = "Combo Packs";
             // 
             // lvcComboPack
             // 

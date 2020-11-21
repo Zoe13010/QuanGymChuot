@@ -188,6 +188,7 @@ namespace QuanGymChuot.Library.Controls
                 EnableLoginArea(true);
                 SetStatusArea(false, "Type your account to login form and click \"Login\" to continue.");
                 sqlConnectionStatus = 2;
+                tbUser.Focus();
             }
             else
             {

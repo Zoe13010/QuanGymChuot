@@ -99,7 +99,9 @@ namespace QuanGymChuot.Library.Controls
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView.FullRowSelect = true;
+            this.listView.GridLines = true;
             this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(10, 68);
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(791, 323);

@@ -32,8 +32,9 @@ namespace QuanGymChuot
             login1.Show();
             // Gán Connection String - nó sẽ tìm tự động. Nếu không tìm được, hãy sửa nó bằng tay tại đây.
             login1.SqlConnectionString = String.Format(this.ConnectionString, System.Environment.MachineName, "QuanGymChuot");
-            // Kết nối đến server.
+            // Kết nối đến server và focus Control.
             login1.ConnectServer();
+            login1.Focus();
             // Thay đổi hiển thị trạng thái.
             ChangePanelAccount(false, "Login using your account to continue.");
         }
@@ -217,7 +218,7 @@ namespace QuanGymChuot
         }
         #endregion
 
-        #region ComboPack
+        #region Combo Packs panel
         private void lvcComboPack_RequestCreate(object sender, EventArgs e)
         {
             Form_ComboPack form = new Form_ComboPack();
@@ -261,23 +262,55 @@ namespace QuanGymChuot
         {
             lvcComboPack.ClearAll();
             LoadDataFromComboPackNew();
-            // MessageBox.Show(String.Format("Column width:\n{0} {1} {2} {3} {4} {5} {6}",
-            //     lvcComboPack.ListView.Columns[0].Width,
-            //     lvcComboPack.ListView.Columns[1].Width,
-            //     lvcComboPack.ListView.Columns[2].Width,
-            //     lvcComboPack.ListView.Columns[3].Width,
-            //     lvcComboPack.ListView.Columns[4].Width,
-            //     lvcComboPack.ListView.Columns[5].Width,
-            //     lvcComboPack.ListView.Columns[6].Width
-            //     ));
         }
         #endregion
 
+        #region User Information panel
         private void lvcUserInfo_RequestRefresh(object sender, EventArgs e)
         {
             lvcUserInfo.ClearAll();
             LoadDataFromUserInfoNew();
         }
+
+        private void lvcUserInfo_RequestCreate(object sender, EventArgs e)
+        {
+            Form_UserInfo form = new Form_UserInfo();
+            form.CreateMode = true;
+            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
+            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
+
+            if (form.ShowDialog() == DialogResult.OK)
+                bwInitListView.RunWorkerAsync();
+            else lvcUserInfo.ListView.Focus();
+        }
+
+        private void lvcUserInfo_RequestDelete(object sender, EventArgs e)
+        {
+            ListViewControl lv = (ListViewControl)sender;
+            for (int i = 0; i < lv.SelectedItemCount; i++)
+            {
+                long ID;
+                long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
+                UserInfo.DeleteObject(ID);
+            }
+
+            bwInitListView.RunWorkerAsync();
+        }
+
+        private void lvcUserInfo_RequestEdit(object sender, EventArgs e)
+        {
+            Form_UserInfo form = new Form_UserInfo();
+            form.CreateMode = false;
+            int.TryParse(lvcUserInfo.ListView.SelectedItems[0].Text, out int idTemp);
+            form.ID = idTemp;
+            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
+            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
+
+            if (form.ShowDialog() == DialogResult.OK)
+                bwInitListView.RunWorkerAsync();
+            else lvcUserInfo.ListView.Focus();
+        }
+        #endregion
 
         private void lvcUserPurPack_RequestRefresh(object sender, EventArgs e)
         {

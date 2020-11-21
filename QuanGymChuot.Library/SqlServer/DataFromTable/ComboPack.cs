@@ -19,9 +19,8 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Doc du lieu tu bang ComboPack.
+        /// Lấy tất cả dữ liệu từ bảng ComboPack.
         /// </summary>
-        /// <returns>List gom cac muc trong bang ComboPack.</returns>
         public static List<ComboPackItem> GetAll()
         {
             List<ComboPackItem> result = null;
@@ -65,6 +64,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return result;
         }
 
+        /// <summary>
+        /// Xóa dữ liệu từ bảng ComboPack theo ID.
+        /// </summary>
+        /// <param name="ID">ID của gói dịch vụ cần xóa</param>
         public static void DeleteObject(long ID)
         {
             if (Account.CurrentAccount.Check().Completed)
@@ -79,7 +82,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 catch (Exception ex)
                 {
                     cmd.Dispose();
-                    MessageBox.Show("Error while deleting selected objects.\nThis error may be occur when the selected item is used in another table.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+                    MessageBox.Show("Error while deleting selected combo pack.\nThis error may be occur when the selected combo pack is used in another users.\nPlease check and try again.\n\nError message: \n" + ex.Message,
                                     "Quán Gym Chuột",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning);
@@ -87,6 +90,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
+        /// <summary>
+        /// Thay đổi thuộc tính của gói dịch vụ từ bảng ComboPack theo ID.
+        /// </summary>
+        /// <param name="ID">ID của gói dịch vụ cần thay đổi</param>
+        /// <param name="newObj">Giá trị sẽ thay đổi vào gói dịch vụ có trùng ID đó</param>
         public static void ChangeObject(long ID, ComboPackItem newObj)
         {
             if (Account.CurrentAccount.Check().Completed)
@@ -98,7 +106,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                                              "Info = " + (newObj.Info != null ? "N\'" + newObj.Info + "\'" : "NULL") + ',',
                                              "CanUse = " + (newObj.CanUse ? 1 : 0));
 
-                var cmd = new SqlCommand(String.Format("UPDATE ComboPack SET {0} WHERE ID = {1}", value, ID),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot UPDATE ComboPack SET {0} WHERE ID = {1}", value, ID),
                                          Connection.SqlConnect);
 
                 try
@@ -108,7 +116,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 catch (Exception ex)
                 {
                     cmd.Dispose();
-                    MessageBox.Show("Error while changing selected objects.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+                    MessageBox.Show("Error while changing selected combo pack.\nPlease check and try again.\n\nError message: \n" + ex.Message,
                                     "Quán Gym Chuột",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning);
@@ -116,45 +124,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
-        public static ComboPackItem FindObjectByName(string name)
-        {
-            ComboPackItem cpitem = new ComboPackItem();
-
-            if (Account.CurrentAccount.Check().Completed)
-            {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM ComboPack WHERE Name = \'{0}\'", name),
-                         Connection.SqlConnect);
-                SqlDataReader data = null;
-
-                try
-                {
-                    data = cmd.ExecuteReader();
-
-                    while (data.Read())
-                    {
-                        cpitem.ID = data.GetInt32(0);
-                        cpitem.Name = data.IsDBNull(1) ? null : data.GetString(1);
-                        cpitem.Price = data.GetInt64(2);
-                        cpitem.DayCount = data.GetInt64(3);
-                        cpitem.Info = data.IsDBNull(4) ? null : data.GetString(4);
-                        cpitem.CanUse = data.GetBoolean(5);
-                        cpitem.AddedDate = data.GetDateTime(6);
-                    }
-
-                    data.Close();
-                }
-                catch
-                {
-                    if (data != null)
-                        data.Close();
-                    cpitem = new ComboPackItem();
-                }
-            }
-
-            return cpitem;
-        }
-
-        public static ComboPackItem FindObjectById(int id)
+        /// <summary>
+        /// Lấy gói dịch vụ đầu tiên của bảng ComboPack theo ID.
+        /// </summary>
+        /// <param name="id">ID của gói dịch vụ cần lấy</param>
+        public static ComboPackItem FindFirstObjectById(int id)
         {
             ComboPackItem cpitem = new ComboPackItem();
 
@@ -177,6 +151,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                         cpitem.Info = data.IsDBNull(4) ? null : data.GetString(4);
                         cpitem.CanUse = data.GetBoolean(5);
                         cpitem.AddedDate = data.GetDateTime(6);
+                        break;
                     }
 
                     data.Close();
@@ -192,6 +167,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return cpitem;
         }
 
+        /// <summary>
+        /// Tạo một gói dịch vụ mới vào bảng ComboPack.
+        /// </summary>
+        /// <param name="cpitem">Gói dịch vụ sẽ được tạo</param>
         public static void Create(ComboPackItem cpitem)
         {
             if (Account.CurrentAccount.Check().Completed)
@@ -213,7 +192,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 catch (Exception ex)
                 {
                     cmd.Dispose();
-                    MessageBox.Show("Error while creating objects.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+                    MessageBox.Show("Error while creating new combo pack.\nPlease check and try again.\n\nError message: \n" + ex.Message,
                                     "Quán Gym Chuột",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning);

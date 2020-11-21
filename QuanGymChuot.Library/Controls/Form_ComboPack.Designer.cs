@@ -184,7 +184,9 @@ namespace QuanGymChuot.Library.Controls
             // dtpAddDate
             // 
             this.dtpAddDate.CalendarMonthBackground = System.Drawing.Color.White;
+            this.dtpAddDate.Checked = false;
             this.dtpAddDate.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
+            this.dtpAddDate.Enabled = false;
             this.dtpAddDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpAddDate.Location = new System.Drawing.Point(243, 336);
             this.dtpAddDate.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);

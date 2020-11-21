@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QuanGymChuot.Library.SqlServer.DataFromTable;
+using System;
 using System.Windows.Forms;
-using static QuanGymChuot.Library.SqlServer.DataFromTable.ComboPack;
 
 namespace QuanGymChuot.Library.Controls
 {
@@ -15,7 +8,7 @@ namespace QuanGymChuot.Library.Controls
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private ComboPackItem cpItemOld, cpItemNew;
+        private ComboPack.ComboPackItem cpItemOld, cpItemNew;
 
         public Form_ComboPack()
         {
@@ -27,7 +20,7 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                cpItemOld = FindObjectById(ID);
+                cpItemOld = ComboPack.FindFirstObjectById(ID);
                 tbID.Text = cpItemOld.ID.ToString();
                 tbName.Text = cpItemOld.Name;
                 tbPrice.Text = cpItemOld.Price.ToString();
@@ -54,7 +47,7 @@ namespace QuanGymChuot.Library.Controls
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            cpItemNew = new ComboPackItem();
+            cpItemNew = new ComboPack.ComboPackItem();
             cpItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
             long.TryParse(tbPrice.Text, out cpItemNew.Price);
             long.TryParse(tbDayCount.Text, out cpItemNew.DayCount);
@@ -63,11 +56,11 @@ namespace QuanGymChuot.Library.Controls
 
             if (CreateMode)
             {
-                Create(cpItemNew);
+                ComboPack.Create(cpItemNew);
             }
             else
             {
-                ChangeObject(cpItemOld.ID, cpItemNew);
+                ComboPack.ChangeObject(cpItemOld.ID, cpItemNew);
             }
 
             this.DialogResult = DialogResult.OK;
