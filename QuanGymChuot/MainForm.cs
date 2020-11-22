@@ -12,7 +12,7 @@ namespace QuanGymChuot
         /// <summary>
         /// Mẫu Connection String mặc định.
         /// </summary>
-        readonly string ConnectionString = "Data Source={0};Initial Catalog={1};Integrated Security=True";
+        readonly string ConnectionString = "Data Source=tcp:{0}, 1433;Initial Catalog={1};Integrated Security=True";
 
         public MainForm()
         {
