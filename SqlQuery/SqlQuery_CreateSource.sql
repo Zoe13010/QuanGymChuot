@@ -1,4 +1,4 @@
--- Tạo database - Nếu chưa có thì tạo, nếu đã có thì bỏ qua.
+﻿-- Tạo database - Nếu chưa có thì tạo, nếu đã có thì bỏ qua.
 IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'QuanGymChuot')
 	CREATE DATABASE QuanGymChuot
 ELSE
@@ -47,7 +47,9 @@ CREATE TABLE ComboPack (
 	-- (trong trường hợp muốn tắt gói nhưng không ảnh hưởng
 	--  đến những người đã mua gói này, và khi hết hạn sẽ
 	--  không thể gia hạn thêm).
-	CanUse bit NOT NULL DEFAULT 1
+	CanUse bit NOT NULL DEFAULT 1,
+	-- Ngày tạo gói
+	AddDate datetime NOT NULL DEFAULT GETDATE()
 )
 GO
 
@@ -79,7 +81,7 @@ CREATE TABLE UserInfo (
 	-- SĐT người dùng
 	Phone nvarchar(11),
 	-- Ngày đăng ký
-	RegDate date NOT NULL DEFAULT GETDATE()
+	RegDate datetime NOT NULL DEFAULT GETDATE()
 )
 GO
 

@@ -223,13 +223,14 @@ namespace QuanGymChuot.Library.Controls
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.gbChangePass);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_ChangePass";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Change Password - Quán Gym Chuột";
             this.gbChangePass.ResumeLayout(false);
             this.gbChangePass.PerformLayout();
             this.ResumeLayout(false);

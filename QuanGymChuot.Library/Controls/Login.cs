@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace QuanGymChuot.Library.Controls
 {
@@ -50,9 +46,8 @@ namespace QuanGymChuot.Library.Controls
         /// <summary>
         /// Xoa thong tin da dien trong khung dang nhap.
         /// </summary>
-        public void ClearLoginArea()
+        public void ClearPassword()
         {
-            tbUser.Clear();
             tbPass.Clear();
         }
 
@@ -193,6 +188,7 @@ namespace QuanGymChuot.Library.Controls
                 EnableLoginArea(true);
                 SetStatusArea(false, "Type your account to login form and click \"Login\" to continue.");
                 sqlConnectionStatus = 2;
+                tbUser.Focus();
             }
             else
             {
@@ -235,7 +231,7 @@ namespace QuanGymChuot.Library.Controls
 
                 // Dang nhap va tra ket qua ve 'result'
                 Library.Result result = Library.SqlServer.Account.LogIn(tbUser.Text, Library.MD5Encrypt.Hash(tbPass.Text));
-                
+
                 if (result.Completed)
                     // Thong bao da thanh cong.
                     result.Message = "Logged in! You will be directed to main menu soon...";

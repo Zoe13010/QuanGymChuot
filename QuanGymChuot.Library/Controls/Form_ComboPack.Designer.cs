@@ -1,7 +1,7 @@
 ﻿
 namespace QuanGymChuot.Library.Controls
 {
-    partial class ComboPack_Edit
+    partial class Form_ComboPack
     {
         /// <summary>
         /// Required designer variable.
@@ -44,6 +44,8 @@ namespace QuanGymChuot.Library.Controls
             this.label7 = new System.Windows.Forms.Label();
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.dtpAddDate = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -160,7 +162,7 @@ namespace QuanGymChuot.Library.Controls
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(418, 342);
+            this.btnAccept.Location = new System.Drawing.Point(418, 383);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(102, 35);
             this.btnAccept.TabIndex = 6;
@@ -170,7 +172,8 @@ namespace QuanGymChuot.Library.Controls
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(526, 342);
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(526, 383);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(102, 35);
             this.btnCancel.TabIndex = 7;
@@ -178,19 +181,43 @@ namespace QuanGymChuot.Library.Controls
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // ComboPack_Edit
+            // dtpAddDate
+            // 
+            this.dtpAddDate.CalendarMonthBackground = System.Drawing.Color.White;
+            this.dtpAddDate.Checked = false;
+            this.dtpAddDate.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
+            this.dtpAddDate.Enabled = false;
+            this.dtpAddDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpAddDate.Location = new System.Drawing.Point(243, 336);
+            this.dtpAddDate.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
+            this.dtpAddDate.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
+            this.dtpAddDate.Name = "dtpAddDate";
+            this.dtpAddDate.Size = new System.Drawing.Size(385, 25);
+            this.dtpAddDate.TabIndex = 8;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(63, 342);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(80, 19);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Added date";
+            // 
+            // Form_ComboPack
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(718, 411);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(709, 448);
+            this.Controls.Add(this.dtpAddDate);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbCanUse);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.tbInfo);
             this.Controls.Add(this.label5);
@@ -203,14 +230,14 @@ namespace QuanGymChuot.Library.Controls
             this.Controls.Add(this.tbID);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ComboPack_Edit";
+            this.Name = "Form_ComboPack";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Bảng ComboPack";
-            this.Load += new System.EventHandler(this.ComboPack_Edit_Load);
+            this.Load += new System.EventHandler(this.Form_ComboPack_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +260,7 @@ namespace QuanGymChuot.Library.Controls
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.DateTimePicker dtpAddDate;
+        private System.Windows.Forms.Label label8;
     }
 }

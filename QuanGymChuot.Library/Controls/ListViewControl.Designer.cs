@@ -1,7 +1,7 @@
 ﻿
 namespace QuanGymChuot.Library.Controls
 {
-    partial class ListViewData
+    partial class ListViewControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -64,7 +64,7 @@ namespace QuanGymChuot.Library.Controls
             this.btnCreate.Location = new System.Drawing.Point(411, 397);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(108, 32);
-            this.btnCreate.TabIndex = 6;
+            this.btnCreate.TabIndex = 1;
             this.btnCreate.Text = "Create New...";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
@@ -72,10 +72,11 @@ namespace QuanGymChuot.Library.Controls
             // btnEdit
             // 
             this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEdit.Enabled = false;
             this.btnEdit.Location = new System.Drawing.Point(525, 397);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(88, 32);
-            this.btnEdit.TabIndex = 6;
+            this.btnEdit.TabIndex = 2;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -83,10 +84,11 @@ namespace QuanGymChuot.Library.Controls
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Enabled = false;
             this.btnDelete.Location = new System.Drawing.Point(619, 397);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(88, 32);
-            this.btnDelete.TabIndex = 6;
+            this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -96,13 +98,18 @@ namespace QuanGymChuot.Library.Controls
             this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView.FullRowSelect = true;
+            this.listView.GridLines = true;
+            this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(10, 68);
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(791, 323);
-            this.listView.TabIndex = 7;
+            this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView_ItemSelectionChanged);
+            this.listView.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
             this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDoubleClick);
             // 
@@ -112,12 +119,12 @@ namespace QuanGymChuot.Library.Controls
             this.btnRefresh.Location = new System.Drawing.Point(713, 397);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(88, 32);
-            this.btnRefresh.TabIndex = 6;
+            this.btnRefresh.TabIndex = 4;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // ListViewData
+            // ListViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -131,7 +138,7 @@ namespace QuanGymChuot.Library.Controls
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "ListViewData";
+            this.Name = "ListViewControl";
             this.Size = new System.Drawing.Size(811, 432);
             this.ResumeLayout(false);
             this.PerformLayout();
