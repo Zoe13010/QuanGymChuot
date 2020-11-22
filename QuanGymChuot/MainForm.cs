@@ -235,7 +235,8 @@ namespace QuanGymChuot
         {
             Form_ComboPack form = new Form_ComboPack();
             form.CreateMode = false;
-            int.TryParse(lvcComboPack.ListView.SelectedItems[0].Text, out int idTemp);
+            int idTemp;
+            int.TryParse(lvcComboPack.ListView.SelectedItems[0].Text, out idTemp);
             form.ID = idTemp;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
@@ -301,7 +302,8 @@ namespace QuanGymChuot
         {
             Form_UserInfo form = new Form_UserInfo();
             form.CreateMode = false;
-            int.TryParse(lvcUserInfo.ListView.SelectedItems[0].Text, out int idTemp);
+            int idTemp;
+            int.TryParse(lvcUserInfo.ListView.SelectedItems[0].Text, out idTemp);
             form.ID = idTemp;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
