@@ -16,7 +16,7 @@ namespace QuanGymChuot.Library.Controls
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void ComboPack_Edit_Load(object sender, EventArgs e)
+        private void Form_ComboPack_Load(object sender, EventArgs e)
         {
             if (!CreateMode)
             {

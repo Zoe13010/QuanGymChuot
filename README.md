@@ -39,7 +39,7 @@ Thứ tự chạy file:
   - UserPurchasedPack: Thông tin các gói mà khách hàng đã mua hoặc gia hạn
     - [ ] Thêm
     - [ ] Sửa
-    - [ ] Xóa
+    - [x] Xóa
     - [ ] Tìm kiếm
     - [x] Làm mới
 - Tài khoản:

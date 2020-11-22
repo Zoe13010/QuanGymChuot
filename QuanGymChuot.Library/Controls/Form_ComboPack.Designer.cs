@@ -237,7 +237,7 @@ namespace QuanGymChuot.Library.Controls
             this.Name = "Form_ComboPack";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Load += new System.EventHandler(this.ComboPack_Edit_Load);
+            this.Load += new System.EventHandler(this.Form_ComboPack_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

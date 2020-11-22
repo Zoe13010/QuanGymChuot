@@ -154,7 +154,7 @@ namespace QuanGymChuot
                 lvcUserPurPack.ListView.Columns.Add("Purchased Date", 156);
                 lvcUserPurPack.ListView.Columns.Add("Expired in", 156);
 
-                foreach (UserPurchasedPack.UserPurchasedItem upiitem in UserPurchasedPack.GetAll())
+                foreach (UserPurchasedPack.UserPurchasedPackItem upiitem in UserPurchasedPack.GetAll())
                 {
                     string[] s = new string[]
                     {
@@ -314,10 +314,40 @@ namespace QuanGymChuot
         }
         #endregion
 
+        #region User Purchased Pack panel
         private void lvcUserPurPack_RequestRefresh(object sender, EventArgs e)
         {
             lvcUserPurPack.ClearAll();
             LoadDataFromUserPurchasedPackNew();
         }
+
+        private void lvcUserPurPack_RequestEdit(object sender, EventArgs e)
+        {
+            Form_UserPurPack form = new Form_UserPurPack();
+            form.CreateMode = false;
+            int idTemp;
+            int.TryParse(lvcUserPurPack.ListView.SelectedItems[0].Text, out idTemp);
+            form.ID = idTemp;
+            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
+            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
+
+            if (form.ShowDialog() == DialogResult.OK)
+                bwInitListView.RunWorkerAsync();
+            else lvcUserInfo.ListView.Focus();
+        }
+
+        private void lvcUserPurPack_RequestDelete(object sender, EventArgs e)
+        {
+            ListViewControl lv = (ListViewControl)sender;
+            for (int i = 0; i < lv.SelectedItemCount; i++)
+            {
+                long ID;
+                long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
+                UserPurchasedPack.DeleteObject(ID);
+            }
+
+            bwInitListView.RunWorkerAsync();
+        }
+        #endregion
     }
 }
