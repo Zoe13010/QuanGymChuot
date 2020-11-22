@@ -1,4 +1,4 @@
-USE QuanGymChuot
+﻿USE QuanGymChuot
 GO
 
 -- Tạo dữ liệu mẫu từ bảng ComboPack
@@ -17,6 +17,8 @@ GO
 INSERT INTO ComboPack (Name, Price, DayCount, Info)
 VALUES ('Gói 3 tháng (90 ngày)', 150000, 90, '(no more information)')
 GO
+
+USE QuanGymChuot INSERT INTO ComboPack VALUES (DEFAULT, '1', 2, 3, '4', 1)
 
 -- Tạo dữ liệu mẫu từ bảng UserInfo
 -- (người dùng đã đăng ký)
@@ -38,13 +40,13 @@ GO
 DELETE FROM UserPurchasedPack
 GO
 INSERT INTO UserPurchasedPack (UserID, ComboID)
-VALUES (16, 20)
+VALUES (1, 1)
 GO
 INSERT INTO UserPurchasedPack (UserID, ComboID)
-VALUES (17, 21)
+VALUES (2, 2)
 GO
 INSERT INTO UserPurchasedPack (UserID, ComboID)
-VALUES (18, 22)
+VALUES (3, 3)
 GO
 
 -- Tạo dữ liệu mẫu từ bảng LoginManager
@@ -53,6 +55,20 @@ INSERT INTO LoginManager (Username, Password)
 -- Tài khoản: admin, mật khẩu: admin
 VALUES (N'admin', '21232f297a57a5a743894a0e4a801fc3')
 GO
+
+INSERT INTO LoginManager (Username, Password)
+-- Tài khoản: Zoe13010, mật khẩu: cloney1301
+VALUES (N'Zoe13010', '201dd8aa46f36287fe71f1149425efa0')
+GO
+
+-- =============================================================================================
+
+-- Đổi mật khẩu của tài khoản Zoe13010 thành cloney173741
+USE QuanGymChuot UPDATE LoginManager SET Password = 'e1fa8626ca7d82402e18ffc0b2b02c98' WHERE Username = N'Zoe13010'
+
+UPDATE LoginManager SET Password = '21232f297a57a5a743894a0e4a801fc3' WHERE Username = N'admin' AND Password = '21232f297a57a5a743894a0e4a801fc3'
+
+USE QuanGymChuot DELETE FROM ComboPack WHERE ID = 10
 
 -- Các truy vấn lỗi để check Trigger UserInfo_Check_Add
 --  + Check dưới 10 chữ số
