@@ -11,7 +11,7 @@ Hãy xem nội dung này trên Wikipedia (tiếng Anh): https://en.wikipedia.org
 - Microsoft SQL Server Express 2018
 ## Tạo các bảng cần thiết trong SQL
 Về nội dung và đường dẫn tải xuống 3 file về lệnh truy vấn trong SQL, hãy xem tại commit này:
-- https://github.com/Zoe13010/QuanGymChuot/commit/bfc5b5f96a07cf54b1cab47a34c717b2424be4b0
+- https://github.com/Zoe13010/QuanGymChuot/tree/experiment/SqlQuery
 
 Thứ tự chạy file:
 - Lưu ý: Lệnh chạy truy vấn trong Microsoft SQL Server Express là Execute (phím tắt mặc định là F5)
