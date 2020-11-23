@@ -8,7 +8,7 @@ namespace QuanGymChuot.Library.Controls
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private UserPurchasedPack.UserPurchasedPackItem upiItenOld, upiItenNew;
+        private UserPurchasedPack.UserPurchasedPackItem upiItenOld;//, upiItenNew;
 
         public Form_UserPurPack()
         {
@@ -24,20 +24,40 @@ namespace QuanGymChuot.Library.Controls
                 tbID.Text = upiItenOld.ID.ToString();
                 cbUserName.Text = upiItenOld.UserName;
                 tbCurComboPack.Text = upiItenOld.PackageName;
-                dtpCurRegDate.Value = upiItenOld.PackageRegDate;
-                dtpCurExpDate.Value = upiItenOld.PackageExpDate;
-                double day = (dtpCurExpDate.Value - DateTime.Now).TotalDays;
-                tbCurExpDay.Text = Math.Round(day < 0 ? 0 : day, 0).ToString();
+                lbCurRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", upiItenOld.PackageRegDate);
+                lbCurExpDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", upiItenOld.PackageExpDate);
+                var curTD = upiItenOld.PackageExpDate - DateTime.Now;
+                lbCurExpDay.Text = String.Format("{0} day{1} {2} hour{3}",
+                                                 curTD.TotalDays < 0 ? 0 : Math.Round(curTD.TotalDays, 0),
+                                                 curTD.TotalDays == 1 ? null : "s",
+                                                 curTD.Hours < 0 ? 0 : Math.Round((double)curTD.Hours, 0),
+                                                 curTD.Hours == 1 ? null : "s");
 
+                cbUserName.Enabled = false;
                 label7.Text = "Renew or buy new Combo Pack";
                 btnAccept.Text = "Save";
             }
             else
             {
+                var userInfo = UserInfo.GetAll();
+                cbUserName.Items.Clear();
+                for (int i = 0; i < userInfo.Count; i++)
+                    cbUserName.Items.Add(userInfo[i].Name);
+
+                lbCurRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
+                lbCurExpDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
+                lbNewExpDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
+                lbCurExpDay.Text = "0 days 0 hours";
+                tbCurComboPack.Enabled = false;
+
                 label7.Text = "Buy new Combo Pack";
                 btnAccept.Text = "Accept";
-                dtpCurRegDate.Value = DateTime.Now;
             }
+
+            var comboInfo = ComboPack.GetAll();
+            cbNewComboPack.Items.Clear();
+            for (int i = 0; i < comboInfo.Count; i++)
+                cbNewComboPack.Items.Add(comboInfo[i].Name);
         }
     }
 }

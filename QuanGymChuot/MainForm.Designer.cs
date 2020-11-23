@@ -153,6 +153,7 @@
             this.lvcUserPurPack.Size = new System.Drawing.Size(961, 516);
             this.lvcUserPurPack.TabIndex = 4;
             this.lvcUserPurPack.Title = "User Purchased Pack";
+            this.lvcUserPurPack.RequestCreate += new System.EventHandler(this.lvcUserPurPack_RequestCreate);
             this.lvcUserPurPack.RequestDelete += new System.EventHandler(this.lvcUserPurPack_RequestDelete);
             this.lvcUserPurPack.RequestRefresh += new System.EventHandler(this.lvcUserPurPack_RequestRefresh);
             this.lvcUserPurPack.RequestEdit += new System.EventHandler(this.lvcUserPurPack_RequestEdit);

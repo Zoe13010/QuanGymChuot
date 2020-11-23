@@ -29,7 +29,6 @@ namespace QuanGymChuot.Library.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.dtpAddDate = new System.Windows.Forms.DateTimePicker();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAccept = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -42,20 +41,8 @@ namespace QuanGymChuot.Library.Controls
             this.tbID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbGender = new System.Windows.Forms.ComboBox();
+            this.lbRegDate = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // dtpAddDate
-            // 
-            this.dtpAddDate.CalendarMonthBackground = System.Drawing.Color.White;
-            this.dtpAddDate.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
-            this.dtpAddDate.Enabled = false;
-            this.dtpAddDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpAddDate.Location = new System.Drawing.Point(243, 213);
-            this.dtpAddDate.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
-            this.dtpAddDate.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
-            this.dtpAddDate.Name = "dtpAddDate";
-            this.dtpAddDate.Size = new System.Drawing.Size(385, 25);
-            this.dtpAddDate.TabIndex = 25;
             // 
             // btnCancel
             // 
@@ -168,6 +155,15 @@ namespace QuanGymChuot.Library.Controls
             this.cbGender.Size = new System.Drawing.Size(121, 25);
             this.cbGender.TabIndex = 26;
             // 
+            // lbRegDate
+            // 
+            this.lbRegDate.AutoSize = true;
+            this.lbRegDate.Location = new System.Drawing.Point(239, 219);
+            this.lbRegDate.Name = "lbRegDate";
+            this.lbRegDate.Size = new System.Drawing.Size(165, 19);
+            this.lbRegDate.TabIndex = 16;
+            this.lbRegDate.Text = "dd/MM/yyyy hh:mm:ss tt";
+            // 
             // Form_UserInfo
             // 
             this.AcceptButton = this.btnAccept;
@@ -177,10 +173,10 @@ namespace QuanGymChuot.Library.Controls
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(709, 335);
             this.Controls.Add(this.cbGender);
-            this.Controls.Add(this.dtpAddDate);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.label7);
+            this.Controls.Add(this.lbRegDate);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.tbPhone);
             this.Controls.Add(this.label4);
@@ -204,8 +200,6 @@ namespace QuanGymChuot.Library.Controls
         }
 
         #endregion
-
-        private System.Windows.Forms.DateTimePicker dtpAddDate;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.Label label7;
@@ -218,5 +212,6 @@ namespace QuanGymChuot.Library.Controls
         private System.Windows.Forms.TextBox tbID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbGender;
+        private System.Windows.Forms.Label lbRegDate;
     }
 }

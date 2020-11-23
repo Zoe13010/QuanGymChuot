@@ -30,7 +30,6 @@ namespace QuanGymChuot.Library.Controls
         private void InitializeComponent()
         {
             this.cbUserName = new System.Windows.Forms.ComboBox();
-            this.dtpCurRegDate = new System.Windows.Forms.DateTimePicker();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAccept = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -41,47 +40,34 @@ namespace QuanGymChuot.Library.Controls
             this.tbID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dtpCurExpDate = new System.Windows.Forms.DateTimePicker();
-            this.tbCurExpDay = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.tbNewComboQty = new System.Windows.Forms.TextBox();
+            this.lbCurExpDay = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbCurComboPack = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.cbNewComboPack = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lbNewExpDay = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.lbCurRegDate = new System.Windows.Forms.Label();
+            this.lbCurExpDate = new System.Windows.Forms.Label();
+            this.lbNewExpDate = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbUserName
             // 
-            this.cbUserName.FormattingEnabled = true;
+            this.cbUserName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbUserName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbUserName.Location = new System.Drawing.Point(201, 67);
-            this.cbUserName.MaxDropDownItems = 2;
             this.cbUserName.Name = "cbUserName";
             this.cbUserName.Size = new System.Drawing.Size(385, 25);
+            this.cbUserName.Sorted = true;
             this.cbUserName.TabIndex = 39;
-            // 
-            // dtpCurRegDate
-            // 
-            this.dtpCurRegDate.CalendarMonthBackground = System.Drawing.Color.White;
-            this.dtpCurRegDate.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
-            this.dtpCurRegDate.Enabled = false;
-            this.dtpCurRegDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCurRegDate.Location = new System.Drawing.Point(201, 139);
-            this.dtpCurRegDate.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
-            this.dtpCurRegDate.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
-            this.dtpCurRegDate.Name = "dtpCurRegDate";
-            this.dtpCurRegDate.Size = new System.Drawing.Size(206, 25);
-            this.dtpCurRegDate.TabIndex = 38;
             // 
             // btnCancel
             // 
@@ -135,9 +121,9 @@ namespace QuanGymChuot.Library.Controls
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(21, 106);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 19);
+            this.label3.Size = new System.Drawing.Size(140, 19);
             this.label3.TabIndex = 28;
-            this.label3.Text = "Combo name";
+            this.label3.Text = "Current combo name";
             // 
             // label2
             // 
@@ -175,45 +161,24 @@ namespace QuanGymChuot.Library.Controls
             this.label5.TabIndex = 41;
             this.label5.Text = "Quality";
             // 
-            // dtpCurExpDate
+            // tbNewComboQty
             // 
-            this.dtpCurExpDate.CalendarMonthBackground = System.Drawing.Color.White;
-            this.dtpCurExpDate.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
-            this.dtpCurExpDate.Enabled = false;
-            this.dtpCurExpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCurExpDate.Location = new System.Drawing.Point(201, 175);
-            this.dtpCurExpDate.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
-            this.dtpCurExpDate.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
-            this.dtpCurExpDate.Name = "dtpCurExpDate";
-            this.dtpCurExpDate.Size = new System.Drawing.Size(206, 25);
-            this.dtpCurExpDate.TabIndex = 38;
+            this.tbNewComboQty.BackColor = System.Drawing.Color.White;
+            this.tbNewComboQty.Location = new System.Drawing.Point(201, 66);
+            this.tbNewComboQty.Name = "tbNewComboQty";
+            this.tbNewComboQty.ReadOnly = true;
+            this.tbNewComboQty.Size = new System.Drawing.Size(130, 25);
+            this.tbNewComboQty.TabIndex = 30;
+            this.tbNewComboQty.Text = "1";
             // 
-            // tbCurExpDay
+            // lbCurExpDay
             // 
-            this.tbCurExpDay.BackColor = System.Drawing.Color.White;
-            this.tbCurExpDay.Location = new System.Drawing.Point(201, 211);
-            this.tbCurExpDay.Name = "tbCurExpDay";
-            this.tbCurExpDay.ReadOnly = true;
-            this.tbCurExpDay.Size = new System.Drawing.Size(206, 25);
-            this.tbCurExpDay.TabIndex = 30;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(201, 66);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(130, 25);
-            this.textBox2.TabIndex = 30;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(413, 214);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 19);
-            this.label6.TabIndex = 32;
-            this.label6.Text = "day(s)";
+            this.lbCurExpDay.AutoSize = true;
+            this.lbCurExpDay.Location = new System.Drawing.Point(197, 214);
+            this.lbCurExpDay.Name = "lbCurExpDay";
+            this.lbCurExpDay.Size = new System.Drawing.Size(45, 19);
+            this.lbCurExpDay.TabIndex = 32;
+            this.lbCurExpDay.Text = "day(s)";
             // 
             // groupBox1
             // 
@@ -223,13 +188,12 @@ namespace QuanGymChuot.Library.Controls
             this.groupBox1.Controls.Add(this.tbID);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.lbCurExpDate);
+            this.groupBox1.Controls.Add(this.lbCurRegDate);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.dtpCurExpDate);
             this.groupBox1.Controls.Add(this.cbUserName);
-            this.groupBox1.Controls.Add(this.dtpCurRegDate);
-            this.groupBox1.Controls.Add(this.tbCurExpDay);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.lbCurExpDay);
             this.groupBox1.Location = new System.Drawing.Point(45, 66);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(616, 260);
@@ -258,14 +222,13 @@ namespace QuanGymChuot.Library.Controls
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.comboBox2);
+            this.groupBox2.Controls.Add(this.cbNewComboPack);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.dateTimePicker2);
+            this.groupBox2.Controls.Add(this.tbNewComboQty);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.lbNewExpDate);
+            this.groupBox2.Controls.Add(this.lbNewExpDay);
             this.groupBox2.Location = new System.Drawing.Point(45, 332);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(616, 188);
@@ -282,30 +245,18 @@ namespace QuanGymChuot.Library.Controls
             this.label11.TabIndex = 28;
             this.label11.Text = "New Combo name";
             // 
-            // comboBox2
+            // cbNewComboPack
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Male",
-            "Female"});
-            this.comboBox2.Location = new System.Drawing.Point(201, 30);
-            this.comboBox2.MaxDropDownItems = 2;
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(385, 25);
-            this.comboBox2.TabIndex = 39;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.CalendarMonthBackground = System.Drawing.Color.White;
-            this.dateTimePicker2.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
-            this.dateTimePicker2.Enabled = false;
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(201, 102);
-            this.dateTimePicker2.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
-            this.dateTimePicker2.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(206, 25);
-            this.dateTimePicker2.TabIndex = 38;
+            this.cbNewComboPack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbNewComboPack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbNewComboPack.Items.AddRange(new object[] {
+            "Female",
+            "Male"});
+            this.cbNewComboPack.Location = new System.Drawing.Point(201, 30);
+            this.cbNewComboPack.MaxDropDownItems = 2;
+            this.cbNewComboPack.Name = "cbNewComboPack";
+            this.cbNewComboPack.Size = new System.Drawing.Size(385, 25);
+            this.cbNewComboPack.TabIndex = 39;
             // 
             // label14
             // 
@@ -325,23 +276,14 @@ namespace QuanGymChuot.Library.Controls
             this.label12.TabIndex = 32;
             this.label12.Text = "New expired in";
             // 
-            // textBox4
+            // lbNewExpDay
             // 
-            this.textBox4.BackColor = System.Drawing.Color.White;
-            this.textBox4.Location = new System.Drawing.Point(201, 138);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(206, 25);
-            this.textBox4.TabIndex = 30;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(413, 141);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(45, 19);
-            this.label13.TabIndex = 32;
-            this.label13.Text = "day(s)";
+            this.lbNewExpDay.AutoSize = true;
+            this.lbNewExpDay.Location = new System.Drawing.Point(197, 141);
+            this.lbNewExpDay.Name = "lbNewExpDay";
+            this.lbNewExpDay.Size = new System.Drawing.Size(45, 19);
+            this.lbNewExpDay.TabIndex = 32;
+            this.lbNewExpDay.Text = "day(s)";
             // 
             // label9
             // 
@@ -352,11 +294,39 @@ namespace QuanGymChuot.Library.Controls
             this.label9.TabIndex = 44;
             this.label9.Text = "You are a new user.";
             // 
+            // lbCurRegDate
+            // 
+            this.lbCurRegDate.AutoSize = true;
+            this.lbCurRegDate.Location = new System.Drawing.Point(197, 145);
+            this.lbCurRegDate.Name = "lbCurRegDate";
+            this.lbCurRegDate.Size = new System.Drawing.Size(165, 19);
+            this.lbCurRegDate.TabIndex = 29;
+            this.lbCurRegDate.Text = "dd/MM/yyyy hh:mm:ss tt";
+            // 
+            // lbCurExpDate
+            // 
+            this.lbCurExpDate.AutoSize = true;
+            this.lbCurExpDate.Location = new System.Drawing.Point(197, 181);
+            this.lbCurExpDate.Name = "lbCurExpDate";
+            this.lbCurExpDate.Size = new System.Drawing.Size(165, 19);
+            this.lbCurExpDate.TabIndex = 29;
+            this.lbCurExpDate.Text = "dd/MM/yyyy hh:mm:ss tt";
+            // 
+            // lbNewExpDate
+            // 
+            this.lbNewExpDate.AutoSize = true;
+            this.lbNewExpDate.Location = new System.Drawing.Point(197, 108);
+            this.lbNewExpDate.Name = "lbNewExpDate";
+            this.lbNewExpDate.Size = new System.Drawing.Size(165, 19);
+            this.lbNewExpDate.TabIndex = 29;
+            this.lbNewExpDate.Text = "dd/MM/yyyy hh:mm:ss tt";
+            // 
             // Form_UserPurPack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(709, 651);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox2);
@@ -385,7 +355,6 @@ namespace QuanGymChuot.Library.Controls
         #endregion
 
         private System.Windows.Forms.ComboBox cbUserName;
-        private System.Windows.Forms.DateTimePicker dtpCurRegDate;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.Label label7;
@@ -396,21 +365,20 @@ namespace QuanGymChuot.Library.Controls
         private System.Windows.Forms.TextBox tbID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dtpCurExpDate;
-        private System.Windows.Forms.TextBox tbCurExpDay;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbNewComboQty;
+        private System.Windows.Forms.Label lbCurExpDay;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbNewComboPack;
         private System.Windows.Forms.TextBox tbCurComboPack;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lbNewExpDay;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lbCurExpDate;
+        private System.Windows.Forms.Label lbCurRegDate;
+        private System.Windows.Forms.Label lbNewExpDate;
     }
 }

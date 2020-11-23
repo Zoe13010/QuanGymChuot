@@ -25,7 +25,7 @@ namespace QuanGymChuot.Library.Controls
                 tbName.Text = uiItemOld.Name;
                 cbGender.SelectedIndex = (!uiItemOld.Gender) ? 1 : 0;
                 tbPhone.Text = uiItemOld.Phone;
-                dtpAddDate.Value = uiItemOld.RegDate;
+                lbRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", uiItemOld.RegDate);
 
                 label7.Text = "Edit user information";
                 btnAccept.Text = "Save";
@@ -33,7 +33,7 @@ namespace QuanGymChuot.Library.Controls
             else
             {
                 tbID.Enabled = false;
-                dtpAddDate.Visible = false;
+                lbRegDate.Visible = false;
                 label8.Visible = false;
                 cbGender.SelectedIndex = 0;
             }

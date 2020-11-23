@@ -348,6 +348,18 @@ namespace QuanGymChuot
 
             bwInitListView.RunWorkerAsync();
         }
+
+        private void lvcUserPurPack_RequestCreate(object sender, EventArgs e)
+        {
+            Form_UserPurPack form = new Form_UserPurPack();
+            form.CreateMode = true;
+            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
+            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
+
+            if (form.ShowDialog() == DialogResult.OK)
+                bwInitListView.RunWorkerAsync();
+            else lvcUserInfo.ListView.Focus();
+        }
         #endregion
     }
 }

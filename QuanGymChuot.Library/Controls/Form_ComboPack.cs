@@ -27,7 +27,7 @@ namespace QuanGymChuot.Library.Controls
                 tbDayCount.Text = cpItemOld.DayCount.ToString();
                 tbInfo.Text = cpItemOld.Info;
                 cbCanUse.Checked = cpItemOld.CanUse;
-                dtpAddDate.Value = cpItemOld.AddedDate;
+                lbAddDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", cpItemOld.AddedDate);
 
                 label7.Text = "Edit Combo Pack information";
                 btnAccept.Text = "Save";
@@ -35,7 +35,7 @@ namespace QuanGymChuot.Library.Controls
             else
             {
                 tbID.Enabled = false;
-                dtpAddDate.Visible = false;
+                lbAddDate.Visible = false;
                 label8.Visible = false;
             }
         }
