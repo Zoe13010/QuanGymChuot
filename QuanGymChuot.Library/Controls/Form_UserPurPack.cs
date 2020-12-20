@@ -27,22 +27,28 @@ namespace QuanGymChuot.Library.Controls
                 lbCurRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", upiItenOld.PackageRegDate);
                 lbCurExpDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", upiItenOld.PackageExpDate);
                 var curTD = upiItenOld.PackageExpDate - DateTime.Now;
-                lbCurExpDay.Text = String.Format("{0} day{1} {2} hour{3}",
-                                                 curTD.TotalDays < 0 ? 0 : Math.Round(curTD.TotalDays, 0),
-                                                 curTD.TotalDays == 1 ? null : "s",
-                                                 curTD.Hours < 0 ? 0 : Math.Round((double)curTD.Hours, 0),
-                                                 curTD.Hours == 1 ? null : "s");
-
+                if (UserPackExpired())
+                {
+                    lbCurExpDay.Text = "Expired";
+                }
+                else lbCurExpDay.Text = String.Format("{0} day{1} {2} hour{3}",
+                                                      curTD.TotalDays < 0 ? 0 : Math.Round(curTD.TotalDays, 0),
+                                                      curTD.TotalDays == 1 ? null : "s",
+                                                      curTD.Hours < 0 ? 0 : Math.Round((double)curTD.Hours, 0),
+                                                      curTD.Hours == 1 ? null : "s");
                 cbUserName.Enabled = false;
-                label7.Text = "Renew or buy new Combo Pack";
+
+                label7.Text = "Renew Combo Pack";
                 btnAccept.Text = "Save";
             }
             else
             {
                 var userInfo = UserInfo.GetAll();
                 cbUserName.Items.Clear();
+                cbUserName.Items.Add("(choose a registered name)");
                 for (int i = 0; i < userInfo.Count; i++)
                     cbUserName.Items.Add(userInfo[i].Name);
+                cbUserName.SelectedIndex = 0;
 
                 lbCurRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
                 lbCurExpDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
@@ -56,8 +62,71 @@ namespace QuanGymChuot.Library.Controls
 
             var comboInfo = ComboPack.GetAll();
             cbNewComboPack.Items.Clear();
+            cbNewComboPack.Items.Add("(choose a combo pack)");
             for (int i = 0; i < comboInfo.Count; i++)
                 cbNewComboPack.Items.Add(comboInfo[i].Name);
+            cbNewComboPack.SelectedIndex = 0;
+        }
+
+        private void cbNewComboPack_Leave(object sender, EventArgs e)
+        {
+            if (!cbNewComboPack.Items.Contains(cbNewComboPack.Text))
+                cbNewComboPack.SelectedIndex = 0;
+        }
+
+        private void cbNewComboPack_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                cbNewComboPack_Leave(cbNewComboPack, new EventArgs());
+            }
+        }
+
+        private void cbNewComboPack_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (groupBox2.InvokeRequired) groupBox2.Invoke((MethodInvoker)delegate { cbNewComboPack_SelectedIndexChanged(sender, e); });
+            else
+            {
+                if (((ComboBox)sender).SelectedIndex == 0)
+                {
+                    tbNewComboQty.Text = "0";
+                    tbNewComboQty.Enabled = false;
+                    lbNewExpDate.Enabled = false;
+                }
+                else
+                {
+                    tbNewComboQty.Text = "1";
+                    tbNewComboQty.Enabled = true;
+                    lbNewExpDate.Enabled = true;
+                }
+            }
+        }
+
+        private bool UserPackExpired()
+        {
+            if (upiItenOld.PackageExpDate < DateTime.Now)
+                return true;
+            return false;
+        }
+
+        private void btnAccept_Click(object sender, EventArgs e)
+        {
+            if (!CreateMode)
+            {
+                int d;
+                int.TryParse(tbNewComboQty.Text, out d);
+                UserPurchasedPack.UpdateObject(upiItenOld.ID, cbNewComboPack.Text, d);
+                this.Close();
+            }
+            else
+            {
+
+            }
+        }
+
+        private void tbNewComboQty_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

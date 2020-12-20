@@ -45,15 +45,12 @@ namespace QuanGymChuot.Library.Controls
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbCurComboPack = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.lbCurExpDate = new System.Windows.Forms.Label();
+            this.lbCurRegDate = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.cbNewComboPack = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.lbNewExpDay = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.lbCurRegDate = new System.Windows.Forms.Label();
-            this.lbCurExpDate = new System.Windows.Forms.Label();
             this.lbNewExpDate = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,7 +69,7 @@ namespace QuanGymChuot.Library.Controls
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(559, 587);
+            this.btnCancel.Location = new System.Drawing.Point(559, 479);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(102, 35);
             this.btnCancel.TabIndex = 37;
@@ -81,12 +78,13 @@ namespace QuanGymChuot.Library.Controls
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(451, 587);
+            this.btnAccept.Location = new System.Drawing.Point(451, 479);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(102, 35);
             this.btnAccept.TabIndex = 36;
             this.btnAccept.Text = "Create";
             this.btnAccept.UseVisualStyleBackColor = true;
+            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
             // label7
             // 
@@ -164,12 +162,13 @@ namespace QuanGymChuot.Library.Controls
             // tbNewComboQty
             // 
             this.tbNewComboQty.BackColor = System.Drawing.Color.White;
+            this.tbNewComboQty.Enabled = false;
             this.tbNewComboQty.Location = new System.Drawing.Point(201, 66);
             this.tbNewComboQty.Name = "tbNewComboQty";
-            this.tbNewComboQty.ReadOnly = true;
             this.tbNewComboQty.Size = new System.Drawing.Size(130, 25);
             this.tbNewComboQty.TabIndex = 30;
             this.tbNewComboQty.Text = "1";
+            this.tbNewComboQty.TextChanged += new System.EventHandler(this.tbNewComboQty_TextChanged);
             // 
             // lbCurExpDay
             // 
@@ -219,19 +218,35 @@ namespace QuanGymChuot.Library.Controls
             this.label10.TabIndex = 29;
             this.label10.Text = "Expired in (days)";
             // 
+            // lbCurExpDate
+            // 
+            this.lbCurExpDate.AutoSize = true;
+            this.lbCurExpDate.Location = new System.Drawing.Point(197, 181);
+            this.lbCurExpDate.Name = "lbCurExpDate";
+            this.lbCurExpDate.Size = new System.Drawing.Size(165, 19);
+            this.lbCurExpDate.TabIndex = 29;
+            this.lbCurExpDate.Text = "dd/MM/yyyy hh:mm:ss tt";
+            // 
+            // lbCurRegDate
+            // 
+            this.lbCurRegDate.AutoSize = true;
+            this.lbCurRegDate.Location = new System.Drawing.Point(197, 145);
+            this.lbCurRegDate.Name = "lbCurRegDate";
+            this.lbCurRegDate.Size = new System.Drawing.Size(165, 19);
+            this.lbCurRegDate.TabIndex = 29;
+            this.lbCurRegDate.Text = "dd/MM/yyyy hh:mm:ss tt";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.cbNewComboPack);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.tbNewComboQty);
-            this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.lbNewExpDate);
-            this.groupBox2.Controls.Add(this.lbNewExpDay);
             this.groupBox2.Location = new System.Drawing.Point(45, 332);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(616, 188);
+            this.groupBox2.Size = new System.Drawing.Size(616, 141);
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Purchase and add new Combo Pack";
@@ -257,65 +272,23 @@ namespace QuanGymChuot.Library.Controls
             this.cbNewComboPack.Name = "cbNewComboPack";
             this.cbNewComboPack.Size = new System.Drawing.Size(385, 25);
             this.cbNewComboPack.TabIndex = 39;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(21, 141);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(139, 19);
-            this.label14.TabIndex = 29;
-            this.label14.Text = "New expired in (days)";
+            this.cbNewComboPack.SelectedIndexChanged += new System.EventHandler(this.cbNewComboPack_SelectedIndexChanged);
+            this.cbNewComboPack.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbNewComboPack_KeyDown);
+            this.cbNewComboPack.Leave += new System.EventHandler(this.cbNewComboPack_Leave);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(21, 108);
+            this.label12.Location = new System.Drawing.Point(21, 105);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(99, 19);
             this.label12.TabIndex = 32;
             this.label12.Text = "New expired in";
             // 
-            // lbNewExpDay
-            // 
-            this.lbNewExpDay.AutoSize = true;
-            this.lbNewExpDay.Location = new System.Drawing.Point(197, 141);
-            this.lbNewExpDay.Name = "lbNewExpDay";
-            this.lbNewExpDay.Size = new System.Drawing.Size(45, 19);
-            this.lbNewExpDay.TabIndex = 32;
-            this.lbNewExpDay.Text = "day(s)";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(41, 529);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(128, 19);
-            this.label9.TabIndex = 44;
-            this.label9.Text = "You are a new user.";
-            // 
-            // lbCurRegDate
-            // 
-            this.lbCurRegDate.AutoSize = true;
-            this.lbCurRegDate.Location = new System.Drawing.Point(197, 145);
-            this.lbCurRegDate.Name = "lbCurRegDate";
-            this.lbCurRegDate.Size = new System.Drawing.Size(165, 19);
-            this.lbCurRegDate.TabIndex = 29;
-            this.lbCurRegDate.Text = "dd/MM/yyyy hh:mm:ss tt";
-            // 
-            // lbCurExpDate
-            // 
-            this.lbCurExpDate.AutoSize = true;
-            this.lbCurExpDate.Location = new System.Drawing.Point(197, 181);
-            this.lbCurExpDate.Name = "lbCurExpDate";
-            this.lbCurExpDate.Size = new System.Drawing.Size(165, 19);
-            this.lbCurExpDate.TabIndex = 29;
-            this.lbCurExpDate.Text = "dd/MM/yyyy hh:mm:ss tt";
-            // 
             // lbNewExpDate
             // 
             this.lbNewExpDate.AutoSize = true;
-            this.lbNewExpDate.Location = new System.Drawing.Point(197, 108);
+            this.lbNewExpDate.Location = new System.Drawing.Point(197, 105);
             this.lbNewExpDate.Name = "lbNewExpDate";
             this.lbNewExpDate.Size = new System.Drawing.Size(165, 19);
             this.lbNewExpDate.TabIndex = 29;
@@ -327,8 +300,7 @@ namespace QuanGymChuot.Library.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(709, 651);
-            this.Controls.Add(this.label9);
+            this.ClientSize = new System.Drawing.Size(709, 527);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
@@ -373,10 +345,7 @@ namespace QuanGymChuot.Library.Controls
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cbNewComboPack;
         private System.Windows.Forms.TextBox tbCurComboPack;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lbNewExpDay;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lbCurExpDate;
         private System.Windows.Forms.Label lbCurRegDate;
         private System.Windows.Forms.Label lbNewExpDate;

@@ -94,6 +94,43 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
             return uiitem;
         }
+        
+        public static UserInfoItem FindFirstObjectByName(string userName)
+        {
+            UserInfoItem uiitem = new UserInfoItem();
+
+            if (Account.CurrentAccount.Check().Completed)
+            {
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM UserInfo WHERE Name = \'{0}\'", userName),
+                         Connection.SqlConnect);
+                SqlDataReader data = null;
+
+                try
+                {
+                    data = cmd.ExecuteReader();
+
+                    while (data.Read())
+                    {
+                        uiitem.ID = data.GetInt32(0);
+                        uiitem.Name = data.IsDBNull(1) ? null : data.GetString(1);
+                        uiitem.Gender = data.GetBoolean(2);
+                        uiitem.Phone = data.GetString(3);
+                        uiitem.RegDate = data.GetDateTime(4);
+                        break;
+                    }
+
+                    data.Close();
+                }
+                catch
+                {
+                    if (data != null)
+                        data.Close();
+                    uiitem = new UserInfoItem();
+                }
+            }
+
+            return uiitem;
+        }
 
         /// <summary>
         /// Thay đổi thuộc tính của thông tin người dùng từ bảng UserInfo theo ID.

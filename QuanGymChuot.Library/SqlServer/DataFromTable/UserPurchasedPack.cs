@@ -129,5 +129,35 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 }
             }
         }
+
+        public static void UpdateObject(long ID, string packageName, long packageQty)
+        {
+            if (Account.CurrentAccount.Check().Completed)
+            {
+                var comboPack = ComboPack.FindFirstObjectByName(packageName);
+                var comboRegDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                var comboExpDate = DateTime.Now.AddDays(comboPack.DayCount * packageQty).ToString("yyyy-MM-dd HH:mm:ss");
+
+                string command = String.Format("USE QuanGymChuot UPDATE UserPurchasedPack SET ComboID = {0}, ComboRegDate = '{1}', ComboExpDate = '{2}' WHERE ID = {3}",
+                                               comboPack.ID, comboRegDate, comboExpDate, ID);
+                Console.WriteLine(command);
+
+                // TODO: Package Update here.
+                var cmd = new SqlCommand(command, Connection.SqlConnect);
+
+                try
+                {
+                    int result = cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Dispose();
+                    MessageBox.Show("Error while updating selected registration.\nThis error may be occur when the selected combo pack is used in another users.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+                                    "Quán Gym Chuột",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                }
+            }
+        }
     }
 }

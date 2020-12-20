@@ -1,4 +1,5 @@
 # QuanGymChuot - Đồ án lập trình DUT 2020 - 19.Nh12B
+
 ## Về ngôn ngữ truy vấn có cấu trúc (SQL)
 Hãy xem nội dung này trên Wikipedia (tiếng Anh): https://en.wikipedia.org/wiki/SQL
 ## Về đồ án
@@ -9,10 +10,11 @@ Hãy xem nội dung này trên Wikipedia (tiếng Anh): https://en.wikipedia.org
 - Thư viện ADO.NET
 - Microsoft Visual Studio 2019 Community
 - Microsoft SQL Server Express 2018
+## Lưu ý trước khi sử dụng repo này
+- Đảm bảo rằng bạn đã mở cổng TCP 1433 trên máy tính đang chạy repo này để chương trình hoạt động. Nếu bạn muốn kết nối SQL Server sử dụng chuỗi kết nối (Connection String) của bạn, hãy tìm và sửa giá trị tại login1.SqlConnectionString trong project QuanGymChuot.
 ## Tạo các bảng cần thiết trong SQL
 Về nội dung và đường dẫn tải xuống 3 file về lệnh truy vấn trong SQL, hãy xem tại commit này:
 - https://github.com/Zoe13010/QuanGymChuot/tree/experiment/SqlQuery
-
 Thứ tự chạy file:
 - Lưu ý: Lệnh chạy truy vấn trong Microsoft SQL Server Express là Execute (phím tắt mặc định là F5)
 1. Tạo bảng sử dụng SqlQuery_CreateSource.sql: bôi đen toàn bộ và chạy lệnh truy vấn.
@@ -38,7 +40,7 @@ Thứ tự chạy file:
     - [x] Làm mới
   - UserPurchasedPack: Thông tin các gói mà khách hàng đã mua hoặc gia hạn
     - [ ] Thêm
-    - [ ] Sửa
+    - [x] Sửa
     - [x] Xóa
     - [ ] Tìm kiếm
     - [x] Làm mới

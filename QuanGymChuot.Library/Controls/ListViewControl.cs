@@ -98,6 +98,8 @@ namespace QuanGymChuot.Library.Controls
         /// </summary>
         public event EventHandler RequestEdit;
 
+        public event EventHandler RequestFind;
+
         /// <summary>
         /// Xóa mọi thứ trong Control ListView.
         /// </summary>
@@ -194,6 +196,12 @@ namespace QuanGymChuot.Library.Controls
             ListView lv = listView;
             btnEdit.Enabled = (lv.SelectedItems.Count == 1);
             btnDelete.Enabled = (lv.SelectedItems.Count > 0);
+        }
+
+        private void btnFind_Click(object sender, EventArgs e)
+        {
+            if (RequestFind != null)
+                RequestFind(this, new EventArgs());
         }
     }
 }

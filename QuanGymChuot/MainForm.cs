@@ -219,31 +219,29 @@ namespace QuanGymChuot
         #endregion
 
         #region Combo Packs panel
-        private void lvcComboPack_RequestCreate(object sender, EventArgs e)
+        private void lvcComboPack_RequireForm(bool createMode = true, int ID = 0)
         {
             Form_ComboPack form = new Form_ComboPack();
-            form.CreateMode = true;
+            form.CreateMode = createMode;
+            form.ID = ID;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-            
+
             if (form.ShowDialog() == DialogResult.OK)
                 bwInitListView.RunWorkerAsync();
             else lvcComboPack.ListView.Focus();
         }
 
+        private void lvcComboPack_RequestCreate(object sender, EventArgs e)
+        {
+            lvcComboPack_RequireForm(true);
+        }
+
         private void lvcComboPack_RequestEdit(object sender, EventArgs e)
         {
-            Form_ComboPack form = new Form_ComboPack();
-            form.CreateMode = false;
             int idTemp;
             int.TryParse(lvcComboPack.ListView.SelectedItems[0].Text, out idTemp);
-            form.ID = idTemp;
-            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
-            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-
-            if (form.ShowDialog() == DialogResult.OK)
-                bwInitListView.RunWorkerAsync();
-            else lvcComboPack.ListView.Focus();
+            lvcComboPack_RequireForm(false, idTemp);
         }
 
         private void lvcComboPack_RequestDelete(object sender, EventArgs e)
@@ -267,6 +265,19 @@ namespace QuanGymChuot
         #endregion
 
         #region User Information panel
+        private void lvcUserInfo_RequireForm(bool createMode = true, int ID = 0)
+        {
+            Form_UserInfo form = new Form_UserInfo();
+            form.CreateMode = createMode;
+            form.ID = ID;
+            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
+            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
+
+            if (form.ShowDialog() == DialogResult.OK)
+                bwInitListView.RunWorkerAsync();
+            else lvcUserInfo.ListView.Focus();
+        }
+
         private void lvcUserInfo_RequestRefresh(object sender, EventArgs e)
         {
             lvcUserInfo.ClearAll();
@@ -275,14 +286,7 @@ namespace QuanGymChuot
 
         private void lvcUserInfo_RequestCreate(object sender, EventArgs e)
         {
-            Form_UserInfo form = new Form_UserInfo();
-            form.CreateMode = true;
-            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
-            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-
-            if (form.ShowDialog() == DialogResult.OK)
-                bwInitListView.RunWorkerAsync();
-            else lvcUserInfo.ListView.Focus();
+            lvcUserInfo_RequireForm(true);
         }
 
         private void lvcUserInfo_RequestDelete(object sender, EventArgs e)
@@ -300,11 +304,20 @@ namespace QuanGymChuot
 
         private void lvcUserInfo_RequestEdit(object sender, EventArgs e)
         {
-            Form_UserInfo form = new Form_UserInfo();
-            form.CreateMode = false;
             int idTemp;
             int.TryParse(lvcUserInfo.ListView.SelectedItems[0].Text, out idTemp);
-            form.ID = idTemp;
+            lvcUserInfo_RequireForm(false, idTemp);
+        }
+        #endregion
+
+        #region User Purchased Pack panel
+        private void lvcUserPurPack_RequireForm(bool createMode = true, int ID = 0)
+        {
+            Form_UserPurPack form = new Form_UserPurPack();
+            form.CreateMode = createMode;
+            form.ID = ID;
+
+            // Căn giữa Form để tạo/sửa ở giữa Form chính.
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
 
@@ -312,28 +325,24 @@ namespace QuanGymChuot
                 bwInitListView.RunWorkerAsync();
             else lvcUserInfo.ListView.Focus();
         }
-        #endregion
 
-        #region User Purchased Pack panel
         private void lvcUserPurPack_RequestRefresh(object sender, EventArgs e)
         {
             lvcUserPurPack.ClearAll();
             LoadDataFromUserPurchasedPackNew();
         }
 
+        private void lvcUserPurPack_RequestCreate(object sender, EventArgs e)
+        {
+            lvcUserPurPack_RequireForm(true);
+        }
+
         private void lvcUserPurPack_RequestEdit(object sender, EventArgs e)
         {
-            Form_UserPurPack form = new Form_UserPurPack();
-            form.CreateMode = false;
             int idTemp;
             int.TryParse(lvcUserPurPack.ListView.SelectedItems[0].Text, out idTemp);
-            form.ID = idTemp;
-            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
-            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-
-            if (form.ShowDialog() == DialogResult.OK)
-                bwInitListView.RunWorkerAsync();
-            else lvcUserInfo.ListView.Focus();
+            lvcUserPurPack_RequireForm(false, idTemp);
+            LoadDataFromUserPurchasedPackNew();
         }
 
         private void lvcUserPurPack_RequestDelete(object sender, EventArgs e)
@@ -347,18 +356,6 @@ namespace QuanGymChuot
             }
 
             bwInitListView.RunWorkerAsync();
-        }
-
-        private void lvcUserPurPack_RequestCreate(object sender, EventArgs e)
-        {
-            Form_UserPurPack form = new Form_UserPurPack();
-            form.CreateMode = true;
-            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
-            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-
-            if (form.ShowDialog() == DialogResult.OK)
-                bwInitListView.RunWorkerAsync();
-            else lvcUserInfo.ListView.Focus();
         }
         #endregion
     }

@@ -166,6 +166,45 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
             return cpitem;
         }
+        
+        public static ComboPackItem FindFirstObjectByName(string comboName)
+        {
+            ComboPackItem cpitem = new ComboPackItem();
+
+            if (Account.CurrentAccount.Check().Completed)
+            {
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM ComboPack WHERE Name = N\'{0}\'", comboName),
+                         Connection.SqlConnect);
+                SqlDataReader data = null;
+
+                try
+                {
+                    data = cmd.ExecuteReader();
+
+                    while (data.Read())
+                    {
+                        cpitem.ID = data.GetInt32(0);
+                        cpitem.Name = data.IsDBNull(1) ? null : data.GetString(1);
+                        cpitem.Price = data.GetInt64(2);
+                        cpitem.DayCount = data.GetInt64(3);
+                        cpitem.Info = data.IsDBNull(4) ? null : data.GetString(4);
+                        cpitem.CanUse = data.GetBoolean(5);
+                        cpitem.AddedDate = data.GetDateTime(6);
+                        break;
+                    }
+
+                    data.Close();
+                }
+                catch
+                {
+                    if (data != null)
+                        data.Close();
+                    cpitem = new ComboPackItem();
+                }
+            }
+
+            return cpitem;
+        }
 
         /// <summary>
         /// Tạo một gói dịch vụ mới vào bảng ComboPack.
