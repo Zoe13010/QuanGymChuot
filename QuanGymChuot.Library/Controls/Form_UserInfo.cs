@@ -1,5 +1,6 @@
 ﻿using QuanGymChuot.Library.SqlServer.DataFromTable;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
@@ -8,7 +9,7 @@ namespace QuanGymChuot.Library.Controls
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private UserInfo.UserInfoItem uiItemOld, uiItemNew;
+        private UserInfoItem uiItemOld, uiItemNew;
 
         public Form_UserInfo()
         {
@@ -20,7 +21,8 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                uiItemOld = UserInfo.FindFirstObjectById(ID);
+                uiItemOld = UserInfo.GetFirstObject(new Dictionary<string, string>() { { "ID", ID.ToString() } });
+
                 tbID.Text = uiItemOld.ID.ToString();
                 tbName.Text = uiItemOld.Name;
                 cbGender.SelectedIndex = (!uiItemOld.Gender) ? 1 : 0;
@@ -46,7 +48,7 @@ namespace QuanGymChuot.Library.Controls
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            uiItemNew = new UserInfo.UserInfoItem();
+            uiItemNew = new UserInfoItem();
             uiItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
             uiItemNew.Gender = (cbGender.SelectedIndex == 0) ? true : false;
             uiItemNew.Phone = tbPhone.Text;
@@ -57,7 +59,7 @@ namespace QuanGymChuot.Library.Controls
             }
             else
             {
-                UserInfo.ChangeObject(uiItemOld.ID, uiItemNew);
+                UserInfo.Change(new Dictionary<string, string>() { { "ID", ID.ToString() } }, uiItemNew); ;
             }
 
             this.DialogResult = DialogResult.OK;

@@ -4,13 +4,13 @@ using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
 {
-    public partial class Form_ComboPack : Form
+    public partial class Form_PackInfo : Form
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private ComboPack.ComboPackItem cpItemOld, cpItemNew;
+        private ComboPackItem cpItemOld, cpItemNew;
 
-        public Form_ComboPack()
+        public Form_PackInfo()
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
@@ -47,7 +47,7 @@ namespace QuanGymChuot.Library.Controls
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            cpItemNew = new ComboPack.ComboPackItem();
+            cpItemNew = new ComboPackItem();
             cpItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
             long.TryParse(tbPrice.Text, out cpItemNew.Price);
             long.TryParse(tbDayCount.Text, out cpItemNew.DayCount);
@@ -60,7 +60,7 @@ namespace QuanGymChuot.Library.Controls
             }
             else
             {
-                ComboPack.ChangeObject(cpItemOld.ID, cpItemNew);
+                ComboPack.Change(cpItemOld.ID, cpItemNew);
             }
 
             this.DialogResult = DialogResult.OK;

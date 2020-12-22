@@ -1,5 +1,6 @@
 ﻿using QuanGymChuot.Library.SqlServer.DataFromTable;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
@@ -8,7 +9,7 @@ namespace QuanGymChuot.Library.Controls
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private UserPurchasedPack.UserPurchasedPackItem upiItenOld;//, upiItenNew;
+        private UserPurchasedPackItem upiItenOld;
 
         public Form_UserPurPack()
         {
@@ -16,11 +17,12 @@ namespace QuanGymChuot.Library.Controls
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void Form_UserPurPack_Load(object sender, System.EventArgs e)
+        private void Form_UserPurPack_Load(object sender, EventArgs e)
         {
             if (!CreateMode)
             {
-                upiItenOld = UserPurchasedPack.FindFirstObjectById(ID);
+                // upiItenOld = UserPurchasedPack.FindFirstObjectById(ID);
+                upiItenOld = UserPurchasedPack.GetFirstObject(new Dictionary<string, string>() { { "B3.ID", ID.ToString() } });
                 tbID.Text = upiItenOld.ID.ToString();
                 cbUserName.Text = upiItenOld.UserName;
                 tbCurComboPack.Text = upiItenOld.PackageName;
@@ -53,7 +55,7 @@ namespace QuanGymChuot.Library.Controls
                 lbCurRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
                 lbCurExpDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
                 lbNewExpDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", DateTime.Now);
-                lbCurExpDay.Text = "0 days 0 hours";
+                lbCurExpDay.Text = "Unregistered";
                 tbCurComboPack.Enabled = false;
 
                 label7.Text = "Buy new Combo Pack";
@@ -115,7 +117,7 @@ namespace QuanGymChuot.Library.Controls
             {
                 int d;
                 int.TryParse(tbNewComboQty.Text, out d);
-                UserPurchasedPack.UpdateObject(upiItenOld.ID, cbNewComboPack.Text, d);
+                UserPurchasedPack.Update(upiItenOld.ID, cbNewComboPack.Text, d);
                 this.Close();
             }
             else
@@ -126,7 +128,7 @@ namespace QuanGymChuot.Library.Controls
 
         private void tbNewComboQty_TextChanged(object sender, EventArgs e)
         {
-
+            // TODO: Change pack info 
         }
     }
 }

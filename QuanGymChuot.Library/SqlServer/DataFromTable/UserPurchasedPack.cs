@@ -7,17 +7,6 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
     public class UserPurchasedPack
     {
-        public struct UserPurchasedPackItem
-        {
-            public long ID;
-            public long UserID;
-            public string UserName;
-            public long PackageID;
-            public string PackageName;
-            public DateTime PackageRegDate;
-            public DateTime PackageExpDate;
-        }
-
         public static List<UserPurchasedPackItem> GetAll()
         {
             List<UserPurchasedPackItem> result = null;
@@ -27,8 +16,8 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 var cmd = new SqlCommand("USE QuanGymChuot " +
                                          "SELECT B3.ID, B2.ID, B2.Name, B1.ID, B1.Name, B3.ComboRegDate, B3.ComboExpDate " +
                                          "FROM dbo.UserPurchasedPack AS B3 " +
-                                         "INNER JOIN dbo.UserInfo AS B2 ON B3.UserID = B2.ID " +
-                                         "INNER JOIN dbo.ComboPack AS B1 ON B3.ComboID = B1.ID",
+                                         "INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID " +
+                                         "INNER JOIN dbo.GoiDichVu AS B1 ON B3.ComboID = B1.ID",
                                          Connection.SqlConnect);
                 SqlDataReader data = null;
 
@@ -64,24 +53,37 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return result;
         }
 
-        public static UserPurchasedPackItem FindFirstObjectById(int id)
+        public static UserPurchasedPackItem GetFirstObject(Dictionary<string, string> query)
         {
             UserPurchasedPackItem upiItem = new UserPurchasedPackItem();
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot " +
-                                         "SELECT B3.ID, B2.ID, B2.Name, B1.ID, B1.Name, B3.ComboRegDate, B3.ComboExpDate " +
-                                         "FROM dbo.UserPurchasedPack AS B3 " +
-                                         "INNER JOIN dbo.UserInfo AS B2 ON B3.UserID = B2.ID " +
-                                         "INNER JOIN dbo.ComboPack AS B1 ON B3.ComboID = B1.ID " +
-                                         "WHERE B3.ID = \'{0}\'", id),
-                         Connection.SqlConnect);
+                bool first = false;
+                string whereString = "";
                 SqlDataReader data = null;
+
+                foreach (KeyValuePair<string, string> kvp in query)
+                {
+                    if (!first)
+                        first = true;
+                    else whereString += ", ";
+
+                    whereString += String.Format("{0} = {1}", kvp.Key, kvp.Value);
+                }
+
+                string queryString = String.Format("USE QuanGymChuot " +
+                                                   "SELECT B3.ID, B2.ID, B2.Name, B1.ID, B1.Name, B3.ComboRegDate, B3.ComboExpDate " +
+                                                   "FROM dbo.UserPurchasedPack AS B3 " +
+                                                   "INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID " +
+                                                   "INNER JOIN dbo.GoiDichVu AS B1 ON B3.ComboID = B1.ID " +
+                                                   "WHERE {0}", whereString);
+
+                var sqlCommand = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {
-                    data = cmd.ExecuteReader();
+                    data = sqlCommand.ExecuteReader();
 
                     while (data.Read())
                     {
@@ -108,7 +110,34 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return upiItem;
         }
 
-        public static void DeleteObject(long ID)
+        // public static void Create(UserPurchasedPackItem upiItem, long quality)
+        // {
+        //     if (Account.CurrentAccount.Check().Completed)
+        //     {
+        //         string value = String.Format("{0}, {1}, {2}",
+        //                      upiItem.Name == null ? "NULL" : '\'' + uiitem.Name + '\'',
+        //                      uiitem.Gender ? 1 : 0,
+        //                      uiitem.Phone == null ? "NULL" : '\'' + uiitem.Phone + '\'');
+        // 
+        //         var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO UserInfo (Name, Gender, Phone) VALUES({0})", value),
+        //                                  Connection.SqlConnect);
+        // 
+        //         try
+        //         {
+        //             int result = cmd.ExecuteNonQuery();
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             cmd.Dispose();
+        //             MessageBox.Show("Error while creating new registration.\nPlease check and try again.\n\nError message: \n" + ex.Message,
+        //                             "Quán Gym Chuột",
+        //                             MessageBoxButtons.OK,
+        //                             MessageBoxIcon.Warning);
+        //         }
+        //     }
+        // }
+
+        public static void Delete(long ID)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -130,7 +159,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
-        public static void UpdateObject(long ID, string packageName, long packageQty)
+        public static void Update(long ID, string packageName, long packageQty)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -142,7 +171,6 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                                                comboPack.ID, comboRegDate, comboExpDate, ID);
                 Console.WriteLine(command);
 
-                // TODO: Package Update here.
                 var cmd = new SqlCommand(command, Connection.SqlConnect);
 
                 try

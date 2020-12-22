@@ -31,11 +31,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Form_ComboPack.cs">
+    <Compile Include="Controls\Form_PackInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Form_ComboPack.Designer.cs">
-      <DependentUpon>Form_ComboPack.cs</DependentUpon>
+    <Compile Include="Controls\Form_PackInfo.Designer.cs">
+      <DependentUpon>Form_PackInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Form_ChangePass.cs">
       <SubType>Form</SubType>
@@ -73,18 +73,17 @@
     <Compile Include="Controls\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="MD5Encrypt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServer\Account.cs" />
     <Compile Include="SqlServer\Connection.cs" />
     <Compile Include="SqlServer\DataFromTable\ComboPack.cs" />
     <Compile Include="SqlServer\DataFromTable\UserInfo.cs" />
     <Compile Include="SqlServer\DataFromTable\UserPurchasedPack.cs" />
-    <Compile Include="Structs.cs" />
+    <Compile Include="Others.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\Form_ComboPack.resx">
-      <DependentUpon>Form_ComboPack.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Form_PackInfo.resx">
+      <DependentUpon>Form_PackInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Form_ChangePass.resx">
       <DependentUpon>Form_ChangePass.cs</DependentUpon>

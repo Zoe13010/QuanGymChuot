@@ -22,17 +22,17 @@ IF (
 	EXISTS(
 		SELECT * 
 		FROM INFORMATION_SCHEMA.TABLES 
-        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'ComboPack'
+        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'GoiDichVu'
 	)
 )
 BEGIN
-	PRINT(N'Đã có bảng ComboPack.')
+	PRINT(N'Đã có bảng GoiDichVu.')
 	PRINT(N'(bỏ qua thông báo này nếu muốn sử dụng table đã có sẵn)')
 	PRINT(N'')
 END
 ELSE
 ---- [Code chính] Nếu không có thì tạo mới.
-CREATE TABLE ComboPack (
+CREATE TABLE GoiDichVu (
 	-- ID
 	ID int primary key NOT NULL IDENTITY(1,1),
 	-- Tên gói
@@ -61,17 +61,17 @@ IF (
 	EXISTS(
 		SELECT * 
 		FROM INFORMATION_SCHEMA.TABLES 
-        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'UserInfo'
+        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'ThongTinNguoiDung'
 	)
 )
 BEGIN
-	PRINT(N'Đã có bảng UserInfo.')
+	PRINT(N'Đã có bảng ThongTinNguoiDung.')
 	PRINT(N'(bỏ qua thông báo này nếu muốn sử dụng table đã có sẵn)')
 	PRINT(N'')
 END
 ELSE
 ---- [Code chính] Nếu không có thì tạo mới.
-CREATE TABLE UserInfo (
+CREATE TABLE ThongTinNguoiDung (
 	-- ID
 	ID int primary key NOT NULL IDENTITY(1,1),
 	-- Tên người dùng
@@ -91,10 +91,10 @@ GO
 ----  + Nội dung: Nếu SĐT đã nhập nằm trong các trường hợp này thì hoàn tác:
 ----    - Ít hơn 10 số hay nhiều hơn 11 số.
 ----    - Không có số 0 ở đầu chuỗi SĐT.
-DROP TRIGGER IF EXISTS dbo.UserInfo_Check_Add
+DROP TRIGGER IF EXISTS dbo.ThongTinNguoiDung_Check_Add
 GO
-CREATE TRIGGER dbo.UserInfo_Check_Add
-ON dbo.UserInfo
+CREATE TRIGGER dbo.ThongTinNguoiDung_Check_Add
+ON dbo.ThongTinNguoiDung
 FOR INSERT
 AS
 BEGIN
@@ -133,10 +133,10 @@ CREATE TABLE UserPurchasedPack (
 	ComboRegDate datetime NOT NULL DEFAULT GETDATE(),
 	-- Ngày hết hạn gói
 	ComboExpDate datetime,
-	-- Liên kết cột UserID với cột ID của bảng UserInfo
-	FOREIGN KEY (UserID) REFERENCES UserInfo(ID),
-	-- Liên kết cột ComboID với cột ID của bảng ComboPack
-	FOREIGN KEY (ComboID) REFERENCES ComboPack(ID)
+	-- Liên kết cột UserID với cột ID của bảng ThongTinNguoiDung
+	FOREIGN KEY (UserID) REFERENCES ThongTinNguoiDung(ID),
+	-- Liên kết cột ComboID với cột ID của bảng GoiDichVu
+	FOREIGN KEY (ComboID) REFERENCES GoiDichVu(ID)
 )
 GO
 
@@ -156,7 +156,7 @@ BEGIN
 	DECLARE @ComboRegDate datetime
 	DECLARE @DayCount bigint
 	SELECT @UserID = UserID, @ComboID = ComboID, @ComboRegDate = ComboRegDate FROM inserted
-	SELECT @DayCount=DayCount FROM ComboPack WHERE ID=@ComboID
+	SELECT @DayCount=DayCount FROM GoiDichVu WHERE ID=@ComboID
 	INSERT INTO dbo.UserPurchasedPack(UserID, ComboID, ComboRegDate, ComboExpDate)
 	VALUES (@UserID, @ComboID, @ComboRegDate, DATEADD(day, @DayCount, GETDATE()))
 	-- UPDATE dbo.UserPurchasedPack SET ComboExpDate = DATEADD(day, @DayCount, GETDATE()) WHERE (UserID = @UserID AND @ComboID = @ComboID)
@@ -172,17 +172,17 @@ IF (
 	EXISTS(
 		SELECT * 
 		FROM INFORMATION_SCHEMA.TABLES 
-        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'LoginManager'
+        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'ThongTinDangNhap'
 	)
 )
 BEGIN
-	PRINT(N'Đã có bảng LoginManager.')
+	PRINT(N'Đã có bảng ThongTinDangNhap.')
 	PRINT(N'(bỏ qua thông báo này nếu muốn sử dụng table đã có sẵn)')
 	PRINT(N'')
 END
 ELSE
 ---- [Code chính] Nếu không có thì tạo mới.
-CREATE TABLE LoginManager (
+CREATE TABLE ThongTinDangNhap (
 	ID bigint primary key NOT NULL IDENTITY(1,1),
 	Username nvarchar(max) NOT NULL,
 	Password nvarchar(max) NOT NULL,
@@ -196,22 +196,21 @@ GO
 --    + Nếu đã có Trigger này, xóa Trigger cũ và tạo mới.
 --    + Nội dung: Kiểm tra tồn tại tên đăng nhập
 --      - Nếu đã có tài khoản, hủy bỏ quá trình.
-DROP TRIGGER IF EXISTS dbo.LoginManager_Check_Add
+DROP TRIGGER IF EXISTS dbo.ThongTinDangNhap_Check_Add
 GO
-CREATE TRIGGER LoginManager_Check_Add
-ON dbo.LoginManager
+CREATE TRIGGER ThongTinDangNhap_Check_Add
+ON dbo.ThongTinDangNhap
 INSTEAD OF INSERT
 AS
 BEGIN
 	DECLARE @Username nvarchar(max)
 	DECLARE @Password nvarchar(max)
 	SELECT @Username = Username, @Password = Password FROM inserted
-	IF (EXISTS(SELECT ID FROM dbo.LoginManager WHERE Username = @Username))
-	-- SELECT * FROM dbo.LoginManager WHERE Username = N'admin'
+	IF (EXISTS(SELECT ID FROM dbo.ThongTinDangNhap WHERE Username = @Username))
+	-- SELECT * FROM dbo.ThongTinDangNhap WHERE Username = N'admin'
 		ROLLBACK TRANSACTION
-	-- UPDATE dbo.UserPurchasedPack SET ComboExpDate = DATEADD(day, @DayCount, GETDATE()) WHERE (UserID = @UserID AND @ComboID = @ComboID)
 	ELSE 
-	INSERT INTO dbo.LoginManager(Username, Password)
+	INSERT INTO dbo.ThongTinDangNhap(Username, Password)
 	VALUES (@Username, @Password)
 END
 GO

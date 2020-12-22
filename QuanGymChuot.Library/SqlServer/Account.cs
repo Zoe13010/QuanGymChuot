@@ -65,7 +65,7 @@ namespace QuanGymChuot.Library.SqlServer
         /// <param name="newPasswordMD5">Mat khau moi (ma hoa bang MD5).</param>
         public static Result ChangePassword(string userName, string oldPasswordMD5, string newPasswordMD5)
         {
-            var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT Password FROM LoginManager WHERE Username = \'{0}\'", userName),
+            var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT Password FROM ThongTinDangNhap WHERE Username = \'{0}\'", userName),
                                      Library.SqlServer.Connection.SqlConnect);
 
             try
@@ -76,7 +76,7 @@ namespace QuanGymChuot.Library.SqlServer
                     return new Result() { Completed = false, Message = String.Format("{0} was not exist! Check your login and try again.", userName) };
                 if (pwdMD5Ex == oldPasswordMD5)
                 {
-                    cmd = new SqlCommand(String.Format("USE QuanGymChuot UPDATE LoginManager SET Password = '{0}' WHERE Username = '{1}'", newPasswordMD5, userName),
+                    cmd = new SqlCommand(String.Format("USE QuanGymChuot UPDATE ThongTinDangNhap SET Password = '{0}' WHERE Username = '{1}'", newPasswordMD5, userName),
                                          Library.SqlServer.Connection.SqlConnect);
                     int i = cmd.ExecuteNonQuery();
                     if (i == 1)
@@ -107,7 +107,7 @@ namespace QuanGymChuot.Library.SqlServer
         /// <param name="passwordMD5">Mat khau</param>
         public static Result LogIn(string userName, string passwordMD5)
         {
-            var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT Password FROM LoginManager WHERE Username = \'{0}\'", userName),
+            var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT Password FROM ThongTinDangNhap WHERE Username = \'{0}\'", userName),
                                      Library.SqlServer.Connection.SqlConnect);
             try
             {

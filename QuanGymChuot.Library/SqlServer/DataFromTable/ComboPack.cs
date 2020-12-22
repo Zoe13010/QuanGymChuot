@@ -7,17 +7,6 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
     public class ComboPack
     {
-        public struct ComboPackItem
-        {
-            public long ID;
-            public string Name;
-            public long Price;
-            public long DayCount;
-            public string Info;
-            public bool CanUse;
-            public DateTime AddedDate;
-        }
-
         /// <summary>
         /// Lấy tất cả dữ liệu từ bảng ComboPack.
         /// </summary>
@@ -27,7 +16,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM ComboPack"),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM GoiDichVu"),
                          Connection.SqlConnect);
                 SqlDataReader data = null;
 
@@ -65,15 +54,28 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Xóa dữ liệu từ bảng ComboPack theo ID.
+        /// Xóa dữ liệu từ bảng ComboPack theo truy vấn tìm kiếm.
         /// </summary>
-        /// <param name="ID">ID của gói dịch vụ cần xóa</param>
-        public static void DeleteObject(long ID)
+        /// <param name="query">Truy vấn tìm kiếm kết quả cần xóa</param>
+        public static void Delete(Dictionary<string, string> query)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot DELETE FROM ComboPack WHERE ID = {0}", ID),
-                                         Connection.SqlConnect);
+                bool first = false;
+                string whereString = "";
+
+                foreach (KeyValuePair<string, string> kvp in query)
+                {
+                    if (!first)
+                        first = true;
+                    else whereString += ", ";
+
+                    whereString += String.Format("{0} = {1}", kvp.Key, kvp.Value);
+                }
+
+                string queryString = String.Format("USE QuanGymChuot DELETE FROM GoiDichVu WHERE {0}", whereString);
+
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {
@@ -90,23 +92,26 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
+
+
+
         /// <summary>
         /// Thay đổi thuộc tính của gói dịch vụ từ bảng ComboPack theo ID.
         /// </summary>
         /// <param name="ID">ID của gói dịch vụ cần thay đổi</param>
-        /// <param name="newObj">Giá trị sẽ thay đổi vào gói dịch vụ có trùng ID đó</param>
-        public static void ChangeObject(long ID, ComboPackItem newObj)
+        /// <param name="newComboInfo">Giá trị sẽ thay đổi vào gói dịch vụ có trùng ID đó</param>
+        public static void Change(long ID, ComboPackItem newComboInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
                 string value = String.Format("{0} {1} {2} {3} {4}",
-                                             "Name = " + (newObj.Name != null ? "N\'" + newObj.Name + "\'" : "NULL") + ',',
-                                             "Price = " + newObj.Price + ',',
-                                             "DayCount = " + newObj.DayCount + ',',
-                                             "Info = " + (newObj.Info != null ? "N\'" + newObj.Info + "\'" : "NULL") + ',',
-                                             "CanUse = " + (newObj.CanUse ? 1 : 0));
+                                             "Name = " + (newComboInfo.Name != null ? "N\'" + newComboInfo.Name + "\'" : "NULL") + ',',
+                                             "Price = " + newComboInfo.Price + ',',
+                                             "DayCount = " + newComboInfo.DayCount + ',',
+                                             "Info = " + (newComboInfo.Info != null ? "N\'" + newComboInfo.Info + "\'" : "NULL") + ',',
+                                             "CanUse = " + (newComboInfo.CanUse ? 1 : 0));
 
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot UPDATE ComboPack SET {0} WHERE ID = {1}", value, ID),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot UPDATE GoiDichVu SET {0} WHERE ID = {1}", value, ID),
                                          Connection.SqlConnect);
 
                 try
@@ -134,7 +139,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM ComboPack WHERE ID = \'{0}\'", id),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM GoiDichVu WHERE ID = \'{0}\'", id),
                          Connection.SqlConnect);
                 SqlDataReader data = null;
 
@@ -173,7 +178,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM ComboPack WHERE Name = N\'{0}\'", comboName),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM GoiDichVu WHERE Name = N\'{0}\'", comboName),
                          Connection.SqlConnect);
                 SqlDataReader data = null;
 
@@ -221,7 +226,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                              cpitem.Info == null ? "NULL" : '\'' + cpitem.Info + '\'',
                              cpitem.CanUse ? 1 : 0);
 
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO ComboPack (Name, Price, DayCount, Info, CanUse) VALUES({0})", value),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO GoiDichVu (Name, Price, DayCount, Info, CanUse) VALUES({0})", value),
                                          Connection.SqlConnect);
 
                 try

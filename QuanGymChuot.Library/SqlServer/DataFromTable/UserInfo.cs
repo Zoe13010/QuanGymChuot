@@ -7,15 +7,6 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
     public class UserInfo
     {
-        public struct UserInfoItem
-        {
-            public long ID;
-            public string Name;
-            public bool Gender;
-            public string Phone;
-            public DateTime RegDate;
-        }
-
         /// <summary>
         /// Lấy tất cả dữ liệu từ bảng UserInfo.
         /// </summary>
@@ -25,7 +16,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand("USE QuanGymChuot SELECT * FROM UserInfo", Connection.SqlConnect);
+                var cmd = new SqlCommand("USE QuanGymChuot SELECT * FROM ThongTinNguoiDung", Connection.SqlConnect);
                 SqlDataReader data = null;
 
                 try
@@ -58,52 +49,33 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return result;
         }
 
-        public static UserInfoItem FindFirstObjectById(int id)
+        /// <summary>
+        /// TODO: Comment here!
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static UserInfoItem GetFirstObject(Dictionary<string, string> query)
         {
             UserInfoItem uiitem = new UserInfoItem();
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM UserInfo WHERE ID = \'{0}\'", id),
-                         Connection.SqlConnect);
+                bool first = false;
+                string whereString = "";
                 SqlDataReader data = null;
 
-                try
+                foreach (KeyValuePair<string, string> kvp in query)
                 {
-                    data = cmd.ExecuteReader();
+                    if (!first)
+                        first = true;
+                    else whereString += ", ";
 
-                    while (data.Read())
-                    {
-                        uiitem.ID = data.GetInt32(0);
-                        uiitem.Name = data.IsDBNull(1) ? null : data.GetString(1);
-                        uiitem.Gender = data.GetBoolean(2);
-                        uiitem.Phone = data.GetString(3);
-                        uiitem.RegDate = data.GetDateTime(4);
-                        break;
-                    }
-
-                    data.Close();
+                    whereString += String.Format("{0} = {1}", kvp.Key, kvp.Value);
                 }
-                catch
-                {
-                    if (data != null)
-                        data.Close();
-                    uiitem = new UserInfoItem();
-                }
-            }
 
-            return uiitem;
-        }
-        
-        public static UserInfoItem FindFirstObjectByName(string userName)
-        {
-            UserInfoItem uiitem = new UserInfoItem();
+                string queryString = String.Format("USE QuanGymChuot SELECT * FROM ThongTinNguoiDung WHERE {0}", whereString);
 
-            if (Account.CurrentAccount.Check().Completed)
-            {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM UserInfo WHERE Name = \'{0}\'", userName),
-                         Connection.SqlConnect);
-                SqlDataReader data = null;
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {
@@ -133,21 +105,34 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Thay đổi thuộc tính của thông tin người dùng từ bảng UserInfo theo ID.
+        /// Thay đổi thuộc tính của thông tin người dùng từ bảng UserInfo theo truy vấn.
         /// </summary>
-        /// <param name="ID">ID của thông tin người dùng cần thay đổi</param>
-        /// <param name="newObj">Giá trị sẽ thay đổi vào thông tin người dùng có trùng ID đó</param>
-        public static void ChangeObject(long ID, UserInfoItem newObj)
+        /// <param name="query">Các truy vấn để tìm kiếm</param>
+        /// <param name="newUserInfo">Giá trị sẽ thay đổi vào thông tin người dùng tìm được trong truy vấn đó</param>
+        public static void Change(Dictionary<string, string> query, UserInfoItem newUserInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
-                string value = String.Format("{0}, {1}, {2}",
-                                             "Name = " + (newObj.Name != null ? "N\'" + newObj.Name + "\'" : "NULL"),
-                                             "Gender = " + (newObj.Gender == true ? '1' : '0'),
-                                             "Phone = " + (newObj.Phone != null ? "N\'" + newObj.Phone + "\'" : "NULL"));
+                bool first = false;
+                string whereString = "";
 
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot UPDATE UserInfo SET {0} WHERE ID = {1}", value, ID),
-                                         Connection.SqlConnect);
+                foreach (KeyValuePair<string, string> kvp in query)
+                {
+                    if (!first)
+                        first = true;
+                    else whereString += ", ";
+
+                    whereString += String.Format("{0} = {1}", kvp.Key, kvp.Value);
+                }
+
+                string value = String.Format("{0}, {1}, {2}",
+                             "Name = " + (newUserInfo.Name != null ? "N\'" + newUserInfo.Name + "\'" : "NULL"),
+                             "Gender = " + (newUserInfo.Gender == true ? '1' : '0'),
+                             "Phone = " + (newUserInfo.Phone != null ? "N\'" + newUserInfo.Phone + "\'" : "NULL"));
+
+                string queryString = String.Format("USE QuanGymChuot UPDATE ThongTinNguoiDung SET {0} WHERE {1}", value, whereString);
+
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {
@@ -167,17 +152,17 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// <summary>
         /// Tạo một người dùng mới vào bảng UserInfo.
         /// </summary>
-        /// <param name="uiitem">Người dùng mới sẽ được tạo</param>
-        public static void Create(UserInfoItem uiitem)
+        /// <param name="newUserInfo">Thông tin người dùng mới</param>
+        public static void Create(UserInfoItem newUserInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
                 string value = String.Format("{0}, {1}, {2}",
-                             uiitem.Name == null ? "NULL" : '\'' + uiitem.Name + '\'',
-                             uiitem.Gender ? 1 : 0,
-                             uiitem.Phone == null ? "NULL" : '\'' + uiitem.Phone + '\'');
+                             newUserInfo.Name == null ? "NULL" : '\'' + newUserInfo.Name + '\'',
+                             newUserInfo.Gender ? 1 : 0,
+                             newUserInfo.Phone == null ? "NULL" : '\'' + newUserInfo.Phone + '\'');
 
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO UserInfo (Name, Gender, Phone) VALUES({0})", value),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO ThongTinNguoiDung (Name, Gender, Phone) VALUES({0})", value),
                                          Connection.SqlConnect);
 
                 try
@@ -196,15 +181,28 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Xóa dữ liệu từ bảng UserInfo theo ID.
+        /// Xóa dữ liệu từ bảng UserInfo theo kết quả truy vấn tìm kiếm.
         /// </summary>
-        /// <param name="ID">ID của người dùng cần xóa</param>
-        public static void DeleteObject(long ID)
+        /// <param name="query">Các truy vấn để tìm kiếm</param>
+        public static void Delete(Dictionary<string, string> query)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot DELETE FROM UserInfo WHERE ID = {0}", ID),
-                                         Connection.SqlConnect);
+                bool first = false;
+                string whereString = "";
+
+                foreach (KeyValuePair<string, string> kvp in query)
+                {
+                    if (!first)
+                        first = true;
+                    else whereString += ", ";
+
+                    whereString += String.Format("{0} = {1}", kvp.Key, kvp.Value);
+                }
+
+                string queryString = String.Format("USE QuanGymChuot DELETE FROM ThongTinNguoiDung WHERE {0}", whereString);
+
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {

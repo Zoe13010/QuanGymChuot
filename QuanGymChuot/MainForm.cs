@@ -2,6 +2,7 @@
 using QuanGymChuot.Library.SqlServer;
 using QuanGymChuot.Library.SqlServer.DataFromTable;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -92,7 +93,7 @@ namespace QuanGymChuot
                 lvcComboPack.ListView.Columns.Add("Added Date", 156);
                 lvcComboPack.ListView.Columns.Add("Info", 284);
 
-                foreach (ComboPack.ComboPackItem cpitem in ComboPack.GetAll())
+                foreach (ComboPackItem cpitem in ComboPack.GetAll())
                 {
                     string[] s = new string[]
                     {
@@ -124,7 +125,7 @@ namespace QuanGymChuot
                 lvcUserInfo.ListView.Columns.Add("Phone", 100);
                 lvcUserInfo.ListView.Columns.Add("Registration Date", 156);
 
-                foreach (UserInfo.UserInfoItem uiitem in UserInfo.GetAll())
+                foreach (UserInfoItem uiitem in UserInfo.GetAll())
                 {
                     string[] s = new string[]
                     {
@@ -154,7 +155,7 @@ namespace QuanGymChuot
                 lvcUserPurPack.ListView.Columns.Add("Purchased Date", 156);
                 lvcUserPurPack.ListView.Columns.Add("Expired in", 156);
 
-                foreach (UserPurchasedPack.UserPurchasedPackItem upiitem in UserPurchasedPack.GetAll())
+                foreach (UserPurchasedPackItem upiitem in UserPurchasedPack.GetAll())
                 {
                     string[] s = new string[]
                     {
@@ -221,7 +222,7 @@ namespace QuanGymChuot
         #region Combo Packs panel
         private void lvcComboPack_RequireForm(bool createMode = true, int ID = 0)
         {
-            Form_ComboPack form = new Form_ComboPack();
+            Form_PackInfo form = new Form_PackInfo();
             form.CreateMode = createMode;
             form.ID = ID;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
@@ -251,7 +252,7 @@ namespace QuanGymChuot
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                ComboPack.DeleteObject(ID);
+                ComboPack.Delete(new Dictionary<string, string>() { { "ID", ID.ToString() } });
             }
 
             bwInitListView.RunWorkerAsync();
@@ -296,7 +297,7 @@ namespace QuanGymChuot
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                UserInfo.DeleteObject(ID);
+                UserInfo.Delete(new Dictionary<string, string>() { { "ID", ID.ToString() } });
             }
 
             bwInitListView.RunWorkerAsync();
@@ -352,7 +353,7 @@ namespace QuanGymChuot
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                UserPurchasedPack.DeleteObject(ID);
+                UserPurchasedPack.Delete(ID);
             }
 
             bwInitListView.RunWorkerAsync();
