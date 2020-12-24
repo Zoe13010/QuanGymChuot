@@ -5,13 +5,13 @@ using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
 {
-    public partial class Form_PackInfo : Form
+    public partial class Form_ManagePack : Form
     {
         public bool CreateMode = true;
         public int ID = 0;
         private PackItem cpItemOld, cpItemNew;
 
-        public Form_PackInfo()
+        public Form_ManagePack()
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;

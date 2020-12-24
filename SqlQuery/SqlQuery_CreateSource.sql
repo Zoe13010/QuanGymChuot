@@ -128,15 +128,17 @@ CREATE TABLE QuanLyGiaoDich (
 	-- ID người dùng
 	UserID int NOT NULL,
 	-- ID gói đã mua
-	ComboID int NOT NULL,
+	PackID int NOT NULL,
 	-- Ngày đăng ký gói
-	ComboRegDate datetime NOT NULL DEFAULT GETDATE(),
+	PackRegDate datetime NOT NULL DEFAULT GETDATE(),
 	-- Ngày hết hạn gói
-	ComboExpDate datetime,
+	PackExpDate datetime NOT NULL DEFAULT GETDATE(),
+	-- Ghi chú (nếu có)
+	Note nvarchar(max),
 	-- Liên kết cột UserID với cột ID của bảng ThongTinNguoiDung
 	FOREIGN KEY (UserID) REFERENCES ThongTinNguoiDung(ID),
-	-- Liên kết cột ComboID với cột ID của bảng GoiDichVu
-	FOREIGN KEY (ComboID) REFERENCES GoiDichVu(ID)
+	-- Liên kết cột PackID với cột ID của bảng GoiDichVu
+	FOREIGN KEY (PackID) REFERENCES GoiDichVu(ID)
 )
 GO
 

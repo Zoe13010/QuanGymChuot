@@ -92,9 +92,6 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
-
-
-
         /// <summary>
         /// Thay đổi thuộc tính của gói dịch vụ từ bảng ComboPack theo truy vấn tìm kiếm.
         /// </summary>

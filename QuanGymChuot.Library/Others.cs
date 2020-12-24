@@ -54,7 +54,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
     public struct PackItem
     {
-        public long ID;
+        public int ID;
         public string Name;
         public long Price;
         public long DayCount;
@@ -65,7 +65,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
     public struct UserItem
     {
-        public long ID;
+        public int ID;
         public string Name;
         public bool Gender;
         public string Phone;
@@ -74,12 +74,13 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
     public struct PaymentItem
     {
-        public long ID;
-        public long UserID;
+        public int ID;
+        public int UserID;
         public string UserName;
-        public long PackageID;
-        public string PackageName;
-        public DateTime PackageRegDate;
-        public DateTime PackageExpDate;
+        public int PackID;
+        public string PackName;
+        public DateTime PackRegDate;
+        public DateTime PackExpDate;
+        public string Note;
     }
 }

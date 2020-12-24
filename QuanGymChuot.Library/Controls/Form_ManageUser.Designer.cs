@@ -1,7 +1,7 @@
 ﻿
 namespace QuanGymChuot.Library.Controls
 {
-    partial class Form_UserInfo
+    partial class Form_ManageUser
     {
         /// <summary>
         /// Required designer variable.

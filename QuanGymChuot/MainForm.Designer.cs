@@ -34,16 +34,16 @@
             this.btnChangePass = new System.Windows.Forms.Button();
             this.bwInitListView = new System.ComponentModel.BackgroundWorker();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPagePaymentHistory = new System.Windows.Forms.TabPage();
-            this.lvcPaymentManager = new QuanGymChuot.Library.Controls.ListViewControl();
+            this.tabPagePaymentManager = new System.Windows.Forms.TabPage();
             this.tabPageUserInfo = new System.Windows.Forms.TabPage();
-            this.lvcUserInfo = new QuanGymChuot.Library.Controls.ListViewControl();
             this.tabPagePackInfo = new System.Windows.Forms.TabPage();
+            this.lvcPaymentManager = new QuanGymChuot.Library.Controls.ListViewControl();
+            this.lvcUserInfo = new QuanGymChuot.Library.Controls.ListViewControl();
             this.lvcPackManager = new QuanGymChuot.Library.Controls.ListViewControl();
             this.login1 = new QuanGymChuot.Library.Controls.Login();
             this.pnStatus.SuspendLayout();
             this.tabControl.SuspendLayout();
-            this.tabPagePaymentHistory.SuspendLayout();
+            this.tabPagePaymentManager.SuspendLayout();
             this.tabPageUserInfo.SuspendLayout();
             this.tabPagePackInfo.SuspendLayout();
             this.SuspendLayout();
@@ -56,13 +56,13 @@
             this.pnStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnStatus.Location = new System.Drawing.Point(0, 552);
             this.pnStatus.Name = "pnStatus";
-            this.pnStatus.Size = new System.Drawing.Size(975, 31);
+            this.pnStatus.Size = new System.Drawing.Size(1062, 31);
             this.pnStatus.TabIndex = 2;
             // 
             // btnLogout
             // 
             this.btnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLogout.Location = new System.Drawing.Point(894, 2);
+            this.btnLogout.Location = new System.Drawing.Point(981, 2);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(77, 27);
             this.btnLogout.TabIndex = 3;
@@ -82,7 +82,7 @@
             // btnChangePass
             // 
             this.btnChangePass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChangePass.Location = new System.Drawing.Point(696, 2);
+            this.btnChangePass.Location = new System.Drawing.Point(783, 2);
             this.btnChangePass.Name = "btnChangePass";
             this.btnChangePass.Size = new System.Drawing.Size(192, 27);
             this.btnChangePass.TabIndex = 4;
@@ -97,44 +97,26 @@
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPagePaymentHistory);
+            this.tabControl.Controls.Add(this.tabPagePaymentManager);
             this.tabControl.Controls.Add(this.tabPageUserInfo);
             this.tabControl.Controls.Add(this.tabPagePackInfo);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(975, 552);
+            this.tabControl.Size = new System.Drawing.Size(1062, 552);
             this.tabControl.TabIndex = 3;
             // 
-            // tabPagePaymentHistory
+            // tabPagePaymentManager
             // 
-            this.tabPagePaymentHistory.BackColor = System.Drawing.Color.White;
-            this.tabPagePaymentHistory.Controls.Add(this.lvcPaymentManager);
-            this.tabPagePaymentHistory.Location = new System.Drawing.Point(4, 26);
-            this.tabPagePaymentHistory.Name = "tabPagePaymentHistory";
-            this.tabPagePaymentHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePaymentHistory.Size = new System.Drawing.Size(967, 522);
-            this.tabPagePaymentHistory.TabIndex = 3;
-            this.tabPagePaymentHistory.Text = "Payment History Manager";
-            // 
-            // lvcPaymentManager
-            // 
-            this.lvcPaymentManager.BackColor = System.Drawing.Color.White;
-            this.lvcPaymentManager.Description = "Manage ....";
-            this.lvcPaymentManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvcPaymentManager.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lvcPaymentManager.Location = new System.Drawing.Point(3, 3);
-            this.lvcPaymentManager.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lvcPaymentManager.MsgBoxDelTitle = null;
-            this.lvcPaymentManager.Name = "lvcPaymentManager";
-            this.lvcPaymentManager.Size = new System.Drawing.Size(961, 516);
-            this.lvcPaymentManager.TabIndex = 4;
-            this.lvcPaymentManager.Title = "Payment Manger";
-            this.lvcPaymentManager.RequestCreate += new System.EventHandler(this.lvcPaymentHistory_RequestCreate);
-            this.lvcPaymentManager.RequestDelete += new System.EventHandler(this.lvcPaymentHistory_RequestDelete);
-            this.lvcPaymentManager.RequestRefresh += new System.EventHandler(this.lvcPaymentHistory_RequestRefresh);
-            this.lvcPaymentManager.RequestEdit += new System.EventHandler(this.lvcPaymentHistory_RequestEdit);
+            this.tabPagePaymentManager.BackColor = System.Drawing.Color.White;
+            this.tabPagePaymentManager.Controls.Add(this.lvcPaymentManager);
+            this.tabPagePaymentManager.Location = new System.Drawing.Point(4, 26);
+            this.tabPagePaymentManager.Name = "tabPagePaymentManager";
+            this.tabPagePaymentManager.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePaymentManager.Size = new System.Drawing.Size(1054, 522);
+            this.tabPagePaymentManager.TabIndex = 3;
+            this.tabPagePaymentManager.Text = "Payment Manager";
             // 
             // tabPageUserInfo
             // 
@@ -143,9 +125,38 @@
             this.tabPageUserInfo.Location = new System.Drawing.Point(4, 26);
             this.tabPageUserInfo.Name = "tabPageUserInfo";
             this.tabPageUserInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUserInfo.Size = new System.Drawing.Size(967, 522);
+            this.tabPageUserInfo.Size = new System.Drawing.Size(1054, 522);
             this.tabPageUserInfo.TabIndex = 2;
             this.tabPageUserInfo.Text = "User Information";
+            // 
+            // tabPagePackInfo
+            // 
+            this.tabPagePackInfo.BackColor = System.Drawing.Color.White;
+            this.tabPagePackInfo.Controls.Add(this.lvcPackManager);
+            this.tabPagePackInfo.Location = new System.Drawing.Point(4, 26);
+            this.tabPagePackInfo.Name = "tabPagePackInfo";
+            this.tabPagePackInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePackInfo.Size = new System.Drawing.Size(1054, 522);
+            this.tabPagePackInfo.TabIndex = 1;
+            this.tabPagePackInfo.Text = "Gym Package Manager";
+            // 
+            // lvcPaymentManager
+            // 
+            this.lvcPaymentManager.BackColor = System.Drawing.Color.White;
+            this.lvcPaymentManager.Description = "Manage current payment and payment history";
+            this.lvcPaymentManager.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvcPaymentManager.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lvcPaymentManager.Location = new System.Drawing.Point(3, 3);
+            this.lvcPaymentManager.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lvcPaymentManager.MsgBoxDelTitle = "Quán Gym Chuột";
+            this.lvcPaymentManager.Name = "lvcPaymentManager";
+            this.lvcPaymentManager.Size = new System.Drawing.Size(1048, 516);
+            this.lvcPaymentManager.TabIndex = 4;
+            this.lvcPaymentManager.Title = "Payment Manger";
+            this.lvcPaymentManager.RequestCreate += new System.EventHandler(this.lvcPaymentManager_RequestCreate);
+            this.lvcPaymentManager.RequestDelete += new System.EventHandler(this.lvcPaymentManager_RequestDelete);
+            this.lvcPaymentManager.RequestRefresh += new System.EventHandler(this.lvcPaymentManager_RequestRefresh);
+            this.lvcPaymentManager.RequestEdit += new System.EventHandler(this.lvcPaymentManager_RequestEdit);
             // 
             // lvcUserInfo
             // 
@@ -155,26 +166,15 @@
             this.lvcUserInfo.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lvcUserInfo.Location = new System.Drawing.Point(3, 3);
             this.lvcUserInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lvcUserInfo.MsgBoxDelTitle = null;
+            this.lvcUserInfo.MsgBoxDelTitle = "Quán Gym Chuột";
             this.lvcUserInfo.Name = "lvcUserInfo";
-            this.lvcUserInfo.Size = new System.Drawing.Size(961, 516);
+            this.lvcUserInfo.Size = new System.Drawing.Size(1048, 516);
             this.lvcUserInfo.TabIndex = 4;
             this.lvcUserInfo.Title = "User Information";
             this.lvcUserInfo.RequestCreate += new System.EventHandler(this.lvcUserInfo_RequestCreate);
             this.lvcUserInfo.RequestDelete += new System.EventHandler(this.lvcUserInfo_RequestDelete);
             this.lvcUserInfo.RequestRefresh += new System.EventHandler(this.lvcUserInfo_RequestRefresh);
             this.lvcUserInfo.RequestEdit += new System.EventHandler(this.lvcUserInfo_RequestEdit);
-            // 
-            // tabPagePackInfo
-            // 
-            this.tabPagePackInfo.BackColor = System.Drawing.Color.White;
-            this.tabPagePackInfo.Controls.Add(this.lvcPackManager);
-            this.tabPagePackInfo.Location = new System.Drawing.Point(4, 26);
-            this.tabPagePackInfo.Name = "tabPagePackInfo";
-            this.tabPagePackInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePackInfo.Size = new System.Drawing.Size(967, 522);
-            this.tabPagePackInfo.TabIndex = 1;
-            this.tabPagePackInfo.Text = "Gym Package Manager";
             // 
             // lvcPackManager
             // 
@@ -184,9 +184,9 @@
             this.lvcPackManager.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lvcPackManager.Location = new System.Drawing.Point(3, 3);
             this.lvcPackManager.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lvcPackManager.MsgBoxDelTitle = null;
+            this.lvcPackManager.MsgBoxDelTitle = "Quán Gym Chuột";
             this.lvcPackManager.Name = "lvcPackManager";
-            this.lvcPackManager.Size = new System.Drawing.Size(961, 516);
+            this.lvcPackManager.Size = new System.Drawing.Size(1048, 516);
             this.lvcPackManager.TabIndex = 5;
             this.lvcPackManager.Title = "Gym Package Manager";
             this.lvcPackManager.RequestCreate += new System.EventHandler(this.lvcComboPack_RequestCreate);
@@ -202,7 +202,7 @@
             this.login1.Location = new System.Drawing.Point(0, 0);
             this.login1.MinimumSize = new System.Drawing.Size(467, 261);
             this.login1.Name = "login1";
-            this.login1.Size = new System.Drawing.Size(975, 552);
+            this.login1.Size = new System.Drawing.Size(1062, 552);
             this.login1.SqlConnectionString = null;
             this.login1.TabIndex = 0;
             this.login1.LoginSuccessful += new System.EventHandler(this.login1_LoginSuccessful);
@@ -211,7 +211,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(975, 583);
+            this.ClientSize = new System.Drawing.Size(1062, 583);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.login1);
             this.Controls.Add(this.pnStatus);
@@ -225,7 +225,7 @@
             this.pnStatus.ResumeLayout(false);
             this.pnStatus.PerformLayout();
             this.tabControl.ResumeLayout(false);
-            this.tabPagePaymentHistory.ResumeLayout(false);
+            this.tabPagePaymentManager.ResumeLayout(false);
             this.tabPageUserInfo.ResumeLayout(false);
             this.tabPagePackInfo.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -245,7 +245,7 @@
         private Library.Controls.ListViewControl lvcPackManager;
         private System.Windows.Forms.TabPage tabPageUserInfo;
         private Library.Controls.ListViewControl lvcUserInfo;
-        private System.Windows.Forms.TabPage tabPagePaymentHistory;
+        private System.Windows.Forms.TabPage tabPagePaymentManager;
         private Library.Controls.ListViewControl lvcPaymentManager;
     }
 }

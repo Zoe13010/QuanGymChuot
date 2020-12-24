@@ -31,11 +31,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Form_PackInfo.cs">
+    <Compile Include="Controls\Form_ManagePack.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Form_PackInfo.Designer.cs">
-      <DependentUpon>Form_PackInfo.cs</DependentUpon>
+    <Compile Include="Controls\Form_ManagePack.Designer.cs">
+      <DependentUpon>Form_ManagePack.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Form_ChangePass.cs">
       <SubType>Form</SubType>
@@ -49,17 +49,17 @@
     <Compile Include="Controls\Form_Find.Designer.cs">
       <DependentUpon>Form_Find.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Form_UserInfo.cs">
+    <Compile Include="Controls\Form_ManageUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Form_UserInfo.Designer.cs">
-      <DependentUpon>Form_UserInfo.cs</DependentUpon>
+    <Compile Include="Controls\Form_ManageUser.Designer.cs">
+      <DependentUpon>Form_ManageUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Form_PaymentHistory.cs">
+    <Compile Include="Controls\Form_ManagePayment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Form_PaymentHistory.Designer.cs">
-      <DependentUpon>Form_PaymentHistory.cs</DependentUpon>
+    <Compile Include="Controls\Form_ManagePayment.Designer.cs">
+      <DependentUpon>Form_ManagePayment.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListViewControl.cs">
       <SubType>UserControl</SubType>
@@ -82,8 +82,8 @@
     <Compile Include="Others.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\Form_PackInfo.resx">
-      <DependentUpon>Form_PackInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Form_ManagePack.resx">
+      <DependentUpon>Form_ManagePack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Form_ChangePass.resx">
       <DependentUpon>Form_ChangePass.cs</DependentUpon>
@@ -91,11 +91,11 @@
     <EmbeddedResource Include="Controls\Form_Find.resx">
       <DependentUpon>Form_Find.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Form_UserInfo.resx">
-      <DependentUpon>Form_UserInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Form_ManageUser.resx">
+      <DependentUpon>Form_ManageUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Form_PaymentHistory.resx">
-      <DependentUpon>Form_PaymentHistory.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Form_ManagePayment.resx">
+      <DependentUpon>Form_ManagePayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ListViewControl.resx">
       <DependentUpon>ListViewControl.cs</DependentUpon>

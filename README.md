@@ -13,33 +13,29 @@ Hãy xem nội dung này trên Wikipedia (tiếng Anh): https://en.wikipedia.org
 ## Lưu ý trước khi sử dụng repo này
 - Đảm bảo rằng bạn đã mở cổng TCP 1433 trên máy tính đang chạy repo này để chương trình hoạt động. Nếu bạn muốn kết nối SQL Server sử dụng chuỗi kết nối (Connection String) của bạn, hãy tìm và sửa giá trị tại login1.SqlConnectionString trong project QuanGymChuot.
 ## Tạo các bảng cần thiết trong SQL
-Về nội dung và đường dẫn tải xuống 3 file về lệnh truy vấn trong SQL, hãy xem tại commit này:
-- https://github.com/Zoe13010/QuanGymChuot/tree/experiment/SqlQuery
-Thứ tự chạy file:
-- Lưu ý: Lệnh chạy truy vấn trong Microsoft SQL Server Express là Execute (phím tắt mặc định là F5)
-1. Tạo bảng sử dụng SqlQuery_CreateSource.sql: bôi đen toàn bộ và chạy lệnh truy vấn.
-2. Tạo dữ liệu mẫu sử dụng SqlQuery_CreateData.sql: bôi đen phần INSERT rồi chạy lệnh truy vấn.
-   - Trong khi đó phần DELETE sẽ xóa toàn bộ dữ liệu trong các bảng tương ứng.
-3. [Tùy chọn] Xuất dữ liệu mẫu theo yêu cầu tương ứng với file SqlQuery_SelectData.sql: bôi đen toàn bộ hoặc một phần các lệnh cần dùng rồi chạy lệnh truy vấn.
+Về nội dung và đường dẫn tải xuống file về lệnh truy vấn trong SQL, hãy xem tại commit này:
+- 
 ## Tiến độ công việc trong Project QuanGymChuot
 - Cơ bản:
   - [x] Control đăng nhập
   - [x] ListView xem danh sách
 - Bảng:
-  - ComboPack: Các gói dịch vụ mà khách hàng có thể mua
+  - GoiDichVu: Các gói dịch vụ có trong quán.
     - [x] Thêm
     - [x] Sửa
     - [x] Xóa
     - [ ] Tìm kiếm
     - [x] Làm mới
-  - UserInfo: Thông tin khách hàng đã đăng ký tại quán
+
+  - ThongTinNguoiDung: Thông tin khách hàng đã đăng ký tại quán.
     - [x] Thêm
     - [x] Sửa
     - [x] Xóa
     - [ ] Tìm kiếm
     - [x] Làm mới
-  - UserPurchasedPack: Thông tin các gói mà khách hàng đã mua hoặc gia hạn
-    - [ ] Thêm
+    
+  - QuanLyGiaoDich: Lịch sử giao dịch các gói dịch vụ mà khách hàng đã mua mới hoặc gia hạn.
+    - [x] Thêm
     - [x] Sửa
     - [x] Xóa
     - [ ] Tìm kiếm

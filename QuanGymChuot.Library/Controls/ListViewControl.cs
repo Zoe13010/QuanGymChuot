@@ -139,7 +139,7 @@ namespace QuanGymChuot.Library.Controls
             {
                 DialogResult msgResult =
                     MessageBox.Show(String.Format("You are about to delete {0}.\nThis action cannot be undone!\n\nAre you sure you want to continue?",
-                                                  listView.SelectedItems.Count.ToString() + (listView.SelectedItems.Count == 1 ? " item" : " items")),
+                                                  listView.SelectedItems.Count.ToString() + (listView.SelectedItems.Count == 1 ? " record" : " records")),
                                     MsgBoxDelTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (msgResult == DialogResult.Yes)

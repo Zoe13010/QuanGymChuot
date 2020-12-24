@@ -1,7 +1,7 @@
 ﻿
 namespace QuanGymChuot.Library.Controls
 {
-    partial class Form_PackInfo
+    partial class Form_ManagePack
     {
         /// <summary>
         /// Required designer variable.

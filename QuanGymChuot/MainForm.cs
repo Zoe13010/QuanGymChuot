@@ -60,7 +60,7 @@ namespace QuanGymChuot
             ChangePanelAccount(false, "Executing query...");
             LoadDataFromComboPack();
             LoadDataFromUserInfo();
-            LoadDataFromPaymentHistory();
+            LoadDataFromPaymentManager();
         }
 
         /// <summary>
@@ -142,19 +142,20 @@ namespace QuanGymChuot
         }
 
         /// <summary>
-        /// Lấy dữ liệu từ bảng UserPurchasedPack.
+        /// Lấy dữ liệu từ bảng PaymentManager.
         /// </summary>
-        private void LoadDataFromPaymentHistory()
+        private void LoadDataFromPaymentManager()
         {
-            if (lvcPaymentManager.InvokeRequired) lvcPaymentManager.Invoke((MethodInvoker)delegate { LoadDataFromPaymentHistory(); });
+            if (lvcPaymentManager.InvokeRequired) lvcPaymentManager.Invoke((MethodInvoker)delegate { LoadDataFromPaymentManager(); });
             else
             {
                 lvcPaymentManager.ClearAll();
-                lvcPaymentManager.ListView.Columns.Add("ID", 48);
+                lvcPaymentManager.ListView.Columns.Add("Payment ID", 48);
                 lvcPaymentManager.ListView.Columns.Add("User Name", 318);
                 lvcPaymentManager.ListView.Columns.Add("Package Name", 214);
                 lvcPaymentManager.ListView.Columns.Add("Purchased Date", 156);
                 lvcPaymentManager.ListView.Columns.Add("Expired in", 156);
+                lvcPaymentManager.ListView.Columns.Add("Note", 318);
 
                 foreach (PaymentItem upiitem in PaymentManager.GetAll())
                 {
@@ -162,9 +163,10 @@ namespace QuanGymChuot
                     {
                         upiitem.ID.ToString(),
                         upiitem.UserName,
-                        upiitem.PackageName,
-                        upiitem.PackageRegDate.ToString(),
-                        (upiitem.PackageExpDate > DateTime.Now) ? upiitem.PackageExpDate.ToString() : "Expired"
+                        upiitem.PackName,
+                        upiitem.PackRegDate.ToString(),
+                        (upiitem.PackExpDate > DateTime.Now) ? upiitem.PackExpDate.ToString() : "Expired",
+                        upiitem.Note
                     };
                     lvcPaymentManager.ListView.Items.Add(new ListViewItem(s));
                 }
@@ -223,7 +225,7 @@ namespace QuanGymChuot
         #region Package Info panel
         private void lvcComboPack_RequireForm(bool createMode = true, int ID = 0)
         {
-            Form_PackInfo form = new Form_PackInfo();
+            Form_ManagePack form = new Form_ManagePack();
             form.CreateMode = createMode;
             form.ID = ID;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
@@ -269,7 +271,7 @@ namespace QuanGymChuot
         #region User Information panel
         private void lvcUserInfo_RequireForm(bool createMode = true, int ID = 0)
         {
-            Form_UserInfo form = new Form_UserInfo();
+            Form_ManageUser form = new Form_ManageUser();
             form.CreateMode = createMode;
             form.ID = ID;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
@@ -312,10 +314,10 @@ namespace QuanGymChuot
         }
         #endregion
 
-        #region Payment History panel
-        private void lvcPaymentHistory_RequireForm(bool createMode = true, int ID = 0)
+        #region Payment Manager panel
+        private void lvcPaymentManager_RequireForm(bool createMode = true, int ID = 0)
         {
-            Form_PaymentHistory form = new Form_PaymentHistory();
+            Form_ManagePayment form = new Form_ManagePayment();
             form.CreateMode = createMode;
             form.ID = ID;
 
@@ -328,57 +330,35 @@ namespace QuanGymChuot
             else lvcPaymentManager.ListView.Focus();
         }
 
-        private void lvcPaymentHistory_RequestRefresh(object sender, EventArgs e)
+        private void lvcPaymentManager_RequestRefresh(object sender, EventArgs e)
         {
             lvcPaymentManager.ClearAll();
-            LoadDataFromPaymentHistory();
+            LoadDataFromPaymentManager();
         }
 
-        private void lvcPaymentHistory_RequestCreate(object sender, EventArgs e)
+        private void lvcPaymentManager_RequestCreate(object sender, EventArgs e)
         {
-            lvcPaymentHistory_RequireForm(true);
+            lvcPaymentManager_RequireForm(true);
         }
 
-        private void lvcPaymentHistory_RequestEdit(object sender, EventArgs e)
+        private void lvcPaymentManager_RequestEdit(object sender, EventArgs e)
         {
             int idTemp;
             int.TryParse(lvcPaymentManager.ListView.SelectedItems[0].Text, out idTemp);
-            lvcPaymentHistory_RequireForm(false, idTemp);
-            bwInitListView.RunWorkerAsync();
+            lvcPaymentManager_RequireForm(false, idTemp);
         }
 
-        private void lvcPaymentHistory_RequestDelete(object sender, EventArgs e)
+        private void lvcPaymentManager_RequestDelete(object sender, EventArgs e)
         {
             ListViewControl lv = (ListViewControl)sender;
             for (int i = 0; i < lv.SelectedItemCount; i++)
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                PaymentManager.Delete(ID);
+                PaymentManager.Delete(new Dictionary<string, string>() { { "ID", ID.ToString() } });
             }
-
             bwInitListView.RunWorkerAsync();
         }
         #endregion
-
-        private void lvcUserPurPack_RequestCreate(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lvcUserPurPack_RequestDelete(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lvcUserPurPack_RequestRefresh(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lvcUserPurPack_RequestEdit(object sender, EventArgs e)
-        {
-
-        }
     }
 }
