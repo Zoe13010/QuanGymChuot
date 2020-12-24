@@ -36,7 +36,7 @@ namespace QuanGymChuot.Library.Controls
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(555, 503);
+            this.ClientSize = new System.Drawing.Size(830, 682);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -45,6 +45,7 @@ namespace QuanGymChuot.Library.Controls
             this.Name = "Form_Find";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.Text = "Form_Find";
             this.ResumeLayout(false);
 
         }

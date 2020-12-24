@@ -227,7 +227,7 @@ namespace QuanGymChuot.Library.Controls
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
-            // Form_PackInfo
+            // Form_ManagePack
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -243,7 +243,7 @@ namespace QuanGymChuot.Library.Controls
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_PackInfo";
+            this.Name = "Form_ManagePack";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form_PackInfo";

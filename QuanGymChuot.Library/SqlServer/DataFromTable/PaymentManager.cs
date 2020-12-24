@@ -17,7 +17,8 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                                          "SELECT B3.ID AS PaymentID, B2.ID AS UserID, B2.Name AS UserName, B1.ID AS PackageID, B1.Name AS PackageName, B3.PackRegDate AS PackRegDate, B3.PackExpDate AS PackExpDate, B3.Note AS Note " +
                                          "FROM dbo.QuanLyGiaoDich AS B3 " +
                                          "INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID " +
-                                         "INNER JOIN dbo.GoiDichVu AS B1 ON B3.PackID = B1.ID",
+                                         "INNER JOIN dbo.GoiDichVu AS B1 ON B3.PackID = B1.ID " +
+                                         "ORDER BY B3.PackRegDate DESC",
                                          Connection.SqlConnect);
                 SqlDataReader data = null;
 
