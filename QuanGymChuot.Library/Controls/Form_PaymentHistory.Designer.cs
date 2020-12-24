@@ -1,7 +1,7 @@
 ﻿
 namespace QuanGymChuot.Library.Controls
 {
-    partial class Form_UserPurPack
+    partial class Form_PaymentHistory
     {
         /// <summary>
         /// Required designer variable.
@@ -39,8 +39,6 @@ namespace QuanGymChuot.Library.Controls
             this.label2 = new System.Windows.Forms.Label();
             this.tbID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbNewComboQty = new System.Windows.Forms.TextBox();
             this.lbCurExpDay = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbCurComboPack = new System.Windows.Forms.TextBox();
@@ -69,7 +67,7 @@ namespace QuanGymChuot.Library.Controls
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(559, 479);
+            this.btnCancel.Location = new System.Drawing.Point(559, 449);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(102, 35);
             this.btnCancel.TabIndex = 37;
@@ -78,7 +76,7 @@ namespace QuanGymChuot.Library.Controls
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(451, 479);
+            this.btnAccept.Location = new System.Drawing.Point(451, 449);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(102, 35);
             this.btnAccept.TabIndex = 36;
@@ -150,26 +148,6 @@ namespace QuanGymChuot.Library.Controls
             this.label1.TabIndex = 31;
             this.label1.Text = "ID";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 69);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 19);
-            this.label5.TabIndex = 41;
-            this.label5.Text = "Quality";
-            // 
-            // tbNewComboQty
-            // 
-            this.tbNewComboQty.BackColor = System.Drawing.Color.White;
-            this.tbNewComboQty.Enabled = false;
-            this.tbNewComboQty.Location = new System.Drawing.Point(201, 66);
-            this.tbNewComboQty.Name = "tbNewComboQty";
-            this.tbNewComboQty.Size = new System.Drawing.Size(130, 25);
-            this.tbNewComboQty.TabIndex = 30;
-            this.tbNewComboQty.Text = "1";
-            this.tbNewComboQty.TextChanged += new System.EventHandler(this.tbNewComboQty_TextChanged);
-            // 
             // lbCurExpDay
             // 
             this.lbCurExpDay.AutoSize = true;
@@ -240,13 +218,11 @@ namespace QuanGymChuot.Library.Controls
             // 
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.cbNewComboPack);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.tbNewComboQty);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.lbNewExpDate);
             this.groupBox2.Location = new System.Drawing.Point(45, 332);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(616, 141);
+            this.groupBox2.Size = new System.Drawing.Size(616, 111);
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Purchase and add new Combo Pack";
@@ -279,7 +255,7 @@ namespace QuanGymChuot.Library.Controls
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(21, 105);
+            this.label12.Location = new System.Drawing.Point(21, 70);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(99, 19);
             this.label12.TabIndex = 32;
@@ -288,19 +264,19 @@ namespace QuanGymChuot.Library.Controls
             // lbNewExpDate
             // 
             this.lbNewExpDate.AutoSize = true;
-            this.lbNewExpDate.Location = new System.Drawing.Point(197, 105);
+            this.lbNewExpDate.Location = new System.Drawing.Point(197, 70);
             this.lbNewExpDate.Name = "lbNewExpDate";
             this.lbNewExpDate.Size = new System.Drawing.Size(165, 19);
             this.lbNewExpDate.TabIndex = 29;
             this.lbNewExpDate.Text = "dd/MM/yyyy hh:mm:ss tt";
             // 
-            // Form_UserPurPack
+            // Form_PaymentHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(709, 527);
+            this.ClientSize = new System.Drawing.Size(709, 516);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
@@ -311,7 +287,7 @@ namespace QuanGymChuot.Library.Controls
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_UserPurPack";
+            this.Name = "Form_PaymentHistory";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.Form_UserPurPack_Load);
@@ -336,8 +312,6 @@ namespace QuanGymChuot.Library.Controls
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbID;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tbNewComboQty;
         private System.Windows.Forms.Label lbCurExpDay;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label10;

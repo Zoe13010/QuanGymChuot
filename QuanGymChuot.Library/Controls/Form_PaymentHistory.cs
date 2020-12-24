@@ -5,13 +5,13 @@ using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
 {
-    public partial class Form_UserPurPack : Form
+    public partial class Form_PaymentHistory : Form
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private UserPurchasedPackItem upiItenOld;
+        private PaymentHistoryItem upiItenOld;
 
-        public Form_UserPurPack()
+        public Form_PaymentHistory()
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
@@ -22,7 +22,7 @@ namespace QuanGymChuot.Library.Controls
             if (!CreateMode)
             {
                 // upiItenOld = UserPurchasedPack.FindFirstObjectById(ID);
-                upiItenOld = UserPurchasedPack.GetFirstObject(new Dictionary<string, string>() { { "B3.ID", ID.ToString() } });
+                upiItenOld = PaymentHistory.GetFirstObject(new Dictionary<string, string>() { { "B3.ID", ID.ToString() } });
                 tbID.Text = upiItenOld.ID.ToString();
                 cbUserName.Text = upiItenOld.UserName;
                 tbCurComboPack.Text = upiItenOld.PackageName;
@@ -91,14 +91,10 @@ namespace QuanGymChuot.Library.Controls
             {
                 if (((ComboBox)sender).SelectedIndex == 0)
                 {
-                    tbNewComboQty.Text = "0";
-                    tbNewComboQty.Enabled = false;
                     lbNewExpDate.Enabled = false;
                 }
                 else
                 {
-                    tbNewComboQty.Text = "1";
-                    tbNewComboQty.Enabled = true;
                     lbNewExpDate.Enabled = true;
                 }
             }
@@ -115,9 +111,7 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                int d;
-                int.TryParse(tbNewComboQty.Text, out d);
-                UserPurchasedPack.Update(upiItenOld.ID, cbNewComboPack.Text, d);
+                PaymentHistory.Update(upiItenOld.ID, cbNewComboPack.Text);
                 this.Close();
             }
             else

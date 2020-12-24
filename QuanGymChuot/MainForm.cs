@@ -145,17 +145,17 @@ namespace QuanGymChuot
         /// </summary>
         private void LoadDataFromUserPurchasedPackNew()
         {
-            if (lvcUserPurPack.InvokeRequired) lvcUserPurPack.Invoke((MethodInvoker)delegate { LoadDataFromUserPurchasedPackNew(); });
+            if (lvcPaymentHistory.InvokeRequired) lvcPaymentHistory.Invoke((MethodInvoker)delegate { LoadDataFromUserPurchasedPackNew(); });
             else
             {
-                lvcUserPurPack.ClearAll();
-                lvcUserPurPack.ListView.Columns.Add("ID", 48);
-                lvcUserPurPack.ListView.Columns.Add("User Name", 318);
-                lvcUserPurPack.ListView.Columns.Add("Package Name", 214);
-                lvcUserPurPack.ListView.Columns.Add("Purchased Date", 156);
-                lvcUserPurPack.ListView.Columns.Add("Expired in", 156);
+                lvcPaymentHistory.ClearAll();
+                lvcPaymentHistory.ListView.Columns.Add("ID", 48);
+                lvcPaymentHistory.ListView.Columns.Add("User Name", 318);
+                lvcPaymentHistory.ListView.Columns.Add("Package Name", 214);
+                lvcPaymentHistory.ListView.Columns.Add("Purchased Date", 156);
+                lvcPaymentHistory.ListView.Columns.Add("Expired in", 156);
 
-                foreach (UserPurchasedPackItem upiitem in UserPurchasedPack.GetAll())
+                foreach (PaymentHistoryItem upiitem in PaymentHistory.GetAll())
                 {
                     string[] s = new string[]
                     {
@@ -163,9 +163,9 @@ namespace QuanGymChuot
                         upiitem.UserName,
                         upiitem.PackageName,
                         upiitem.PackageRegDate.ToString(),
-                        upiitem.PackageExpDate.ToString()
+                        (upiitem.PackageExpDate > DateTime.Now) ? upiitem.PackageExpDate.ToString() : "Expired"
                     };
-                    lvcUserPurPack.ListView.Items.Add(new ListViewItem(s));
+                    lvcPaymentHistory.ListView.Items.Add(new ListViewItem(s));
                 }
             }
         }
@@ -213,7 +213,7 @@ namespace QuanGymChuot
             // Xóa toàn bộ dữ liệu trên ListView.
             lvcComboPack.ClearAll();
             lvcUserInfo.ClearAll();
-            lvcUserPurPack.ClearAll();
+            lvcPaymentHistory.ClearAll();
             // Kết nối lại đến server để đăng nhập.
             MainForm_Load(this, new EventArgs());
         }
@@ -314,7 +314,7 @@ namespace QuanGymChuot
         #region User Purchased Pack panel
         private void lvcUserPurPack_RequireForm(bool createMode = true, int ID = 0)
         {
-            Form_UserPurPack form = new Form_UserPurPack();
+            Form_PaymentHistory form = new Form_PaymentHistory();
             form.CreateMode = createMode;
             form.ID = ID;
 
@@ -329,7 +329,7 @@ namespace QuanGymChuot
 
         private void lvcUserPurPack_RequestRefresh(object sender, EventArgs e)
         {
-            lvcUserPurPack.ClearAll();
+            lvcPaymentHistory.ClearAll();
             LoadDataFromUserPurchasedPackNew();
         }
 
@@ -341,7 +341,7 @@ namespace QuanGymChuot
         private void lvcUserPurPack_RequestEdit(object sender, EventArgs e)
         {
             int idTemp;
-            int.TryParse(lvcUserPurPack.ListView.SelectedItems[0].Text, out idTemp);
+            int.TryParse(lvcPaymentHistory.ListView.SelectedItems[0].Text, out idTemp);
             lvcUserPurPack_RequireForm(false, idTemp);
             LoadDataFromUserPurchasedPackNew();
         }
@@ -353,7 +353,7 @@ namespace QuanGymChuot
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                UserPurchasedPack.Delete(ID);
+                PaymentHistory.Delete(ID);
             }
 
             bwInitListView.RunWorkerAsync();

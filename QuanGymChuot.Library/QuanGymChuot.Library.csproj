@@ -55,11 +55,11 @@
     <Compile Include="Controls\Form_UserInfo.Designer.cs">
       <DependentUpon>Form_UserInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Form_UserPurPack.cs">
+    <Compile Include="Controls\Form_PaymentHistory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Form_UserPurPack.Designer.cs">
-      <DependentUpon>Form_UserPurPack.cs</DependentUpon>
+    <Compile Include="Controls\Form_PaymentHistory.Designer.cs">
+      <DependentUpon>Form_PaymentHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListViewControl.cs">
       <SubType>UserControl</SubType>
@@ -78,7 +78,7 @@
     <Compile Include="SqlServer\Connection.cs" />
     <Compile Include="SqlServer\DataFromTable\ComboPack.cs" />
     <Compile Include="SqlServer\DataFromTable\UserInfo.cs" />
-    <Compile Include="SqlServer\DataFromTable\UserPurchasedPack.cs" />
+    <Compile Include="SqlServer\DataFromTable\PaymentHistory.cs" />
     <Compile Include="Others.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,8 +94,8 @@
     <EmbeddedResource Include="Controls\Form_UserInfo.resx">
       <DependentUpon>Form_UserInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Form_UserPurPack.resx">
-      <DependentUpon>Form_UserPurPack.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Form_PaymentHistory.resx">
+      <DependentUpon>Form_PaymentHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ListViewControl.resx">
       <DependentUpon>ListViewControl.cs</DependentUpon>

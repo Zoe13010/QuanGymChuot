@@ -1,5 +1,6 @@
 ﻿using QuanGymChuot.Library.SqlServer.DataFromTable;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
@@ -20,7 +21,7 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                cpItemOld = ComboPack.FindFirstObjectById(ID);
+                cpItemOld = ComboPack.GetFirstObject(new Dictionary<string, string>() { { "ID", ID.ToString() } });
                 tbID.Text = cpItemOld.ID.ToString();
                 tbName.Text = cpItemOld.Name;
                 tbPrice.Text = cpItemOld.Price.ToString();
@@ -60,7 +61,7 @@ namespace QuanGymChuot.Library.Controls
             }
             else
             {
-                ComboPack.Change(cpItemOld.ID, cpItemNew);
+                ComboPack.Change(new Dictionary<string, string>() { { "ID", cpItemOld.ID.ToString() } }, cpItemNew);
             }
 
             this.DialogResult = DialogResult.OK;

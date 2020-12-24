@@ -20,12 +20,12 @@ GO
 
 -- Xuất toàn bộ quản lý người dùng
 SELECT *
-FROM UserPurchasedPack
+FROM LichSuGiaoDich
 GO
 
 -- Xuất toàn bộ quản lý người dùng (Tên thay cho ID)
 SELECT B3.ID, B2.Name, B1.Name, B3.ComboRegDate, B3.ComboExpDate
-FROM dbo.UserPurchasedPack AS B3
+FROM dbo.LichSuGiaoDich AS B3
 	INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID
 	INNER JOIN dbo.GoiDichVu AS B1 ON B3.ComboID = B1.ID
 GO

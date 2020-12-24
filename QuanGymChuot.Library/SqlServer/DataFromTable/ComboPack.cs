@@ -96,14 +96,26 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
 
         /// <summary>
-        /// Thay đổi thuộc tính của gói dịch vụ từ bảng ComboPack theo ID.
+        /// Thay đổi thuộc tính của gói dịch vụ từ bảng ComboPack theo truy vấn tìm kiếm.
         /// </summary>
-        /// <param name="ID">ID của gói dịch vụ cần thay đổi</param>
-        /// <param name="newComboInfo">Giá trị sẽ thay đổi vào gói dịch vụ có trùng ID đó</param>
-        public static void Change(long ID, ComboPackItem newComboInfo)
+        /// <param name="query">Truy vấn tìm kiếm của gói dịch vụ cần thay đổi</param>
+        /// <param name="newComboInfo">Giá trị sẽ thay đổi vào gói dịch vụ từ kết quả có được từ truy vấn đó</param>
+        public static void Change(Dictionary<string, string> query, ComboPackItem newComboInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
+                bool first = false;
+                string whereString = "";
+
+                foreach (KeyValuePair<string, string> kvp in query)
+                {
+                    if (!first)
+                        first = true;
+                    else whereString += ", ";
+
+                    whereString += String.Format("{0} = {1}", kvp.Key, kvp.Value);
+                }
+
                 string value = String.Format("{0} {1} {2} {3} {4}",
                                              "Name = " + (newComboInfo.Name != null ? "N\'" + newComboInfo.Name + "\'" : "NULL") + ',',
                                              "Price = " + newComboInfo.Price + ',',
@@ -111,8 +123,8 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                                              "Info = " + (newComboInfo.Info != null ? "N\'" + newComboInfo.Info + "\'" : "NULL") + ',',
                                              "CanUse = " + (newComboInfo.CanUse ? 1 : 0));
 
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot UPDATE GoiDichVu SET {0} WHERE ID = {1}", value, ID),
-                                         Connection.SqlConnect);
+                string queryString = String.Format("USE QuanGymChuot UPDATE GoiDichVu SET {0} WHERE {1}", value, whereString);
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {
@@ -130,57 +142,31 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Lấy gói dịch vụ đầu tiên của bảng ComboPack theo ID.
+        /// Lấy gói dịch vụ đầu tiên của bảng ComboPack theo truy vấn tìm kiếm.
         /// </summary>
-        /// <param name="id">ID của gói dịch vụ cần lấy</param>
-        public static ComboPackItem FindFirstObjectById(int id)
+        /// <param name="query">Truy vấn tìm kiếm gói dịch vụ cần lấy</param>
+        public static ComboPackItem GetFirstObject(Dictionary<string, string> query)
         {
             ComboPackItem cpitem = new ComboPackItem();
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM GoiDichVu WHERE ID = \'{0}\'", id),
-                         Connection.SqlConnect);
                 SqlDataReader data = null;
 
-                try
+                bool first = false;
+                string whereString = "";
+
+                foreach (KeyValuePair<string, string> kvp in query)
                 {
-                    data = cmd.ExecuteReader();
+                    if (!first)
+                        first = true;
+                    else whereString += ", ";
 
-                    while (data.Read())
-                    {
-                        cpitem.ID = data.GetInt32(0);
-                        cpitem.Name = data.IsDBNull(1) ? null : data.GetString(1);
-                        cpitem.Price = data.GetInt64(2);
-                        cpitem.DayCount = data.GetInt64(3);
-                        cpitem.Info = data.IsDBNull(4) ? null : data.GetString(4);
-                        cpitem.CanUse = data.GetBoolean(5);
-                        cpitem.AddedDate = data.GetDateTime(6);
-                        break;
-                    }
-
-                    data.Close();
+                    whereString += String.Format("{0} = {1}", kvp.Key, kvp.Value);
                 }
-                catch
-                {
-                    if (data != null)
-                        data.Close();
-                    cpitem = new ComboPackItem();
-                }
-            }
 
-            return cpitem;
-        }
-        
-        public static ComboPackItem FindFirstObjectByName(string comboName)
-        {
-            ComboPackItem cpitem = new ComboPackItem();
-
-            if (Account.CurrentAccount.Check().Completed)
-            {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT * FROM GoiDichVu WHERE Name = N\'{0}\'", comboName),
-                         Connection.SqlConnect);
-                SqlDataReader data = null;
+                var queryString = String.Format("USE QuanGymChuot SELECT * FROM GoiDichVu WHERE {0}", whereString);
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {

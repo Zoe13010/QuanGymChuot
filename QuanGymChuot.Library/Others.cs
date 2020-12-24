@@ -72,7 +72,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         public DateTime RegDate;
     }
 
-    public struct UserPurchasedPackItem
+    public struct PaymentHistoryItem
     {
         public long ID;
         public long UserID;
