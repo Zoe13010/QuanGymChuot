@@ -9,7 +9,7 @@ namespace QuanGymChuot.Library.Controls
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private ComboPackItem cpItemOld, cpItemNew;
+        private PackItem cpItemOld, cpItemNew;
 
         public Form_PackInfo()
         {
@@ -21,7 +21,7 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                cpItemOld = ComboPack.GetFirstObject(new Dictionary<string, string>() { { "ID", ID.ToString() } });
+                cpItemOld = PackManager.GetFirstObject(new Dictionary<string, string>() { { "ID", ID.ToString() } });
                 tbID.Text = cpItemOld.ID.ToString();
                 tbName.Text = cpItemOld.Name;
                 tbPrice.Text = cpItemOld.Price.ToString();
@@ -30,7 +30,7 @@ namespace QuanGymChuot.Library.Controls
                 cbCanUse.Checked = cpItemOld.CanUse;
                 lbAddDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", cpItemOld.AddedDate);
 
-                label7.Text = "Edit Combo Pack information";
+                this.Text = "View or edit package information";
                 btnAccept.Text = "Save";
             }
             else
@@ -38,6 +38,7 @@ namespace QuanGymChuot.Library.Controls
                 tbID.Enabled = false;
                 lbAddDate.Visible = false;
                 label8.Visible = false;
+                this.Text = "Create a new package information";
             }
         }
 
@@ -48,7 +49,7 @@ namespace QuanGymChuot.Library.Controls
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            cpItemNew = new ComboPackItem();
+            cpItemNew = new PackItem();
             cpItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
             long.TryParse(tbPrice.Text, out cpItemNew.Price);
             long.TryParse(tbDayCount.Text, out cpItemNew.DayCount);
@@ -57,11 +58,11 @@ namespace QuanGymChuot.Library.Controls
 
             if (CreateMode)
             {
-                ComboPack.Create(cpItemNew);
+                PackManager.Create(cpItemNew);
             }
             else
             {
-                ComboPack.Change(new Dictionary<string, string>() { { "ID", cpItemOld.ID.ToString() } }, cpItemNew);
+                PackManager.Change(new Dictionary<string, string>() { { "ID", cpItemOld.ID.ToString() } }, cpItemNew);
             }
 
             this.DialogResult = DialogResult.OK;

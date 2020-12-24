@@ -9,7 +9,7 @@ namespace QuanGymChuot.Library.Controls
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private PaymentHistoryItem upiItenOld;
+        private PaymentItem upiItenOld;
 
         public Form_PaymentHistory()
         {
@@ -22,7 +22,7 @@ namespace QuanGymChuot.Library.Controls
             if (!CreateMode)
             {
                 // upiItenOld = UserPurchasedPack.FindFirstObjectById(ID);
-                upiItenOld = PaymentHistory.GetFirstObject(new Dictionary<string, string>() { { "B3.ID", ID.ToString() } });
+                upiItenOld = PaymentManager.GetFirstObject(new Dictionary<string, string>() { { "B3.ID", ID.ToString() } });
                 tbID.Text = upiItenOld.ID.ToString();
                 cbUserName.Text = upiItenOld.UserName;
                 tbCurComboPack.Text = upiItenOld.PackageName;
@@ -40,7 +40,7 @@ namespace QuanGymChuot.Library.Controls
                                                       curTD.Hours == 1 ? null : "s");
                 cbUserName.Enabled = false;
 
-                label7.Text = "Renew Combo Pack";
+                this.Text = "View or renew package";
                 btnAccept.Text = "Save";
             }
             else
@@ -58,11 +58,11 @@ namespace QuanGymChuot.Library.Controls
                 lbCurExpDay.Text = "Unregistered";
                 tbCurComboPack.Enabled = false;
 
-                label7.Text = "Buy new Combo Pack";
+                this.Text = "Buy new package";
                 btnAccept.Text = "Accept";
             }
 
-            var comboInfo = ComboPack.GetAll();
+            var comboInfo = PackManager.GetAll();
             cbNewComboPack.Items.Clear();
             cbNewComboPack.Items.Add("(choose a combo pack)");
             for (int i = 0; i < comboInfo.Count; i++)
@@ -111,7 +111,7 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                PaymentHistory.Update(upiItenOld.ID, cbNewComboPack.Text);
+                PaymentManager.Update(upiItenOld.ID, cbNewComboPack.Text);
                 this.Close();
             }
             else

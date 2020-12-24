@@ -10,9 +10,9 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// <summary>
         /// Lấy tất cả dữ liệu từ bảng UserInfo.
         /// </summary>
-        public static List<UserInfoItem> GetAll()
+        public static List<UserItem> GetAll()
         {
-            List<UserInfoItem> result = null;
+            List<UserItem> result = null;
 
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -22,11 +22,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 try
                 {
                     data = cmd.ExecuteReader();
-                    result = new List<UserInfoItem>();
+                    result = new List<UserItem>();
 
                     while (data.Read())
                     {
-                        var dataPart = new UserInfoItem();
+                        var dataPart = new UserItem();
                         dataPart.ID = data.GetInt32(0);
                         dataPart.Name = data.GetString(1);
                         dataPart.Gender = data.GetBoolean(2);
@@ -54,9 +54,9 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static UserInfoItem GetFirstObject(Dictionary<string, string> query)
+        public static UserItem GetFirstObject(Dictionary<string, string> query)
         {
-            UserInfoItem uiitem = new UserInfoItem();
+            UserItem uiitem = new UserItem();
 
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -97,7 +97,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 {
                     if (data != null)
                         data.Close();
-                    uiitem = new UserInfoItem();
+                    uiitem = new UserItem();
                 }
             }
 
@@ -109,7 +109,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// </summary>
         /// <param name="query">Các truy vấn để tìm kiếm</param>
         /// <param name="newUserInfo">Giá trị sẽ thay đổi vào thông tin người dùng tìm được trong truy vấn đó</param>
-        public static void Change(Dictionary<string, string> query, UserInfoItem newUserInfo)
+        public static void Change(Dictionary<string, string> query, UserItem newUserInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -153,7 +153,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// Tạo một người dùng mới vào bảng UserInfo.
         /// </summary>
         /// <param name="newUserInfo">Thông tin người dùng mới</param>
-        public static void Create(UserInfoItem newUserInfo)
+        public static void Create(UserItem newUserInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {

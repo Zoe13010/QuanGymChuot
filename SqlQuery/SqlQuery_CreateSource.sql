@@ -112,17 +112,17 @@ IF (
 	EXISTS(
 		SELECT * 
 		FROM INFORMATION_SCHEMA.TABLES 
-        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'LichSuGiaoDich'
+        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'QuanLyGiaoDich'
 	)
 )
 BEGIN
-	PRINT(N'Đã có bảng LichSuGiaoDich.')
+	PRINT(N'Đã có bảng QuanLyGiaoDich.')
 	PRINT(N'(bỏ qua thông báo này nếu muốn sử dụng table đã có sẵn)')
 	PRINT(N'')
 END
 ELSE
 ---- [Code chính] Nếu không có thì tạo mới.
-CREATE TABLE LichSuGiaoDich (
+CREATE TABLE QuanLyGiaoDich (
 	-- ID
 	ID int primary key NOT NULL IDENTITY(1,1),
 	-- ID người dùng

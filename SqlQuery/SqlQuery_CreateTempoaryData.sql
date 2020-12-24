@@ -5,7 +5,9 @@ BEGIN
 	ALTER DATABASE QuanGymChuot SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 	DROP DATABASE QuanGymChuot
 END
+GO
 CREATE DATABASE QuanGymChuot
+GO
 
 -- Sử dụng database QuanGymChuot cho các câu lệnh truy vấn ở dưới đây.
 USE QuanGymChuot
@@ -110,17 +112,17 @@ IF (
 	EXISTS(
 		SELECT * 
 		FROM INFORMATION_SCHEMA.TABLES 
-        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'LichSuGiaoDich'
+        WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'QuanLyGiaoDich'
 	)
 )
 BEGIN
-	PRINT(N'Đã có bảng LichSuGiaoDich.')
+	PRINT(N'Đã có bảng QuanLyGiaoDich.')
 	PRINT(N'(bỏ qua thông báo này nếu muốn sử dụng table đã có sẵn)')
 	PRINT(N'')
 END
 ELSE
 ---- [Code chính] Nếu không có thì tạo mới.
-CREATE TABLE LichSuGiaoDich (
+CREATE TABLE QuanLyGiaoDich (
 	-- ID
 	ID int primary key NOT NULL IDENTITY(1,1),
 	-- ID người dùng
@@ -223,18 +225,18 @@ INSERT INTO ThongTinNguoiDung (Name, Gender, Phone)
 VALUES ('Name 3', 1, '0382858284')
 GO
 
--- Tạo dữ liệu mẫu từ bảng LichSuGiaoDich
+-- Tạo dữ liệu mẫu từ bảng QuanLyGiaoDich
 -- (các gói mà khách hàng đã mua)
 -- Lưu ý: Kiểm tra lại UserID, ComboID để sửa lại truy vấn mẫu này nếu lỗi.
-DELETE FROM LichSuGiaoDich
+DELETE FROM QuanLyGiaoDich
 GO
-INSERT INTO LichSuGiaoDich (UserID, ComboID)
+INSERT INTO QuanLyGiaoDich (UserID, ComboID)
 VALUES (1, 1)
 GO
-INSERT INTO LichSuGiaoDich (UserID, ComboID)
+INSERT INTO QuanLyGiaoDich (UserID, ComboID)
 VALUES (2, 2)
 GO
-INSERT INTO LichSuGiaoDich (UserID, ComboID)
+INSERT INTO QuanLyGiaoDich (UserID, ComboID)
 VALUES (3, 3)
 GO
 

@@ -52,7 +52,7 @@ namespace QuanGymChuot.Library
 
 namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
-    public struct ComboPackItem
+    public struct PackItem
     {
         public long ID;
         public string Name;
@@ -63,7 +63,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         public DateTime AddedDate;
     }
 
-    public struct UserInfoItem
+    public struct UserItem
     {
         public long ID;
         public string Name;
@@ -72,7 +72,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         public DateTime RegDate;
     }
 
-    public struct PaymentHistoryItem
+    public struct PaymentItem
     {
         public long ID;
         public long UserID;

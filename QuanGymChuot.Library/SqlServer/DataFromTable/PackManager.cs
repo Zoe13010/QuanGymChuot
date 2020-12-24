@@ -5,14 +5,14 @@ using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
-    public class ComboPack
+    public class PackManager
     {
         /// <summary>
         /// Lấy tất cả dữ liệu từ bảng ComboPack.
         /// </summary>
-        public static List<ComboPackItem> GetAll()
+        public static List<PackItem> GetAll()
         {
-            List<ComboPackItem> result = null;
+            List<PackItem> result = null;
 
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -23,11 +23,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 try
                 {
                     data = cmd.ExecuteReader();
-                    result = new List<ComboPackItem>();
+                    result = new List<PackItem>();
 
                     while (data.Read())
                     {
-                        var dataPart = new ComboPackItem();
+                        var dataPart = new PackItem();
                         dataPart.ID = data.GetInt32(0);
                         dataPart.Name = data.IsDBNull(1) ? null : data.GetString(1);
                         dataPart.Price = data.GetInt64(2);
@@ -100,7 +100,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// </summary>
         /// <param name="query">Truy vấn tìm kiếm của gói dịch vụ cần thay đổi</param>
         /// <param name="newComboInfo">Giá trị sẽ thay đổi vào gói dịch vụ từ kết quả có được từ truy vấn đó</param>
-        public static void Change(Dictionary<string, string> query, ComboPackItem newComboInfo)
+        public static void Change(Dictionary<string, string> query, PackItem newComboInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -145,9 +145,9 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// Lấy gói dịch vụ đầu tiên của bảng ComboPack theo truy vấn tìm kiếm.
         /// </summary>
         /// <param name="query">Truy vấn tìm kiếm gói dịch vụ cần lấy</param>
-        public static ComboPackItem GetFirstObject(Dictionary<string, string> query)
+        public static PackItem GetFirstObject(Dictionary<string, string> query)
         {
-            ComboPackItem cpitem = new ComboPackItem();
+            PackItem cpitem = new PackItem();
 
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -190,7 +190,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 {
                     if (data != null)
                         data.Close();
-                    cpitem = new ComboPackItem();
+                    cpitem = new PackItem();
                 }
             }
 
@@ -201,7 +201,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// Tạo một gói dịch vụ mới vào bảng ComboPack.
         /// </summary>
         /// <param name="cpitem">Gói dịch vụ sẽ được tạo</param>
-        public static void Create(ComboPackItem cpitem)
+        public static void Create(PackItem cpitem)
         {
             if (Account.CurrentAccount.Check().Completed)
             {

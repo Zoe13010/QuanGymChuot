@@ -34,18 +34,18 @@ INSERT INTO ThongTinNguoiDung (Name, Gender, Phone)
 VALUES ('Name 3', 1, '0382858284')
 GO
 
--- Tạo dữ liệu mẫu từ bảng LichSuGiaoDich
+-- Tạo dữ liệu mẫu từ bảng QuanLyGiaoDich
 -- (các gói mà khách hàng đã mua)
 -- Lưu ý: Kiểm tra lại UserID, ComboID để sửa lại truy vấn mẫu này nếu lỗi.
-DELETE FROM LichSuGiaoDich
+DELETE FROM QuanLyGiaoDich
 GO
-INSERT INTO LichSuGiaoDich (UserID, ComboID)
+INSERT INTO QuanLyGiaoDich (UserID, ComboID)
 VALUES (1, 1)
 GO
-INSERT INTO LichSuGiaoDich (UserID, ComboID)
+INSERT INTO QuanLyGiaoDich (UserID, ComboID)
 VALUES (2, 2)
 GO
-INSERT INTO LichSuGiaoDich (UserID, ComboID)
+INSERT INTO QuanLyGiaoDich (UserID, ComboID)
 VALUES (3, 3)
 GO
 
@@ -88,16 +88,16 @@ GO
 DELETE FROM ThongTinDangNhap
 GO
 
--- [Delete] Xóa toàn bộ dữ liệu từ bảng LichSuGiaoDich
-DELETE FROM LichSuGiaoDich
+-- [Delete] Xóa toàn bộ dữ liệu từ bảng QuanLyGiaoDich
+DELETE FROM QuanLyGiaoDich
 GO
 
 -- [Delete] Xóa toàn bộ dữ liệu từ bảng ThongTinNguoiDung
--- (Bắt buộc phải xóa toàn bộ dữ liệu từ bảng LichSuGiaoDich trước)
+-- (Bắt buộc phải xóa toàn bộ dữ liệu từ bảng QuanLyGiaoDich trước)
 DELETE FROM ThongTinNguoiDung
 GO
 
 -- [Delete] Xóa toàn bộ dữ liệu từ bảng GoiDichVu
--- (Bắt buộc phải xóa toàn bộ dữ liệu từ bảng LichSuGiaoDich trước)
+-- (Bắt buộc phải xóa toàn bộ dữ liệu từ bảng QuanLyGiaoDich trước)
 DELETE FROM GoiDichVu
 GO

@@ -5,17 +5,17 @@ using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
-    public class PaymentHistory
+    public class PaymentManager
     {
-        public static List<PaymentHistoryItem> GetAll()
+        public static List<PaymentItem> GetAll()
         {
-            List<PaymentHistoryItem> result = null;
+            List<PaymentItem> result = null;
 
             if (Account.CurrentAccount.Check().Completed)
             {
                 var cmd = new SqlCommand("USE QuanGymChuot " +
                                          "SELECT B3.ID, B2.ID, B2.Name, B1.ID, B1.Name, B3.ComboRegDate, B3.ComboExpDate " +
-                                         "FROM dbo.LichSuGiaoDich AS B3 " +
+                                         "FROM dbo.QuanLyGiaoDich AS B3 " +
                                          "INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID " +
                                          "INNER JOIN dbo.GoiDichVu AS B1 ON B3.ComboID = B1.ID",
                                          Connection.SqlConnect);
@@ -24,11 +24,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 try
                 {
                     data = cmd.ExecuteReader();
-                    result = new List<PaymentHistoryItem>();
+                    result = new List<PaymentItem>();
 
                     while (data.Read())
                     {
-                        var dataPart = new PaymentHistoryItem();
+                        var dataPart = new PaymentItem();
                         dataPart.ID = data.GetInt32(0);
                         dataPart.UserID = data.GetInt32(1);
                         dataPart.UserName = data.GetString(2);
@@ -53,9 +53,9 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return result;
         }
 
-        public static PaymentHistoryItem GetFirstObject(Dictionary<string, string> query)
+        public static PaymentItem GetFirstObject(Dictionary<string, string> query)
         {
-            PaymentHistoryItem upiItem = new PaymentHistoryItem();
+            PaymentItem upiItem = new PaymentItem();
 
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -74,7 +74,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
                 string queryString = String.Format("USE QuanGymChuot " +
                                                    "SELECT B3.ID, B2.ID, B2.Name, B1.ID, B1.Name, B3.ComboRegDate, B3.ComboExpDate " +
-                                                   "FROM dbo.LichSuGiaoDich AS B3 " +
+                                                   "FROM dbo.QuanLyGiaoDich AS B3 " +
                                                    "INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID " +
                                                    "INNER JOIN dbo.GoiDichVu AS B1 ON B3.ComboID = B1.ID " +
                                                    "WHERE {0}", whereString);
@@ -103,7 +103,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 {
                     if (data != null)
                         data.Close();
-                    upiItem = new PaymentHistoryItem();
+                    upiItem = new PaymentItem();
                 }
             }
 
@@ -141,7 +141,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         {
             if (Account.CurrentAccount.Check().Completed)
             {
-                var cmd = new SqlCommand(String.Format("USE QuanGymChuot DELETE FROM LichSuGiaoDich WHERE ID = {0}", ID),
+                var cmd = new SqlCommand(String.Format("USE QuanGymChuot DELETE FROM QuanLyGiaoDich WHERE ID = {0}", ID),
                                          Connection.SqlConnect);
 
                 try
@@ -163,11 +163,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         {
             if (Account.CurrentAccount.Check().Completed)
             {
-                var comboPack = ComboPack.GetFirstObject(new Dictionary<string, string>() { { "Name", String.Format("N\'{0}\'", packageName) } });
+                var comboPack = PackManager.GetFirstObject(new Dictionary<string, string>() { { "Name", String.Format("N\'{0}\'", packageName) } });
                 var comboRegDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 var comboExpDate = DateTime.Now.AddDays(comboPack.DayCount).ToString("yyyy-MM-dd HH:mm:ss");
 
-                string command = String.Format("USE QuanGymChuot UPDATE LichSuGiaoDich SET ComboID = {0}, ComboRegDate = '{1}', ComboExpDate = '{2}' WHERE ID = {3}",
+                string command = String.Format("USE QuanGymChuot UPDATE QuanLyGiaoDich SET ComboID = {0}, ComboRegDate = '{1}', ComboExpDate = '{2}' WHERE ID = {3}",
                                                comboPack.ID, comboRegDate, comboExpDate, ID);
                 Console.WriteLine(command);
 

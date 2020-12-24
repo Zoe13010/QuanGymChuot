@@ -32,7 +32,6 @@ namespace QuanGymChuot.Library.Controls
             this.cbUserName = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAccept = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,6 +55,8 @@ namespace QuanGymChuot.Library.Controls
             // 
             // cbUserName
             // 
+            this.cbUserName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbUserName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbUserName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbUserName.Location = new System.Drawing.Point(201, 67);
@@ -66,8 +67,9 @@ namespace QuanGymChuot.Library.Controls
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(559, 449);
+            this.btnCancel.Location = new System.Drawing.Point(527, 392);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(102, 35);
             this.btnCancel.TabIndex = 37;
@@ -76,23 +78,14 @@ namespace QuanGymChuot.Library.Controls
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(451, 449);
+            this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAccept.Location = new System.Drawing.Point(419, 392);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(102, 35);
             this.btnAccept.TabIndex = 36;
             this.btnAccept.Text = "Create";
             this.btnAccept.UseVisualStyleBackColor = true;
             this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label7.Location = new System.Drawing.Point(28, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(224, 25);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "Create a new registration";
             // 
             // label8
             // 
@@ -132,6 +125,8 @@ namespace QuanGymChuot.Library.Controls
             // 
             // tbID
             // 
+            this.tbID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbID.BackColor = System.Drawing.Color.White;
             this.tbID.Location = new System.Drawing.Point(201, 31);
             this.tbID.Name = "tbID";
@@ -159,6 +154,8 @@ namespace QuanGymChuot.Library.Controls
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.tbCurComboPack);
@@ -171,15 +168,17 @@ namespace QuanGymChuot.Library.Controls
             this.groupBox1.Controls.Add(this.cbUserName);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.lbCurExpDay);
-            this.groupBox1.Location = new System.Drawing.Point(45, 66);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(616, 260);
+            this.groupBox1.Size = new System.Drawing.Size(617, 260);
             this.groupBox1.TabIndex = 42;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registration Information";
             // 
             // tbCurComboPack
             // 
+            this.tbCurComboPack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCurComboPack.BackColor = System.Drawing.Color.White;
             this.tbCurComboPack.Location = new System.Drawing.Point(201, 103);
             this.tbCurComboPack.Name = "tbCurComboPack";
@@ -216,13 +215,15 @@ namespace QuanGymChuot.Library.Controls
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.cbNewComboPack);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.lbNewExpDate);
-            this.groupBox2.Location = new System.Drawing.Point(45, 332);
+            this.groupBox2.Location = new System.Drawing.Point(12, 278);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(616, 111);
+            this.groupBox2.Size = new System.Drawing.Size(617, 108);
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Purchase and add new Combo Pack";
@@ -238,6 +239,8 @@ namespace QuanGymChuot.Library.Controls
             // 
             // cbNewComboPack
             // 
+            this.cbNewComboPack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNewComboPack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbNewComboPack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbNewComboPack.Items.AddRange(new object[] {
@@ -276,12 +279,11 @@ namespace QuanGymChuot.Library.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(709, 516);
+            this.ClientSize = new System.Drawing.Size(641, 439);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
-            this.Controls.Add(this.label7);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -290,13 +292,13 @@ namespace QuanGymChuot.Library.Controls
             this.Name = "Form_PaymentHistory";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "Form_CreatePayment";
             this.Load += new System.EventHandler(this.Form_UserPurPack_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -305,7 +307,6 @@ namespace QuanGymChuot.Library.Controls
         private System.Windows.Forms.ComboBox cbUserName;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAccept;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

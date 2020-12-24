@@ -9,7 +9,7 @@ namespace QuanGymChuot.Library.Controls
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private UserInfoItem uiItemOld, uiItemNew;
+        private UserItem uiItemOld, uiItemNew;
 
         public Form_UserInfo()
         {
@@ -29,7 +29,7 @@ namespace QuanGymChuot.Library.Controls
                 tbPhone.Text = uiItemOld.Phone;
                 lbRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", uiItemOld.RegDate);
 
-                label7.Text = "Edit user information";
+                this.Text = "View or edit user information";
                 btnAccept.Text = "Save";
             }
             else
@@ -38,6 +38,7 @@ namespace QuanGymChuot.Library.Controls
                 lbRegDate.Visible = false;
                 label8.Visible = false;
                 cbGender.SelectedIndex = 0;
+                this.Text = "Create new user information";
             }
         }
 
@@ -48,7 +49,7 @@ namespace QuanGymChuot.Library.Controls
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            uiItemNew = new UserInfoItem();
+            uiItemNew = new UserItem();
             uiItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
             uiItemNew.Gender = (cbGender.SelectedIndex == 0) ? true : false;
             uiItemNew.Phone = tbPhone.Text;

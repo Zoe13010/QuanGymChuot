@@ -76,9 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServer\Account.cs" />
     <Compile Include="SqlServer\Connection.cs" />
-    <Compile Include="SqlServer\DataFromTable\ComboPack.cs" />
+    <Compile Include="SqlServer\DataFromTable\PackManager.cs" />
     <Compile Include="SqlServer\DataFromTable\UserInfo.cs" />
-    <Compile Include="SqlServer\DataFromTable\PaymentHistory.cs" />
+    <Compile Include="SqlServer\DataFromTable\PaymentManager.cs" />
     <Compile Include="Others.cs" />
   </ItemGroup>
   <ItemGroup>
