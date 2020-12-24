@@ -13,8 +13,11 @@ Hãy xem nội dung này trên Wikipedia (tiếng Anh): https://en.wikipedia.org
 ## Lưu ý trước khi sử dụng repo này
 - Đảm bảo rằng bạn đã mở cổng TCP 1433 trên máy tính đang chạy repo này để chương trình hoạt động. Nếu bạn muốn kết nối SQL Server sử dụng chuỗi kết nối (Connection String) của bạn, hãy tìm và sửa giá trị tại login1.SqlConnectionString trong project QuanGymChuot.
 ## Tạo các bảng cần thiết trong SQL
-Về nội dung và đường dẫn tải xuống file về lệnh truy vấn trong SQL, hãy xem tại commit này:
-- 
+Về demo về data sử dụng cho chương trình, hãy xem tại file này:
+https://github.com/Zoe13010/QuanGymChuot/blob/experiment/SqlQuery/SqlQuery_CreateTempoaryData.sql
+- Chỉ cần mở file và chạy.
+  - Nếu chưa có database QuanGymChuot, nó sẽ tự động tạo một cái mới.
+  - Nếu đã có database QuanGymChuot, nó sẽ xóa cái cũ và tạo một cái mới.
 ## Tiến độ công việc trong Project QuanGymChuot
 - Cơ bản:
   - [x] Control đăng nhập
