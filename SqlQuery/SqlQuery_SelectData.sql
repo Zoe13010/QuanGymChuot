@@ -39,6 +39,7 @@ SELECT B3.ID AS PaymentID,
 FROM dbo.QuanLyGiaoDich AS B3
 INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID
 INNER JOIN dbo.GoiDichVu AS B1 ON B3.PackID = B1.ID
+ORDER BY B3.PackRegDate DESC
 GO
 
 USE QuanGymChuot UPDATE QuanLyGiaoDich SET UserID = 1, PackID = 2 WHERE UserID = 1
