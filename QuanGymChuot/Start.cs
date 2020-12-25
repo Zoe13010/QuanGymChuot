@@ -19,7 +19,7 @@ namespace QuanGymChuot
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unexpected error has occured!\nPlease send report to developer to improve app.\n\nError message:\n" + ex.Message,
+                MessageBox.Show("Unexpected error has occured and the program will close.\nPlease send report to developer to improve app.\nThanks for your help!\n\nError message:\n" + ex.Message,
                                 "Quán Gym Chuột", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

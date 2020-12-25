@@ -107,22 +107,34 @@ namespace QuanGymChuot.Library.SqlServer
         /// <param name="passwordMD5">Mat khau</param>
         public static Result LogIn(string userName, string passwordMD5)
         {
-            var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT Password FROM ThongTinDangNhap WHERE Username = \'{0}\'", userName),
-                                     Library.SqlServer.Connection.SqlConnect);
+            var cmd = new SqlCommand(String.Format("USE QuanGymChuot SELECT Password, Enabled FROM ThongTinDangNhap WHERE Username = \'{0}\'", userName), Library.SqlServer.Connection.SqlConnect);
             try
             {
-                string pwdMD5Ex = (string)cmd.ExecuteScalar();
+                string pwdMD5Ex = null;
+                bool canlogin = false;
+                var result = cmd.ExecuteReader();
+
+                while (result.Read())
+                {
+                    pwdMD5Ex = result.GetString(0);
+                    canlogin = result.GetBoolean(1);
+                    break;
+                }
+                result.Close();
                 cmd.Dispose();
 
                 if (pwdMD5Ex == null)
                     return new Result() { Completed = false, Message = String.Format("{0} was not exist!\nCheck your login and try again.", userName) };
                 if (pwdMD5Ex == passwordMD5)
                 {
-                    CurrentAccount.Set(userName, passwordMD5);
-                    return new Result() { Completed = true };
+                    if (canlogin)
+                    {
+                        CurrentAccount.Set(userName, passwordMD5);
+                        return new Result() { Completed = true };
+                    }
+                    else return new Result() { Completed = false, Message = String.Format("You do not have premission to login!\nContact your system administrator for details.") };
                 }
-                else
-                    return new Result() { Completed = false, Message = String.Format("Password was incorrent!\nCheck your login and try again.") };
+                else return new Result() { Completed = false, Message = String.Format("Password was incorrent!\nCheck your login and try again.") };
 
             }
             catch (Exception ex)
