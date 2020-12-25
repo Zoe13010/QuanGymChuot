@@ -28,6 +28,23 @@ namespace QuanGymChuot.Library
             };
         }
     }
+
+    public class ListViewFindEventArgs : EventArgs
+    {
+        private string findText = null;
+
+        public ListViewFindEventArgs() { }
+
+        public string FindText
+        {
+            get { return findText; }
+            set
+            {
+                if (findText != value)
+                    findText = value;
+            }
+        }
+    }
 }
 
 namespace QuanGymChuot.Library

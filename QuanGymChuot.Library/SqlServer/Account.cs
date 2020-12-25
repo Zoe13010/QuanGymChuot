@@ -125,7 +125,7 @@ namespace QuanGymChuot.Library.SqlServer
 
                 if (pwdMD5Ex == null)
                     return new Result() { Completed = false, Message = String.Format("{0} was not exist!\nCheck your login and try again.", userName) };
-                if (pwdMD5Ex == passwordMD5)
+                else if (pwdMD5Ex == passwordMD5)
                 {
                     if (canlogin)
                     {
@@ -139,12 +139,12 @@ namespace QuanGymChuot.Library.SqlServer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Error while logging in your account!\nTry again after few minutes or check log below.\n\nMessage:\n{0}", ex.Message),
+                MessageBox.Show(String.Format("Error while logging in your account!\nTry again after a few minutes or check log below.\n\nMessage:\n{0}", ex.Message),
                                 "Quán Gym Chuột",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                 cmd.Dispose();
-                return new Result() { Completed = false, Message = "Error while logging in your account!\nTry again after few minutes." };
+                return new Result() { Completed = false, Message = "Error while logging in your account!\nTry again after a few minutes." };
             }
         }
 

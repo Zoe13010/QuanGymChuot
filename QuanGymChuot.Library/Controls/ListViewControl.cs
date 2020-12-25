@@ -98,7 +98,7 @@ namespace QuanGymChuot.Library.Controls
         /// </summary>
         public event EventHandler RequestEdit;
 
-        public event EventHandler RequestFind;
+        public event EventHandler<ListViewFindEventArgs> RequestFind;
 
         /// <summary>
         /// Xóa mọi thứ trong Control ListView.
@@ -201,7 +201,7 @@ namespace QuanGymChuot.Library.Controls
         private void btnFind_Click(object sender, EventArgs e)
         {
             if (RequestFind != null)
-                RequestFind(this, new EventArgs());
+                RequestFind(this, new ListViewFindEventArgs() { FindText = tbFind.Text });
         }
     }
 }

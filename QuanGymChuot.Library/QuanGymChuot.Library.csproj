@@ -43,12 +43,6 @@
     <Compile Include="Controls\Form_ChangePass.Designer.cs">
       <DependentUpon>Form_ChangePass.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Form_Find.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\Form_Find.Designer.cs">
-      <DependentUpon>Form_Find.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Form_ManageUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,9 +81,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Form_ChangePass.resx">
       <DependentUpon>Form_ChangePass.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Form_Find.resx">
-      <DependentUpon>Form_Find.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Form_ManageUser.resx">
       <DependentUpon>Form_ManageUser.cs</DependentUpon>
