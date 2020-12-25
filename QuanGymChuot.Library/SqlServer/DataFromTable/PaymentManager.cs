@@ -54,16 +54,16 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return result;
         }
 
-        public static PaymentItem GetFirstObject(Dictionary<string, string> query)
+        public static List<PaymentItem> GetObjects(Dictionary<string, string> query)
         {
-            PaymentItem upiItem = new PaymentItem();
+            List<PaymentItem> upiItem = new List<PaymentItem>();
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                bool first = false;
-                string whereString = "";
                 SqlDataReader data = null;
 
+                bool first = false;
+                string whereString = "";
                 foreach (KeyValuePair<string, string> kvp in query)
                 {
                     if (!first)
@@ -80,7 +80,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                                                    "INNER JOIN dbo.GoiDichVu AS B1 ON B3.PackID = B1.ID " +
                                                    "WHERE {0}", whereString);
 
-                var sqlCommand = new SqlCommand(queryString, Connection.SqlConnect);
+                SqlCommand sqlCommand = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {
@@ -88,15 +88,16 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
                     while (data.Read())
                     {
-                        upiItem.ID = data.IsDBNull(0) ? 0 : data.GetInt32(0);
-                        upiItem.UserID = data.IsDBNull(1) ? 0 : data.GetInt32(1);
-                        upiItem.UserName = data.IsDBNull(2) ? null : data.GetString(2);
-                        upiItem.PackID = data.IsDBNull(3) ? 0 : data.GetInt32(3);
-                        upiItem.PackName = data.IsDBNull(4) ? null : data.GetString(4);
-                        upiItem.PackRegDate = data.IsDBNull(5) ? new DateTime() : data.GetDateTime(5);
-                        upiItem.PackExpDate = data.IsDBNull(6) ? new DateTime() : data.GetDateTime(6);
-                        upiItem.Note = data.IsDBNull(7) ? null : data.GetString(7);
-                        break;
+                        var dataPart = new PaymentItem();
+                        dataPart.ID = data.IsDBNull(0) ? 0 : data.GetInt32(0);
+                        dataPart.UserID = data.IsDBNull(1) ? 0 : data.GetInt32(1);
+                        dataPart.UserName = data.IsDBNull(2) ? null : data.GetString(2);
+                        dataPart.PackID = data.IsDBNull(3) ? 0 : data.GetInt32(3);
+                        dataPart.PackName = data.IsDBNull(4) ? null : data.GetString(4);
+                        dataPart.PackRegDate = data.IsDBNull(5) ? new DateTime() : data.GetDateTime(5);
+                        dataPart.PackExpDate = data.IsDBNull(6) ? new DateTime() : data.GetDateTime(6);
+                        dataPart.Note = data.IsDBNull(7) ? null : data.GetString(7);
+                        upiItem.Add(dataPart);
                     }
 
                     data.Close();
@@ -105,7 +106,61 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 {
                     if (data != null)
                         data.Close();
-                    upiItem = new PaymentItem();
+                    upiItem = new List<PaymentItem>();
+                }
+            }
+
+            return upiItem;
+        }
+
+        public static PaymentItem GetFirstObject(Dictionary<string, string> query)
+        {
+            return GetObjects(query)[0];
+        }
+
+        public static List<PaymentItem> FindObjectsByName(string name)
+        {
+            List<PaymentItem> upiItem = new List<PaymentItem>();
+
+            if (Account.CurrentAccount.Check().Completed)
+            {
+                SqlDataReader data = null;
+
+                string queryString = String.Format("USE QuanGymChuot " +
+                                                   "SELECT B3.ID AS PaymentID, B2.ID AS UserID, B2.Name AS UserName, B1.ID AS PackID, B1.Name AS PackName, B3.PackRegDate AS PackRegDate, B3.PackExpDate AS PackExpDate, B3.Note AS Note " +
+                                                   "FROM dbo.QuanLyGiaoDich AS B3 " +
+                                                   "INNER JOIN dbo.ThongTinNguoiDung AS B2 ON B3.UserID = B2.ID " +
+                                                   "INNER JOIN dbo.GoiDichVu AS B1 ON B3.PackID = B1.ID " +
+                                                   "WHERE B2.Name LIKE N\'%{0}%\' " +
+                                                   "ORDER BY B3.PackRegDate DESC", name);
+
+                SqlCommand sqlCommand = new SqlCommand(queryString, Connection.SqlConnect);
+
+                try
+                {
+                    data = sqlCommand.ExecuteReader();
+
+                    while (data.Read())
+                    {
+                        var dataPart = new PaymentItem();
+                        dataPart.ID = data.IsDBNull(0) ? 0 : data.GetInt32(0);
+                        dataPart.UserID = data.IsDBNull(1) ? 0 : data.GetInt32(1);
+                        dataPart.UserName = data.IsDBNull(2) ? null : data.GetString(2);
+                        dataPart.PackID = data.IsDBNull(3) ? 0 : data.GetInt32(3);
+                        dataPart.PackName = data.IsDBNull(4) ? null : data.GetString(4);
+                        dataPart.PackRegDate = data.IsDBNull(5) ? new DateTime() : data.GetDateTime(5);
+                        dataPart.PackExpDate = data.IsDBNull(6) ? new DateTime() : data.GetDateTime(6);
+                        dataPart.Note = data.IsDBNull(7) ? null : data.GetString(7);
+                        upiItem.Add(dataPart);
+                    }
+
+                    data.Close();
+                }
+                catch
+                {
+                    if (data != null)
+                        data.Close();
+                    upiItem = new List<PaymentItem>();
                 }
             }
 

@@ -139,12 +139,62 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Lấy gói dịch vụ đầu tiên của bảng ComboPack theo truy vấn tìm kiếm.
+        /// TODO: Comment here!
         /// </summary>
-        /// <param name="query">Truy vấn tìm kiếm gói dịch vụ cần lấy</param>
-        public static PackItem GetFirstObject(Dictionary<string, string> query)
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static List<PackItem> FindObjectsByName(string name)
         {
-            PackItem cpitem = new PackItem();
+            List<PackItem> result = null;
+
+            if (Account.CurrentAccount.Check().Completed)
+            {
+                SqlDataReader data = null;
+
+                var queryString = String.Format("USE QuanGymChuot SELECT * FROM GoiDichVu WHERE Name LIKE N\'%{0}%\'", name);
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
+
+                try
+                {
+                    data = cmd.ExecuteReader();
+                    result = new List<PackItem>();
+
+                    while (data.Read())
+                    {
+                        var dataPart = new PackItem();
+                        dataPart.ID = data.IsDBNull(0) ? 0 : data.GetInt32(0);
+                        dataPart.Name = data.IsDBNull(1) ? null : data.GetString(1);
+                        dataPart.Price = data.IsDBNull(2) ? 0 : data.GetInt64(2);
+                        dataPart.DayCount = data.IsDBNull(3) ? 0 : data.GetInt64(3);
+                        dataPart.Info = data.IsDBNull(4) ? null : data.GetString(4);
+                        dataPart.CanUse = data.IsDBNull(5) ? false : data.GetBoolean(5);
+                        dataPart.AddedDate = data.IsDBNull(6) ? new DateTime() : data.GetDateTime(6);
+
+                        result.Add(dataPart);
+                    }
+
+                    data.Close();
+                    return result;
+                }
+                catch
+                {
+                    if (data != null)
+                        data.Close();
+                    result = null;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// TODO: Comment here!
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static List<PackItem> GetObjects(Dictionary<string,string> query)
+        {
+            List<PackItem> result = null;
 
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -152,7 +202,6 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
                 bool first = false;
                 string whereString = "";
-
                 foreach (KeyValuePair<string, string> kvp in query)
                 {
                     if (!first)
@@ -168,30 +217,44 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 try
                 {
                     data = cmd.ExecuteReader();
+                    result = new List<PackItem>();
 
                     while (data.Read())
                     {
-                        cpitem.ID = data.GetInt32(0);
-                        cpitem.Name = data.IsDBNull(1) ? null : data.GetString(1);
-                        cpitem.Price = data.GetInt64(2);
-                        cpitem.DayCount = data.GetInt64(3);
-                        cpitem.Info = data.IsDBNull(4) ? null : data.GetString(4);
-                        cpitem.CanUse = data.GetBoolean(5);
-                        cpitem.AddedDate = data.GetDateTime(6);
-                        break;
+                        var dataPart = new PackItem();
+                        dataPart.ID = data.GetInt32(0);
+                        dataPart.Name = data.IsDBNull(1) ? null : data.GetString(1);
+                        dataPart.Price = data.GetInt64(2);
+                        dataPart.DayCount = data.GetInt64(3);
+                        dataPart.Info = data.IsDBNull(4) ? null : data.GetString(4);
+                        dataPart.CanUse = data.GetBoolean(5);
+                        dataPart.AddedDate = data.GetDateTime(6);
+
+                        result.Add(dataPart);
                     }
 
                     data.Close();
+                    return result;
                 }
                 catch
                 {
                     if (data != null)
                         data.Close();
-                    cpitem = new PackItem();
+                    result = null;
                 }
             }
 
-            return cpitem;
+            return result;
+        }
+
+
+        /// <summary>
+        /// Lấy gói dịch vụ đầu tiên của bảng ComboPack theo truy vấn tìm kiếm.
+        /// </summary>
+        /// <param name="query">Truy vấn tìm kiếm gói dịch vụ cần lấy</param>
+        public static PackItem GetFirstObject(Dictionary<string, string> query)
+        {
+            return GetObjects(query)[0];
         }
 
         /// <summary>

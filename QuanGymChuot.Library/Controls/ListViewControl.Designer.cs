@@ -36,7 +36,7 @@ namespace QuanGymChuot.Library.Controls
             this.btnDelete = new System.Windows.Forms.Button();
             this.listView = new System.Windows.Forms.ListView();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnFind = new System.Windows.Forms.Button();
+            this.btnFindByName = new System.Windows.Forms.Button();
             this.tbFind = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -131,17 +131,17 @@ namespace QuanGymChuot.Library.Controls
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // btnFind
+            // btnFindByName
             // 
-            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnFind.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F);
-            this.btnFind.Location = new System.Drawing.Point(314, 391);
-            this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(31, 31);
-            this.btnFind.TabIndex = 6;
-            this.btnFind.Text = "";
-            this.btnFind.UseVisualStyleBackColor = true;
-            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+            this.btnFindByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFindByName.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F);
+            this.btnFindByName.Location = new System.Drawing.Point(314, 391);
+            this.btnFindByName.Name = "btnFindByName";
+            this.btnFindByName.Size = new System.Drawing.Size(31, 31);
+            this.btnFindByName.TabIndex = 6;
+            this.btnFindByName.Text = "";
+            this.btnFindByName.UseVisualStyleBackColor = true;
+            this.btnFindByName.Click += new System.EventHandler(this.btnFindByName_Click);
             // 
             // tbFind
             // 
@@ -152,6 +152,7 @@ namespace QuanGymChuot.Library.Controls
             this.tbFind.Name = "tbFind";
             this.tbFind.Size = new System.Drawing.Size(187, 31);
             this.tbFind.TabIndex = 7;
+            this.tbFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFind_KeyDown);
             // 
             // label2
             // 
@@ -170,7 +171,7 @@ namespace QuanGymChuot.Library.Controls
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbFind);
-            this.Controls.Add(this.btnFind);
+            this.Controls.Add(this.btnFindByName);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnRefresh);
@@ -196,7 +197,7 @@ namespace QuanGymChuot.Library.Controls
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnFind;
+        private System.Windows.Forms.Button btnFindByName;
         private System.Windows.Forms.TextBox tbFind;
         private System.Windows.Forms.Label label2;
     }

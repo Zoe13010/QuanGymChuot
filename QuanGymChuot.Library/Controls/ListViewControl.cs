@@ -78,6 +78,11 @@ namespace QuanGymChuot.Library.Controls
             }
         }
 
+        public string QueryNameString
+        {
+            get { return tbFind.Text; }
+        }
+
         /// <summary>
         /// Sẽ chạy khi yêu cầu tạo một dữ liệu mới.
         /// </summary>
@@ -98,7 +103,10 @@ namespace QuanGymChuot.Library.Controls
         /// </summary>
         public event EventHandler RequestEdit;
 
-        public event EventHandler<ListViewFindEventArgs> RequestFind;
+        /// <summary>
+        /// TODO: Comment here!
+        /// </summary>
+        public event EventHandler RequestFindByName;
 
         /// <summary>
         /// Xóa mọi thứ trong Control ListView.
@@ -188,6 +196,12 @@ namespace QuanGymChuot.Library.Controls
             RefreshButtonState();
         }
 
+        public void ClearFindQuery()
+        {
+            if (tbFind.InvokeRequired) tbFind.Invoke((MethodInvoker)delegate { ClearFindQuery(); });
+            else tbFind.Clear();
+        }
+
         /// <summary>
         /// Làm mới/kiểm tra điều kiện để bật/tắt các nút.
         /// </summary>
@@ -198,10 +212,16 @@ namespace QuanGymChuot.Library.Controls
             btnDelete.Enabled = (lv.SelectedItems.Count > 0);
         }
 
-        private void btnFind_Click(object sender, EventArgs e)
+        private void btnFindByName_Click(object sender, EventArgs e)
         {
-            if (RequestFind != null)
-                RequestFind(this, new ListViewFindEventArgs() { FindText = tbFind.Text });
+            if (RequestFindByName != null)
+                RequestFindByName(this, new EventArgs());
+        }
+
+        private void tbFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnFindByName_Click(btnFindByName, new EventArgs());
         }
     }
 }

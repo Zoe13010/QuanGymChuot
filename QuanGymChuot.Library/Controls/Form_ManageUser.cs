@@ -25,7 +25,7 @@ namespace QuanGymChuot.Library.Controls
 
                 tbID.Text = uiItemOld.ID.ToString();
                 tbName.Text = uiItemOld.Name;
-                cbGender.SelectedIndex = (!uiItemOld.Gender) ? 1 : 0;
+                cbGender.SelectedIndex = (uiItemOld.Gender) ? 1 : 0;
                 tbPhone.Text = uiItemOld.Phone;
                 lbRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", uiItemOld.RegDate);
 
@@ -51,20 +51,24 @@ namespace QuanGymChuot.Library.Controls
         {
             uiItemNew = new UserItem();
             uiItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
-            uiItemNew.Gender = (cbGender.SelectedIndex == 0) ? true : false;
+            uiItemNew.Gender = (cbGender.SelectedIndex == 1) ? true : false;
             uiItemNew.Phone = tbPhone.Text;
 
+            bool successful = false;
             if (CreateMode)
             {
-                UserInfo.Create(uiItemNew);
+                successful = UserInfo.Create(uiItemNew);
             }
             else
             {
-                UserInfo.Change(new Dictionary<string, string>() { { "ID", ID.ToString() } }, uiItemNew); ;
+                successful = UserInfo.Change(new Dictionary<string, string>() { { "ID", ID.ToString() } }, uiItemNew); ;
             }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (successful)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }

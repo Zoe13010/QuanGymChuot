@@ -54,16 +54,16 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static UserItem GetFirstObject(Dictionary<string, string> query)
+        public static List<UserItem> GetObjects(Dictionary<string, string> query)
         {
-            UserItem uiitem = new UserItem();
+            List<UserItem> result = null;
 
             if (Account.CurrentAccount.Check().Completed)
             {
-                bool first = false;
-                string whereString = "";
                 SqlDataReader data = null;
 
+                bool first = false;
+                string whereString = "";
                 foreach (KeyValuePair<string, string> kvp in query)
                 {
                     if (!first)
@@ -74,21 +74,23 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 }
 
                 string queryString = String.Format("USE QuanGymChuot SELECT * FROM ThongTinNguoiDung WHERE {0}", whereString);
-
                 var cmd = new SqlCommand(queryString, Connection.SqlConnect);
 
                 try
                 {
                     data = cmd.ExecuteReader();
+                    result = new List<UserItem>();
 
                     while (data.Read())
                     {
-                        uiitem.ID = data.GetInt32(0);
-                        uiitem.Name = data.IsDBNull(1) ? null : data.GetString(1);
-                        uiitem.Gender = data.GetBoolean(2);
-                        uiitem.Phone = data.GetString(3);
-                        uiitem.RegDate = data.GetDateTime(4);
-                        break;
+                        var dataPart = new UserItem();
+                        dataPart.ID = data.GetInt32(0);
+                        dataPart.Name = data.GetString(1);
+                        dataPart.Gender = data.GetBoolean(2);
+                        dataPart.Phone = data.GetString(3);
+                        dataPart.RegDate = data.GetDateTime(4);
+
+                        result.Add(dataPart);
                     }
 
                     data.Close();
@@ -97,11 +99,66 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 {
                     if (data != null)
                         data.Close();
-                    uiitem = new UserItem();
+                    result = null;
                 }
             }
 
-            return uiitem;
+            return result;
+        }
+
+        /// <summary>
+        /// TODO: Comment here!
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static UserItem GetFirstObject(Dictionary<string, string> query)
+        {
+            return GetObjects(query)[0];
+        }
+
+        /// <summary>
+        /// TODO: Comment here!
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static List<UserItem> FindObjectsByName(string name)
+        {
+            List<UserItem> result = null;
+
+            if (Account.CurrentAccount.Check().Completed)
+            {
+                SqlDataReader data = null;
+                string queryString = String.Format("USE QuanGymChuot SELECT * FROM ThongTinNguoiDung WHERE NAME LIKE N\'%{0}%\'", name);
+                var cmd = new SqlCommand(queryString, Connection.SqlConnect);
+
+                try
+                {
+                    data = cmd.ExecuteReader();
+                    result = new List<UserItem>();
+
+                    while (data.Read())
+                    {
+                        var dataPart = new UserItem();
+                        dataPart.ID = data.GetInt32(0);
+                        dataPart.Name = data.GetString(1);
+                        dataPart.Gender = data.GetBoolean(2);
+                        dataPart.Phone = data.GetString(3);
+                        dataPart.RegDate = data.GetDateTime(4);
+
+                        result.Add(dataPart);
+                    }
+
+                    data.Close();
+                }
+                catch
+                {
+                    if (data != null)
+                        data.Close();
+                    result = null;
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -109,7 +166,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         /// </summary>
         /// <param name="query">Các truy vấn để tìm kiếm</param>
         /// <param name="newUserInfo">Giá trị sẽ thay đổi vào thông tin người dùng tìm được trong truy vấn đó</param>
-        public static void Change(Dictionary<string, string> query, UserItem newUserInfo)
+        public static bool Change(Dictionary<string, string> query, UserItem newUserInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -137,6 +194,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 try
                 {
                     int result = cmd.ExecuteNonQuery();
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -145,15 +203,17 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                                     "Quán Gym Chuột",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning);
+                    return false;
                 }
             }
+            else return false;
         }
 
         /// <summary>
         /// Tạo một người dùng mới vào bảng UserInfo.
         /// </summary>
         /// <param name="newUserInfo">Thông tin người dùng mới</param>
-        public static void Create(UserItem newUserInfo)
+        public static bool Create(UserItem newUserInfo)
         {
             if (Account.CurrentAccount.Check().Completed)
             {
@@ -168,6 +228,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                 try
                 {
                     int result = cmd.ExecuteNonQuery();
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -176,8 +237,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                                     "Quán Gym Chuột",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning);
+                    return false;
                 }
             }
+            else return false;
         }
 
         /// <summary>

@@ -58,7 +58,7 @@ namespace QuanGymChuot
         private void bwInitListView_DoWork(object sender, DoWorkEventArgs e)
         {
             ChangePanelAccount(false, "Executing query...");
-            LoadDataFromComboPack();
+            LoadDataFromGymPackItems();
             LoadDataFromUserInfo();
             LoadDataFromPaymentManager();
         }
@@ -69,7 +69,7 @@ namespace QuanGymChuot
         /// </summary>
         private void bwInitListView_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            // TODO: COMMENT HERE!
+            // TODO: Comment here!
             ChangePanelAccount(true, String.Format("Logged in as {0}!", Account.CurrentAccount.UserName));
             // Ẩn Control đăng nhập.
             login1.Hide();
@@ -78,36 +78,70 @@ namespace QuanGymChuot
         }
 
         /// <summary>
-        /// Lấy dữ liệu từ bảng ComboPack.
+        /// Thay đổi hiển thị của panel Tài khoản.
         /// </summary>
-        private void LoadDataFromComboPack()
+        /// <param name="btnEnabled">Bật/Tắt nút.</param>
+        /// <param name="lbStatusText">Văn bản cần đổi.</param>
+        private void ChangePanelAccount(bool btnEnabled, string lbStatusText)
         {
-            if (tabPagePackInfo.InvokeRequired) tabPagePackInfo.Invoke((MethodInvoker)delegate { LoadDataFromComboPack(); });
+            if (pStatus.InvokeRequired) pStatus.Invoke((MethodInvoker)delegate { ChangePanelAccount(btnEnabled, lbStatusText); });
             else
             {
-                lvcPackManager.ClearAll();
-                lvcPackManager.ListView.Columns.Add("ID", 48);
-                lvcPackManager.ListView.Columns.Add("Name", 182);
-                lvcPackManager.ListView.Columns.Add("Price (VND)", 86);
-                lvcPackManager.ListView.Columns.Add("Days", 64);
-                lvcPackManager.ListView.Columns.Add("Can use?", 72);
-                lvcPackManager.ListView.Columns.Add("Added Date", 156);
-                lvcPackManager.ListView.Columns.Add("Info", 284);
+                btnChangePass.Visible = btnEnabled;
+                btnLogout.Visible = btnEnabled;
+                lbStatus.Text = lbStatusText;
+            }
+        }
 
-                foreach (PackItem cpitem in PackManager.GetAll())
-                {
-                    string[] s = new string[]
+        /// <summary>
+        /// Event khi đóng Form.
+        /// Ngắt kết nối khỏi SQL Server trước khi thoát chương trình.
+        /// </summary>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Connection.Disconnect();
+        }
+
+        #region Load Data from SQL Server
+        /// <summary>
+        /// Lấy dữ liệu từ bảng ComboPack.
+        /// </summary>
+        private void LoadDataFromGymPackItems()
+        {
+            if (tabPagePackInfo.InvokeRequired) tabPagePackInfo.Invoke((MethodInvoker)delegate { LoadDataFromGymPackItems(); });
+            else
+            {
+                lvcGymPackageManager.ClearAll();
+                lvcGymPackageManager.ListView.Columns.Add("ID", 48);
+                lvcGymPackageManager.ListView.Columns.Add("Name", 182);
+                lvcGymPackageManager.ListView.Columns.Add("Price (VND)", 86);
+                lvcGymPackageManager.ListView.Columns.Add("Days", 64);
+                lvcGymPackageManager.ListView.Columns.Add("Can use?", 72);
+                lvcGymPackageManager.ListView.Columns.Add("Added Date", 156);
+                lvcGymPackageManager.ListView.Columns.Add("Info", 284);
+
+                List<PackItem> packItem = null;
+
+                if (lvcGymPackageManager.QueryNameString == null)
+                    packItem = PackManager.GetAll();
+                else
+                    packItem = PackManager.FindObjectsByName(lvcGymPackageManager.QueryNameString);
+
+                if (packItem != null)
+                    foreach (PackItem cpitem in packItem)
                     {
-                        cpitem.ID.ToString(),
-                        cpitem.Name,
-                        cpitem.Price.ToString(),
-                        cpitem.DayCount.ToString(),
-                        cpitem.CanUse ? "Yes" : "No",
-                        cpitem.AddedDate.ToString(),
-                        cpitem.Info != null ? cpitem.Info : "(no information)"
-                    };
-                    lvcPackManager.ListView.Items.Add(new ListViewItem(s));
-                }
+                        string[] s = new string[]
+                        {
+                            cpitem.ID.ToString(),
+                            cpitem.Name,
+                            cpitem.Price.ToString(),
+                            cpitem.DayCount.ToString(),
+                            cpitem.CanUse ? "Yes" : "No",
+                            cpitem.AddedDate.ToString(),
+                            cpitem.Info != null ? cpitem.Info : "(no information)"
+                        };
+                        lvcGymPackageManager.ListView.Items.Add(new ListViewItem(s));
+                    }
             }
         }
 
@@ -126,18 +160,25 @@ namespace QuanGymChuot
                 lvcUserInfo.ListView.Columns.Add("Phone", 100);
                 lvcUserInfo.ListView.Columns.Add("Registration Date", 156);
 
-                foreach (UserItem uiitem in UserInfo.GetAll())
-                {
-                    string[] s = new string[]
+                List<UserItem> userItems = null;
+                if (lvcUserInfo.QueryNameString == null)
+                    userItems = UserInfo.GetAll();
+                else
+                    userItems = UserInfo.FindObjectsByName(lvcUserInfo.QueryNameString);
+
+                if (userItems != null)
+                    foreach (UserItem uiitem in userItems)
                     {
-                        uiitem.ID.ToString(),
-                        uiitem.Name,
-                        uiitem.Gender ? "Male" : "Female",
-                        uiitem.Phone,
-                        uiitem.RegDate.ToString()
-                    };
-                    lvcUserInfo.ListView.Items.Add(new ListViewItem(s));
-                }
+                        string[] s = new string[]
+                        {
+                            uiitem.ID.ToString(),
+                            uiitem.Name,
+                            uiitem.Gender ? "Female" : "Male",
+                            uiitem.Phone,
+                            uiitem.RegDate.ToString()
+                        };
+                        lvcUserInfo.ListView.Items.Add(new ListViewItem(s));
+                    }
             }
         }
 
@@ -157,46 +198,30 @@ namespace QuanGymChuot
                 lvcPaymentManager.ListView.Columns.Add("Expired in", 156);
                 lvcPaymentManager.ListView.Columns.Add("System Note", 318);
 
-                foreach (PaymentItem upiitem in PaymentManager.GetAll())
-                {
-                    string[] s = new string[]
+                List<PaymentItem> payItems = null;
+
+                if (lvcPaymentManager.QueryNameString == null)
+                    payItems = PaymentManager.GetAll();
+                else
+                    payItems = PaymentManager.FindObjectsByName(lvcPaymentManager.QueryNameString);
+
+                if (payItems != null)
+                    foreach (PaymentItem upiitem in payItems)
                     {
-                        upiitem.ID.ToString(),
-                        upiitem.UserName,
-                        upiitem.PackName,
-                        upiitem.PackRegDate.ToString(),
-                        (upiitem.PackExpDate > DateTime.Now) ? upiitem.PackExpDate.ToString() : "Expired",
-                        upiitem.Note
-                    };
-                    lvcPaymentManager.ListView.Items.Add(new ListViewItem(s));
-                }
+                        string[] s = new string[]
+                        {
+                            upiitem.ID.ToString(),
+                            upiitem.UserName,
+                            upiitem.PackName,
+                            upiitem.PackRegDate.ToString(),
+                            (upiitem.PackExpDate > DateTime.Now) ? upiitem.PackExpDate.ToString() : "Expired",
+                            upiitem.Note
+                        };
+                        lvcPaymentManager.ListView.Items.Add(new ListViewItem(s));
+                    }
             }
         }
-
-        /// <summary>
-        /// Thay đổi hiển thị của panel Tài khoản.
-        /// </summary>
-        /// <param name="btnEnabled">Bật/Tắt nút.</param>
-        /// <param name="lbStatusText">Văn bản cần đổi.</param>
-        private void ChangePanelAccount(bool btnEnabled, string lbStatusText)
-        {
-            if (pnStatus.InvokeRequired) pnStatus.Invoke((MethodInvoker)delegate { ChangePanelAccount(btnEnabled, lbStatusText); });
-            else
-            {
-                btnChangePass.Visible = btnEnabled;
-                btnLogout.Visible = btnEnabled;
-                lbStatus.Text = lbStatusText;
-            }
-        }
-
-        /// <summary>
-        /// Event khi đóng Form.
-        /// Ngắt kết nối khỏi SQL Server trước khi thoát chương trình.
-        /// </summary>
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Connection.Disconnect();
-        }
+        #endregion
 
         #region Account Panel
         private void btnChangePass_Click(object sender, EventArgs e)
@@ -214,7 +239,7 @@ namespace QuanGymChuot
             // Ngắt kết nối hiện tại.
             Connection.Disconnect();
             // Xóa toàn bộ dữ liệu trên ListView.
-            lvcPackManager.ClearAll();
+            lvcGymPackageManager.ClearAll();
             lvcUserInfo.ClearAll();
             lvcPaymentManager.ClearAll();
             // Kết nối lại đến server để đăng nhập.
@@ -222,8 +247,8 @@ namespace QuanGymChuot
         }
         #endregion
 
-        #region Package Info panel
-        private void lvcComboPack_RequireForm(bool createMode = true, int ID = 0)
+        #region Gym Package Items panel
+        private void lvcGymPackageManager_RequireForm(bool createMode = true, int ID = 0)
         {
             Form_ManagePack form = new Form_ManagePack();
             form.CreateMode = createMode;
@@ -233,22 +258,22 @@ namespace QuanGymChuot
 
             if (form.ShowDialog() == DialogResult.OK)
                 bwInitListView.RunWorkerAsync();
-            else lvcPackManager.ListView.Focus();
+            else lvcGymPackageManager.ListView.Focus();
         }
 
-        private void lvcComboPack_RequestCreate(object sender, EventArgs e)
+        private void lvcGymPackageManager_RequestCreate(object sender, EventArgs e)
         {
-            lvcComboPack_RequireForm(true);
+            lvcGymPackageManager_RequireForm(true);
         }
 
-        private void lvcComboPack_RequestEdit(object sender, EventArgs e)
+        private void lvcGymPackageManager_RequestEdit(object sender, EventArgs e)
         {
             int idTemp;
-            int.TryParse(lvcPackManager.ListView.SelectedItems[0].Text, out idTemp);
-            lvcComboPack_RequireForm(false, idTemp);
+            int.TryParse(lvcGymPackageManager.ListView.SelectedItems[0].Text, out idTemp);
+            lvcGymPackageManager_RequireForm(false, idTemp);
         }
 
-        private void lvcComboPack_RequestDelete(object sender, EventArgs e)
+        private void lvcGymPackageManager_RequestDelete(object sender, EventArgs e)
         {
             ListViewControl lv = (ListViewControl)sender;
             for (int i = 0; i < lv.SelectedItemCount; i++)
@@ -261,10 +286,16 @@ namespace QuanGymChuot
             bwInitListView.RunWorkerAsync();
         }
 
-        private void lvcComboPack_RequestRefresh(object sender, EventArgs e)
+        private void lvcGymPackageManager_RequestRefresh(object sender, EventArgs e)
         {
-            lvcPackManager.ClearAll();
-            LoadDataFromComboPack();
+            lvcGymPackageManager.ClearFindQuery();
+            lvcGymPackageManager.ClearAll();
+            LoadDataFromGymPackItems();
+        }
+
+        private void lvcGymPackageManager_RequestFindByName(object sender, EventArgs e)
+        {
+            LoadDataFromGymPackItems();
         }
         #endregion
 
@@ -285,6 +316,12 @@ namespace QuanGymChuot
         private void lvcUserInfo_RequestRefresh(object sender, EventArgs e)
         {
             lvcUserInfo.ClearAll();
+            lvcUserInfo.ClearFindQuery();
+            LoadDataFromUserInfo();
+        }
+
+        private void lvcUserInfo_RequestFindByName(object sender, EventArgs e)
+        {
             LoadDataFromUserInfo();
         }
 
@@ -330,8 +367,14 @@ namespace QuanGymChuot
             else lvcPaymentManager.ListView.Focus();
         }
 
+        private void lvcPaymentManager_RequestFindByName(object sender, EventArgs e)
+        {
+            LoadDataFromPaymentManager();
+        }
+
         private void lvcPaymentManager_RequestRefresh(object sender, EventArgs e)
         {
+            lvcPaymentManager.ClearFindQuery();
             lvcPaymentManager.ClearAll();
             LoadDataFromPaymentManager();
         }
@@ -360,5 +403,6 @@ namespace QuanGymChuot
             bwInitListView.RunWorkerAsync();
         }
         #endregion
+
     }
 }
