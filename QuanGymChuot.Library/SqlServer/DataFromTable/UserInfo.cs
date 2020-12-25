@@ -27,11 +27,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
                     while (data.Read())
                     {
                         var dataPart = new UserItem();
-                        dataPart.ID = data.GetInt32(0);
-                        dataPart.Name = data.GetString(1);
-                        dataPart.Gender = data.GetBoolean(2);
-                        dataPart.Phone = data.GetString(3);
-                        dataPart.RegDate = data.GetDateTime(4);
+                        dataPart.ID = data.IsDBNull(0) ? 0 : data.GetInt32(0);
+                        dataPart.Name = data.IsDBNull(1) ? null : data.GetString(1);
+                        dataPart.Gender = data.IsDBNull(2) ? false : data.GetBoolean(2);
+                        dataPart.Phone = data.IsDBNull(3) ? null : data.GetString(3);
+                        dataPart.RegDate = data.IsDBNull(4) ? new DateTime() : data.GetDateTime(4);
 
                         result.Add(dataPart);
                     }
@@ -218,9 +218,9 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             if (Account.CurrentAccount.Check().Completed)
             {
                 string value = String.Format("{0}, {1}, {2}",
-                             newUserInfo.Name == null ? "NULL" : '\'' + newUserInfo.Name + '\'',
+                             newUserInfo.Name == null ? "NULL" : "N\'" + newUserInfo.Name + '\'',
                              newUserInfo.Gender ? 1 : 0,
-                             newUserInfo.Phone == null ? "NULL" : '\'' + newUserInfo.Phone + '\'');
+                             newUserInfo.Phone == null ? "NULL" : "N\'" + newUserInfo.Phone + '\'');
 
                 var cmd = new SqlCommand(String.Format("USE QuanGymChuot INSERT INTO ThongTinNguoiDung (Name, Gender, Phone) VALUES({0})", value),
                                          Connection.SqlConnect);
