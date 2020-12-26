@@ -1,12 +1,12 @@
-﻿-- Tạo database - Nếu chưa có thì tạo, nếu đã có thì bỏ qua.
-IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'QuanGymChuot')
-	CREATE DATABASE QuanGymChuot
-ELSE
+-- Tạo database - Nếu chưa có thì tạo, nếu đã có xóa database cũ tạo lại.
+IF EXISTS(SELECT * FROM sys.databases WHERE name = 'QuanGymChuot')
 BEGIN
-	PRINT(N'Đã có database QuanGymChuot.')
-	PRINT(N'(bỏ qua thông báo này nếu muốn sử dụng database đã có sẵn)')
-	PRINT(N'')
+	USE master;
+	ALTER DATABASE QuanGymChuot SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+	DROP DATABASE QuanGymChuot
 END
+GO
+CREATE DATABASE QuanGymChuot
 GO
 
 -- Sử dụng database QuanGymChuot cho các câu lệnh truy vấn ở dưới đây.
@@ -134,7 +134,7 @@ CREATE TABLE QuanLyGiaoDich (
 	-- Ngày hết hạn gói
 	PackExpDate datetime NOT NULL DEFAULT GETDATE(),
 	-- Ghi chú (nếu có)
-	Note nvarchar(max),
+	Note nvarchar(max) DEFAULT NULL,
 	-- Liên kết cột UserID với cột ID của bảng ThongTinNguoiDung
 	FOREIGN KEY (UserID) REFERENCES ThongTinNguoiDung(ID),
 	-- Liên kết cột PackID với cột ID của bảng GoiDichVu
@@ -193,3 +193,65 @@ BEGIN
 	VALUES (@Username, @Password)
 END
 GO
+
+-- =============================================================================================
+
+-- Tạo dữ liệu mẫu từ bảng GoiDichVu
+-- (các gói có thể mua)
+DELETE FROM GoiDichVu
+GO
+INSERT INTO GoiDichVu (Name, Price, DayCount, Info)
+VALUES ('Gói 3 ngày', 5000, 3, '(no more information)')
+GO
+INSERT INTO GoiDichVu (Name, Price, DayCount, Info)
+VALUES ('Gói 7 ngày', 15000, 7, '(no more information)')
+GO
+INSERT INTO GoiDichVu (Name, Price, DayCount, Info)
+VALUES ('Gói 1 tháng (30 ngày)', 50000, 30, '(no more information)')
+GO
+INSERT INTO GoiDichVu (Name, Price, DayCount, Info)
+VALUES ('Gói 3 tháng (90 ngày)', 150000, 90, '(no more information)')
+GO
+
+-- Tạo dữ liệu mẫu từ bảng ThongTinNguoiDung
+-- (người dùng đã đăng ký)
+DELETE FROM ThongTinNguoiDung
+GO
+INSERT INTO ThongTinNguoiDung (Name, Gender, Phone)
+VALUES ('Name 1', 1, '0123456789')
+GO
+INSERT INTO ThongTinNguoiDung (Name, Gender, Phone)
+VALUES ('Name 2', 0, '0321323219')
+GO
+INSERT INTO ThongTinNguoiDung (Name, Gender, Phone)
+VALUES ('Name 3', 1, '0382858284')
+GO
+
+-- Tạo dữ liệu mẫu từ bảng QuanLyGiaoDich
+-- (các gói mà khách hàng đã mua)
+-- Lưu ý: Kiểm tra lại UserID, PackID để sửa lại truy vấn mẫu này nếu lỗi.
+DELETE FROM QuanLyGiaoDich
+GO
+INSERT INTO QuanLyGiaoDich (UserID, PackID)
+VALUES (1, 1)
+GO
+INSERT INTO QuanLyGiaoDich (UserID, PackID)
+VALUES (2, 2)
+GO
+INSERT INTO QuanLyGiaoDich (UserID, PackID)
+VALUES (3, 3)
+GO
+
+-- Tạo dữ liệu mẫu từ bảng ThongTinDangNhap
+-- (tài khoản đăng nhập)
+INSERT INTO ThongTinDangNhap (Username, Password)
+-- Tài khoản: admin, mật khẩu: admin
+VALUES (N'admin', '21232f297a57a5a743894a0e4a801fc3')
+GO
+
+INSERT INTO ThongTinDangNhap (Username, Password)
+-- Tài khoản: Zoe13010, mật khẩu: cloney1301
+VALUES (N'Zoe13010', '201dd8aa46f36287fe71f1149425efa0')
+GO
+
+-- =============================================================================================

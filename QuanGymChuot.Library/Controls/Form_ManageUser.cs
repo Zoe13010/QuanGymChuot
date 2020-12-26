@@ -1,16 +1,17 @@
 ﻿using QuanGymChuot.Library.SqlServer.DataFromTable;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
 {
-    public partial class Form_UserInfo : Form
+    public partial class Form_ManageUser : Form
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private UserInfo.UserInfoItem uiItemOld, uiItemNew;
+        private UserItem uiItemOld, uiItemNew;
 
-        public Form_UserInfo()
+        public Form_ManageUser()
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
@@ -20,22 +21,24 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                uiItemOld = UserInfo.FindFirstObjectById(ID);
+                uiItemOld = UserInfo.GetFirstObject(new Dictionary<string, string>() { { "ID", ID.ToString() } });
+
                 tbID.Text = uiItemOld.ID.ToString();
                 tbName.Text = uiItemOld.Name;
-                cbGender.SelectedIndex = (!uiItemOld.Gender) ? 1 : 0;
+                cbGender.SelectedIndex = (uiItemOld.Gender) ? 1 : 0;
                 tbPhone.Text = uiItemOld.Phone;
-                dtpAddDate.Value = uiItemOld.RegDate;
+                lbRegDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", uiItemOld.RegDate);
 
-                label7.Text = "Edit user information";
+                this.Text = "View or edit user information";
                 btnAccept.Text = "Save";
             }
             else
             {
                 tbID.Enabled = false;
-                dtpAddDate.Visible = false;
+                lbRegDate.Visible = false;
                 label8.Visible = false;
                 cbGender.SelectedIndex = 0;
+                this.Text = "Create new user information";
             }
         }
 
@@ -46,22 +49,26 @@ namespace QuanGymChuot.Library.Controls
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            uiItemNew = new UserInfo.UserInfoItem();
+            uiItemNew = new UserItem();
             uiItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
-            uiItemNew.Gender = (cbGender.SelectedIndex == 0) ? true : false;
+            uiItemNew.Gender = (cbGender.SelectedIndex == 1) ? true : false;
             uiItemNew.Phone = tbPhone.Text;
 
+            bool successful = false;
             if (CreateMode)
             {
-                UserInfo.Create(uiItemNew);
+                successful = UserInfo.Create(uiItemNew);
             }
             else
             {
-                UserInfo.ChangeObject(uiItemOld.ID, uiItemNew);
+                successful = UserInfo.Change(new Dictionary<string, string>() { { "ID", ID.ToString() } }, uiItemNew); ;
             }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (successful)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }

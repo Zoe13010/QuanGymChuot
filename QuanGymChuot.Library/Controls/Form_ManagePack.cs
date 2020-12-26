@@ -1,16 +1,17 @@
 ﻿using QuanGymChuot.Library.SqlServer.DataFromTable;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace QuanGymChuot.Library.Controls
 {
-    public partial class Form_ComboPack : Form
+    public partial class Form_ManagePack : Form
     {
         public bool CreateMode = true;
         public int ID = 0;
-        private ComboPack.ComboPackItem cpItemOld, cpItemNew;
+        private PackItem cpItemOld, cpItemNew;
 
-        public Form_ComboPack()
+        public Form_ManagePack()
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
@@ -20,23 +21,24 @@ namespace QuanGymChuot.Library.Controls
         {
             if (!CreateMode)
             {
-                cpItemOld = ComboPack.FindFirstObjectById(ID);
+                cpItemOld = PackManager.GetFirstObject(new Dictionary<string, string>() { { "ID", ID.ToString() } });
                 tbID.Text = cpItemOld.ID.ToString();
                 tbName.Text = cpItemOld.Name;
                 tbPrice.Text = cpItemOld.Price.ToString();
                 tbDayCount.Text = cpItemOld.DayCount.ToString();
                 tbInfo.Text = cpItemOld.Info;
                 cbCanUse.Checked = cpItemOld.CanUse;
-                dtpAddDate.Value = cpItemOld.AddedDate;
+                lbAddDate.Text = String.Format("{0:dd/MM/yyyy hh:mm:ss tt}", cpItemOld.AddedDate);
 
-                label7.Text = "Edit Combo Pack information";
+                this.Text = "View or edit package information";
                 btnAccept.Text = "Save";
             }
             else
             {
                 tbID.Enabled = false;
-                dtpAddDate.Visible = false;
+                lbAddDate.Visible = false;
                 label8.Visible = false;
+                this.Text = "Create a new package information";
             }
         }
 
@@ -47,7 +49,7 @@ namespace QuanGymChuot.Library.Controls
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            cpItemNew = new ComboPack.ComboPackItem();
+            cpItemNew = new PackItem();
             cpItemNew.Name = tbName.TextLength == 0 ? null : tbName.Text;
             long.TryParse(tbPrice.Text, out cpItemNew.Price);
             long.TryParse(tbDayCount.Text, out cpItemNew.DayCount);
@@ -56,11 +58,11 @@ namespace QuanGymChuot.Library.Controls
 
             if (CreateMode)
             {
-                ComboPack.Create(cpItemNew);
+                PackManager.Create(cpItemNew);
             }
             else
             {
-                ComboPack.ChangeObject(cpItemOld.ID, cpItemNew);
+                PackManager.Change(new Dictionary<string, string>() { { "ID", cpItemOld.ID.ToString() } }, cpItemNew);
             }
 
             this.DialogResult = DialogResult.OK;

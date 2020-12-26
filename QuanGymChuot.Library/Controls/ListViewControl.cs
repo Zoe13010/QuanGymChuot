@@ -78,6 +78,11 @@ namespace QuanGymChuot.Library.Controls
             }
         }
 
+        public string QueryNameString
+        {
+            get { return tbFind.Text; }
+        }
+
         /// <summary>
         /// Sẽ chạy khi yêu cầu tạo một dữ liệu mới.
         /// </summary>
@@ -97,6 +102,11 @@ namespace QuanGymChuot.Library.Controls
         /// Sẽ chạy khi yêu cầu chỉnh sửa dữ liệu.
         /// </summary>
         public event EventHandler RequestEdit;
+
+        /// <summary>
+        /// TODO: Comment here!
+        /// </summary>
+        public event EventHandler RequestFindByName;
 
         /// <summary>
         /// Xóa mọi thứ trong Control ListView.
@@ -137,7 +147,7 @@ namespace QuanGymChuot.Library.Controls
             {
                 DialogResult msgResult =
                     MessageBox.Show(String.Format("You are about to delete {0}.\nThis action cannot be undone!\n\nAre you sure you want to continue?",
-                                                  listView.SelectedItems.Count.ToString() + (listView.SelectedItems.Count == 1 ? " item" : " items")),
+                                                  listView.SelectedItems.Count.ToString() + (listView.SelectedItems.Count == 1 ? " record" : " records")),
                                     MsgBoxDelTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (msgResult == DialogResult.Yes)
@@ -186,6 +196,12 @@ namespace QuanGymChuot.Library.Controls
             RefreshButtonState();
         }
 
+        public void ClearFindQuery()
+        {
+            if (tbFind.InvokeRequired) tbFind.Invoke((MethodInvoker)delegate { ClearFindQuery(); });
+            else tbFind.Clear();
+        }
+
         /// <summary>
         /// Làm mới/kiểm tra điều kiện để bật/tắt các nút.
         /// </summary>
@@ -194,6 +210,18 @@ namespace QuanGymChuot.Library.Controls
             ListView lv = listView;
             btnEdit.Enabled = (lv.SelectedItems.Count == 1);
             btnDelete.Enabled = (lv.SelectedItems.Count > 0);
+        }
+
+        private void btnFindByName_Click(object sender, EventArgs e)
+        {
+            if (RequestFindByName != null)
+                RequestFindByName(this, new EventArgs());
+        }
+
+        private void tbFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnFindByName_Click(btnFindByName, new EventArgs());
         }
     }
 }

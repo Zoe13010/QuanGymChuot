@@ -1,4 +1,5 @@
 # QuanGymChuot - Đồ án lập trình DUT 2020 - 19.Nh12B
+
 ## Về ngôn ngữ truy vấn có cấu trúc (SQL)
 Hãy xem nội dung này trên Wikipedia (tiếng Anh): https://en.wikipedia.org/wiki/SQL
 ## Về đồ án
@@ -7,41 +8,40 @@ Hãy xem nội dung này trên Wikipedia (tiếng Anh): https://en.wikipedia.org
 ## Sử dụng các ngôn ngữ, phần mềm hỗ trợ
 - C# (.NET Framework)
 - Thư viện ADO.NET
-- Microsoft Visual Studio 2019 Community
+- Microsoft Visual Studio 2013/2019 Community
 - Microsoft SQL Server Express 2018
+## Lưu ý trước khi sử dụng repo này
+- Đảm bảo rằng bạn đã mở cổng TCP 1433 trên máy tính đang chạy repo này để chương trình hoạt động. Nếu bạn muốn kết nối SQL Server sử dụng chuỗi kết nối (Connection String) của bạn, hãy tìm và sửa giá trị tại login1.SqlConnectionString trong project QuanGymChuot.
 ## Tạo các bảng cần thiết trong SQL
-Về nội dung và đường dẫn tải xuống 3 file về lệnh truy vấn trong SQL, hãy xem tại commit này:
-- https://github.com/Zoe13010/QuanGymChuot/tree/experiment/SqlQuery
-
-Thứ tự chạy file:
-- Lưu ý: Lệnh chạy truy vấn trong Microsoft SQL Server Express là Execute (phím tắt mặc định là F5)
-1. Tạo bảng sử dụng SqlQuery_CreateSource.sql: bôi đen toàn bộ và chạy lệnh truy vấn.
-2. Tạo dữ liệu mẫu sử dụng SqlQuery_CreateData.sql: bôi đen phần INSERT rồi chạy lệnh truy vấn.
-   - Trong khi đó phần DELETE sẽ xóa toàn bộ dữ liệu trong các bảng tương ứng.
-3. [Tùy chọn] Xuất dữ liệu mẫu theo yêu cầu tương ứng với file SqlQuery_SelectData.sql: bôi đen toàn bộ hoặc một phần các lệnh cần dùng rồi chạy lệnh truy vấn.
+Về demo về data sử dụng cho chương trình, hãy xem tại file này:
+https://github.com/Zoe13010/QuanGymChuot/blob/experiment/SqlQuery/SqlQuery_CreateTempoaryData.sql
+- Chỉ cần mở file và chạy.
+  - Nếu chưa có database QuanGymChuot, nó sẽ tự động tạo một cái mới.
+  - Nếu đã có database QuanGymChuot, nó sẽ xóa cái cũ và tạo một cái mới.
 ## Tiến độ công việc trong Project QuanGymChuot
 - Cơ bản:
   - [x] Control đăng nhập
   - [x] ListView xem danh sách
 - Bảng:
-  - ComboPack: Các gói dịch vụ mà khách hàng có thể mua
+  - GoiDichVu: Các gói dịch vụ tập Gym có trong quán.
     - [x] Thêm
     - [x] Sửa
     - [x] Xóa
-    - [ ] Tìm kiếm
+    - [x] Tìm kiếm
     - [x] Làm mới
-  - UserInfo: Thông tin khách hàng đã đăng ký tại quán
+  - ThongTinNguoiDung: Thông tin khách hàng đã đăng ký tại quán.
     - [x] Thêm
     - [x] Sửa
     - [x] Xóa
-    - [ ] Tìm kiếm
+    - [x] Tìm kiếm
     - [x] Làm mới
-  - UserPurchasedPack: Thông tin các gói mà khách hàng đã mua hoặc gia hạn
-    - [ ] Thêm
-    - [ ] Sửa
+  - QuanLyGiaoDich: Quản lý thông tin hoặc lịch sử giao dịch các gói dịch vụ mà khách hàng đã mua mới hoặc gia hạn.
+    - [x] Thêm
+    - [x] Sửa
     - [x] Xóa
-    - [ ] Tìm kiếm
+    - [x] Tìm kiếm
     - [x] Làm mới
+  - ThongTinTaiKhoan: Lưu trữ thông tin tài khoản dùng để quản lý cơ sở dữ liệu.
 - Tài khoản:
   - [x] Đổi mật khẩu
   - [x] Đăng xuất
@@ -51,3 +51,7 @@ Thứ tự chạy file:
 - [x] ~~Bộ cài đặt: Tạo bộ cài đặt/gỡ bỏ phần mềm (bỏ gạch ngang để thêm tính năng nếu cần thiết)~~
 ## Tài liệu đã sử dụng
 - Mã hóa chuỗi ký tự sử dụng MD5: https://coderwall.com/p/4puszg/c-convert-string-to-md5-hash
+- Tạo control tùy chỉnh trong WinForm (C#): https://stackoverflow.com/questions/6405458/how-do-i-make-custom-controls-in-c
+- Event tùy chỉnh trong Event Handler (C#): https://stackoverflow.com/questions/803242/understanding-events-and-event-handlers-in-c-sharp
+- Thực hiện lệnh SQL dưới nền sử dụng Background Worker (C#): https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.backgroundworker?view=netframework-2.0
+- List<T>: https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netframework-2.0

@@ -2,6 +2,7 @@
 using QuanGymChuot.Library.SqlServer;
 using QuanGymChuot.Library.SqlServer.DataFromTable;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -56,9 +57,10 @@ namespace QuanGymChuot
         /// </summary>
         private void bwInitListView_DoWork(object sender, DoWorkEventArgs e)
         {
-            LoadDataFromComboPackNew();
-            LoadDataFromUserInfoNew();
-            LoadDataFromUserPurchasedPackNew();
+            ChangePanelAccount(false, "Loading all table from database...");
+            LoadDataFromGymPackItems();
+            LoadDataFromUserInfo();
+            LoadDataFromPaymentManager();
         }
 
         /// <summary>
@@ -67,106 +69,12 @@ namespace QuanGymChuot
         /// </summary>
         private void bwInitListView_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            // TODO: COMMENT HERE!
+            // TODO: Comment here!
             ChangePanelAccount(true, String.Format("Logged in as {0}!", Account.CurrentAccount.UserName));
             // Ẩn Control đăng nhập.
             login1.Hide();
             // Xóa mật khẩu của Control đăng nhập.
             login1.ClearPassword();
-        }
-
-        /// <summary>
-        /// Lấy dữ liệu từ bảng ComboPack.
-        /// </summary>
-        private void LoadDataFromComboPackNew()
-        {
-            if (tabPageComboPack.InvokeRequired) tabPageComboPack.Invoke((MethodInvoker)delegate { LoadDataFromComboPackNew(); });
-            else
-            {
-                lvcComboPack.ClearAll();
-                lvcComboPack.ListView.Columns.Add("ID", 48);
-                lvcComboPack.ListView.Columns.Add("Name", 182);
-                lvcComboPack.ListView.Columns.Add("Price (VND)", 86);
-                lvcComboPack.ListView.Columns.Add("Days", 64);
-                lvcComboPack.ListView.Columns.Add("Can use?", 72);
-                lvcComboPack.ListView.Columns.Add("Added Date", 156);
-                lvcComboPack.ListView.Columns.Add("Info", 284);
-
-                foreach (ComboPack.ComboPackItem cpitem in ComboPack.GetAll())
-                {
-                    string[] s = new string[]
-                    {
-                        cpitem.ID.ToString(),
-                        cpitem.Name,
-                        cpitem.Price.ToString(),
-                        cpitem.DayCount.ToString(),
-                        cpitem.CanUse ? "Yes" : "No",
-                        cpitem.AddedDate.ToString(),
-                        cpitem.Info != null ? cpitem.Info : "(no information)"
-                    };
-                    lvcComboPack.ListView.Items.Add(new ListViewItem(s));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Lấy dữ liệu từ bảng UserInfo.
-        /// </summary>
-        private void LoadDataFromUserInfoNew()
-        {
-            if (lvcUserInfo.InvokeRequired) lvcUserInfo.Invoke((MethodInvoker)delegate { LoadDataFromUserInfoNew(); });
-            else
-            {
-                lvcUserInfo.ClearAll();
-                lvcUserInfo.ListView.Columns.Add("ID", 48);
-                lvcUserInfo.ListView.Columns.Add("Name", 518);
-                lvcUserInfo.ListView.Columns.Add("Gender", 70);
-                lvcUserInfo.ListView.Columns.Add("Phone", 100);
-                lvcUserInfo.ListView.Columns.Add("Registration Date", 156);
-
-                foreach (UserInfo.UserInfoItem uiitem in UserInfo.GetAll())
-                {
-                    string[] s = new string[]
-                    {
-                        uiitem.ID.ToString(),
-                        uiitem.Name,
-                        uiitem.Gender ? "Male" : "Female",
-                        uiitem.Phone,
-                        uiitem.RegDate.ToString()
-                    };
-                    lvcUserInfo.ListView.Items.Add(new ListViewItem(s));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Lấy dữ liệu từ bảng UserPurchasedPack.
-        /// </summary>
-        private void LoadDataFromUserPurchasedPackNew()
-        {
-            if (lvcUserPurPack.InvokeRequired) lvcUserPurPack.Invoke((MethodInvoker)delegate { LoadDataFromUserPurchasedPackNew(); });
-            else
-            {
-                lvcUserPurPack.ClearAll();
-                lvcUserPurPack.ListView.Columns.Add("ID", 48);
-                lvcUserPurPack.ListView.Columns.Add("User Name", 318);
-                lvcUserPurPack.ListView.Columns.Add("Package Name", 214);
-                lvcUserPurPack.ListView.Columns.Add("Purchased Date", 156);
-                lvcUserPurPack.ListView.Columns.Add("Expired in", 156);
-
-                foreach (UserPurchasedPack.UserPurchasedPackItem upiitem in UserPurchasedPack.GetAll())
-                {
-                    string[] s = new string[]
-                    {
-                        upiitem.ID.ToString(),
-                        upiitem.UserName,
-                        upiitem.PackageName,
-                        upiitem.PackageRegDate.ToString(),
-                        upiitem.PackageExpDate.ToString()
-                    };
-                    lvcUserPurPack.ListView.Items.Add(new ListViewItem(s));
-                }
-            }
         }
 
         /// <summary>
@@ -176,7 +84,7 @@ namespace QuanGymChuot
         /// <param name="lbStatusText">Văn bản cần đổi.</param>
         private void ChangePanelAccount(bool btnEnabled, string lbStatusText)
         {
-            if (pnStatus.InvokeRequired) pnStatus.Invoke((MethodInvoker)delegate { ChangePanelAccount(btnEnabled, lbStatusText); });
+            if (pStatus.InvokeRequired) pStatus.Invoke((MethodInvoker)delegate { ChangePanelAccount(btnEnabled, lbStatusText); });
             else
             {
                 btnChangePass.Visible = btnEnabled;
@@ -194,6 +102,127 @@ namespace QuanGymChuot
             Connection.Disconnect();
         }
 
+        #region Load Data from SQL Server
+        /// <summary>
+        /// Lấy dữ liệu từ bảng ComboPack.
+        /// </summary>
+        private void LoadDataFromGymPackItems()
+        {
+            if (tabPagePackInfo.InvokeRequired) tabPagePackInfo.Invoke((MethodInvoker)delegate { LoadDataFromGymPackItems(); });
+            else
+            {
+                lvcGymPackageManager.ClearAll();
+                lvcGymPackageManager.ListView.Columns.Add("ID", 48);
+                lvcGymPackageManager.ListView.Columns.Add("Name", 182);
+                lvcGymPackageManager.ListView.Columns.Add("Price (VND)", 86);
+                lvcGymPackageManager.ListView.Columns.Add("Days", 64);
+                lvcGymPackageManager.ListView.Columns.Add("Can use?", 72);
+                lvcGymPackageManager.ListView.Columns.Add("Added Date", 156);
+                lvcGymPackageManager.ListView.Columns.Add("Info", 284);
+
+                List<PackItem> packItem = null;
+
+                if (lvcGymPackageManager.QueryNameString == null)
+                    packItem = PackManager.GetAll();
+                else
+                    packItem = PackManager.FindObjectsByName(lvcGymPackageManager.QueryNameString);
+
+                if (packItem != null)
+                    foreach (PackItem cpitem in packItem)
+                    {
+                        string[] s = new string[]
+                        {
+                            cpitem.ID.ToString(),
+                            cpitem.Name,
+                            cpitem.Price.ToString(),
+                            cpitem.DayCount.ToString(),
+                            cpitem.CanUse ? "Yes" : "No",
+                            cpitem.AddedDate.ToString(),
+                            cpitem.Info != null ? cpitem.Info : "(no information)"
+                        };
+                        lvcGymPackageManager.ListView.Items.Add(new ListViewItem(s));
+                    }
+            }
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu từ bảng UserInfo.
+        /// </summary>
+        private void LoadDataFromUserInfo()
+        {
+            if (lvcUserInfo.InvokeRequired) lvcUserInfo.Invoke((MethodInvoker)delegate { LoadDataFromUserInfo(); });
+            else
+            {
+                lvcUserInfo.ClearAll();
+                lvcUserInfo.ListView.Columns.Add("ID", 48);
+                lvcUserInfo.ListView.Columns.Add("Name", 518);
+                lvcUserInfo.ListView.Columns.Add("Gender", 70);
+                lvcUserInfo.ListView.Columns.Add("Phone", 100);
+                lvcUserInfo.ListView.Columns.Add("Registration Date", 156);
+
+                List<UserItem> userItems = null;
+                if (lvcUserInfo.QueryNameString == null)
+                    userItems = UserInfo.GetAll();
+                else
+                    userItems = UserInfo.FindObjectsByName(lvcUserInfo.QueryNameString);
+
+                if (userItems != null)
+                    foreach (UserItem uiitem in userItems)
+                    {
+                        string[] s = new string[]
+                        {
+                            uiitem.ID.ToString(),
+                            uiitem.Name,
+                            uiitem.Gender ? "Female" : "Male",
+                            uiitem.Phone,
+                            uiitem.RegDate.ToString()
+                        };
+                        lvcUserInfo.ListView.Items.Add(new ListViewItem(s));
+                    }
+            }
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu từ bảng PaymentManager.
+        /// </summary>
+        private void LoadDataFromPaymentManager()
+        {
+            if (lvcPaymentManager.InvokeRequired) lvcPaymentManager.Invoke((MethodInvoker)delegate { LoadDataFromPaymentManager(); });
+            else
+            {
+                lvcPaymentManager.ClearAll();
+                lvcPaymentManager.ListView.Columns.Add("Payment ID", 80);
+                lvcPaymentManager.ListView.Columns.Add("User Name", 318);
+                lvcPaymentManager.ListView.Columns.Add("Package Name", 214);
+                lvcPaymentManager.ListView.Columns.Add("Purchased Date", 156);
+                lvcPaymentManager.ListView.Columns.Add("Expired in", 156);
+                lvcPaymentManager.ListView.Columns.Add("System Note", 318);
+
+                List<PaymentItem> payItems = null;
+
+                if (lvcPaymentManager.QueryNameString == null)
+                    payItems = PaymentManager.GetAll();
+                else
+                    payItems = PaymentManager.FindObjectsByName(lvcPaymentManager.QueryNameString);
+
+                if (payItems != null)
+                    foreach (PaymentItem upiitem in payItems)
+                    {
+                        string[] s = new string[]
+                        {
+                            upiitem.ID.ToString(),
+                            upiitem.UserName,
+                            upiitem.PackName,
+                            upiitem.PackRegDate.ToString(),
+                            (upiitem.PackExpDate > DateTime.Now) ? upiitem.PackExpDate.ToString() : "Expired",
+                            upiitem.Note
+                        };
+                        lvcPaymentManager.ListView.Items.Add(new ListViewItem(s));
+                    }
+            }
+        }
+        #endregion
+
         #region Account Panel
         private void btnChangePass_Click(object sender, EventArgs e)
         {
@@ -210,79 +239,95 @@ namespace QuanGymChuot
             // Ngắt kết nối hiện tại.
             Connection.Disconnect();
             // Xóa toàn bộ dữ liệu trên ListView.
-            lvcComboPack.ClearAll();
+            lvcGymPackageManager.ClearAll();
             lvcUserInfo.ClearAll();
-            lvcUserPurPack.ClearAll();
+            lvcPaymentManager.ClearAll();
             // Kết nối lại đến server để đăng nhập.
             MainForm_Load(this, new EventArgs());
         }
         #endregion
 
-        #region Combo Packs panel
-        private void lvcComboPack_RequestCreate(object sender, EventArgs e)
+        #region Gym Package Items panel
+        private void lvcGymPackageManager_RequireForm(bool createMode = true, int ID = 0)
         {
-            Form_ComboPack form = new Form_ComboPack();
-            form.CreateMode = true;
+            Form_ManagePack form = new Form_ManagePack();
+            form.CreateMode = createMode;
+            form.ID = ID;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-            
+
             if (form.ShowDialog() == DialogResult.OK)
                 bwInitListView.RunWorkerAsync();
-            else lvcComboPack.ListView.Focus();
+            else lvcGymPackageManager.ListView.Focus();
         }
 
-        private void lvcComboPack_RequestEdit(object sender, EventArgs e)
+        private void lvcGymPackageManager_RequestCreate(object sender, EventArgs e)
         {
-            Form_ComboPack form = new Form_ComboPack();
-            form.CreateMode = false;
+            lvcGymPackageManager_RequireForm(true);
+        }
+
+        private void lvcGymPackageManager_RequestEdit(object sender, EventArgs e)
+        {
             int idTemp;
-            int.TryParse(lvcComboPack.ListView.SelectedItems[0].Text, out idTemp);
-            form.ID = idTemp;
-            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
-            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-
-            if (form.ShowDialog() == DialogResult.OK)
-                bwInitListView.RunWorkerAsync();
-            else lvcComboPack.ListView.Focus();
+            int.TryParse(lvcGymPackageManager.ListView.SelectedItems[0].Text, out idTemp);
+            lvcGymPackageManager_RequireForm(false, idTemp);
         }
 
-        private void lvcComboPack_RequestDelete(object sender, EventArgs e)
+        private void lvcGymPackageManager_RequestDelete(object sender, EventArgs e)
         {
             ListViewControl lv = (ListViewControl)sender;
             for (int i = 0; i < lv.SelectedItemCount; i++)
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                ComboPack.DeleteObject(ID);
+                PackManager.Delete(new Dictionary<string, string>() { { "ID", ID.ToString() } });
             }
 
             bwInitListView.RunWorkerAsync();
         }
 
-        private void lvcComboPack_RequestRefresh(object sender, EventArgs e)
+        private void lvcGymPackageManager_RequestRefresh(object sender, EventArgs e)
         {
-            lvcComboPack.ClearAll();
-            LoadDataFromComboPackNew();
+            lvcGymPackageManager.ClearFindQuery();
+            lvcGymPackageManager.ClearAll();
+            LoadDataFromGymPackItems();
+        }
+
+        private void lvcGymPackageManager_RequestFindByName(object sender, EventArgs e)
+        {
+            LoadDataFromGymPackItems();
         }
         #endregion
 
         #region User Information panel
-        private void lvcUserInfo_RequestRefresh(object sender, EventArgs e)
+        private void lvcUserInfo_RequireForm(bool createMode = true, int ID = 0)
         {
-            lvcUserInfo.ClearAll();
-            LoadDataFromUserInfoNew();
-        }
-
-        private void lvcUserInfo_RequestCreate(object sender, EventArgs e)
-        {
-            Form_UserInfo form = new Form_UserInfo();
-            form.CreateMode = true;
+            Form_ManageUser form = new Form_ManageUser();
+            form.CreateMode = createMode;
+            form.ID = ID;
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
 
             if (form.ShowDialog() == DialogResult.OK)
                 bwInitListView.RunWorkerAsync();
             else lvcUserInfo.ListView.Focus();
+        }
+
+        private void lvcUserInfo_RequestRefresh(object sender, EventArgs e)
+        {
+            lvcUserInfo.ClearAll();
+            lvcUserInfo.ClearFindQuery();
+            LoadDataFromUserInfo();
+        }
+
+        private void lvcUserInfo_RequestFindByName(object sender, EventArgs e)
+        {
+            LoadDataFromUserInfo();
+        }
+
+        private void lvcUserInfo_RequestCreate(object sender, EventArgs e)
+        {
+            lvcUserInfo_RequireForm(true);
         }
 
         private void lvcUserInfo_RequestDelete(object sender, EventArgs e)
@@ -292,7 +337,7 @@ namespace QuanGymChuot
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                UserInfo.DeleteObject(ID);
+                UserInfo.Delete(new Dictionary<string, string>() { { "ID", ID.ToString() } });
             }
 
             bwInitListView.RunWorkerAsync();
@@ -300,54 +345,64 @@ namespace QuanGymChuot
 
         private void lvcUserInfo_RequestEdit(object sender, EventArgs e)
         {
-            Form_UserInfo form = new Form_UserInfo();
-            form.CreateMode = false;
             int idTemp;
             int.TryParse(lvcUserInfo.ListView.SelectedItems[0].Text, out idTemp);
-            form.ID = idTemp;
-            form.Top = this.Top + (this.Height / 2 - form.Height / 2);
-            form.Left = this.Left + (this.Width / 2 - form.Width / 2);
-
-            if (form.ShowDialog() == DialogResult.OK)
-                bwInitListView.RunWorkerAsync();
-            else lvcUserInfo.ListView.Focus();
+            lvcUserInfo_RequireForm(false, idTemp);
         }
         #endregion
 
-        #region User Purchased Pack panel
-        private void lvcUserPurPack_RequestRefresh(object sender, EventArgs e)
+        #region Payment Manager panel
+        private void lvcPaymentManager_RequireForm(bool createMode = true, int ID = 0)
         {
-            lvcUserPurPack.ClearAll();
-            LoadDataFromUserPurchasedPackNew();
-        }
+            Form_ManagePayment form = new Form_ManagePayment();
+            form.CreateMode = createMode;
+            form.ID = ID;
 
-        private void lvcUserPurPack_RequestEdit(object sender, EventArgs e)
-        {
-            Form_UserPurPack form = new Form_UserPurPack();
-            form.CreateMode = false;
-            int idTemp;
-            int.TryParse(lvcUserPurPack.ListView.SelectedItems[0].Text, out idTemp);
-            form.ID = idTemp;
+            // Căn giữa Form để tạo/sửa ở giữa Form chính.
             form.Top = this.Top + (this.Height / 2 - form.Height / 2);
             form.Left = this.Left + (this.Width / 2 - form.Width / 2);
 
             if (form.ShowDialog() == DialogResult.OK)
                 bwInitListView.RunWorkerAsync();
-            else lvcUserInfo.ListView.Focus();
+            else lvcPaymentManager.ListView.Focus();
         }
 
-        private void lvcUserPurPack_RequestDelete(object sender, EventArgs e)
+        private void lvcPaymentManager_RequestFindByName(object sender, EventArgs e)
+        {
+            LoadDataFromPaymentManager();
+        }
+
+        private void lvcPaymentManager_RequestRefresh(object sender, EventArgs e)
+        {
+            lvcPaymentManager.ClearFindQuery();
+            lvcPaymentManager.ClearAll();
+            LoadDataFromPaymentManager();
+        }
+
+        private void lvcPaymentManager_RequestCreate(object sender, EventArgs e)
+        {
+            lvcPaymentManager_RequireForm(true);
+        }
+
+        private void lvcPaymentManager_RequestEdit(object sender, EventArgs e)
+        {
+            int idTemp;
+            int.TryParse(lvcPaymentManager.ListView.SelectedItems[0].Text, out idTemp);
+            lvcPaymentManager_RequireForm(false, idTemp);
+        }
+
+        private void lvcPaymentManager_RequestDelete(object sender, EventArgs e)
         {
             ListViewControl lv = (ListViewControl)sender;
             for (int i = 0; i < lv.SelectedItemCount; i++)
             {
                 long ID;
                 long.TryParse(lv.ListView.SelectedItems[i].Text, out ID);
-                UserPurchasedPack.DeleteObject(ID);
+                PaymentManager.Delete(new Dictionary<string, string>() { { "ID", ID.ToString() } });
             }
-
             bwInitListView.RunWorkerAsync();
         }
         #endregion
+
     }
 }

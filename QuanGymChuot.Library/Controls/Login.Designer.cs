@@ -66,9 +66,9 @@
             // 
             this.tbUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUser.Location = new System.Drawing.Point(115, 37);
+            this.tbUser.Location = new System.Drawing.Point(139, 37);
             this.tbUser.Name = "tbUser";
-            this.tbUser.Size = new System.Drawing.Size(300, 25);
+            this.tbUser.Size = new System.Drawing.Size(276, 25);
             this.tbUser.TabIndex = 1;
             this.tbUser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbLogin_KeyDown);
             // 
@@ -76,9 +76,9 @@
             // 
             this.tbPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPass.Location = new System.Drawing.Point(115, 68);
+            this.tbPass.Location = new System.Drawing.Point(139, 68);
             this.tbPass.Name = "tbPass";
-            this.tbPass.Size = new System.Drawing.Size(300, 25);
+            this.tbPass.Size = new System.Drawing.Size(276, 25);
             this.tbPass.TabIndex = 1;
             this.tbPass.UseSystemPasswordChar = true;
             this.tbPass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbLogin_KeyDown);

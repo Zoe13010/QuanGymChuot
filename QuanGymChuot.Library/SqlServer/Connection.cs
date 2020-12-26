@@ -50,9 +50,9 @@ namespace QuanGymChuot.Library.SqlServer
                 sqlConnect.Open();
                 return new Result() { Completed = true };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return new Result() { Completed = false, Message = e };
+                return new Result() { Completed = false, Message = ex.Message.Clone() };
             }
         }
 
