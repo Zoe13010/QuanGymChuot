@@ -57,7 +57,7 @@ namespace QuanGymChuot
         /// </summary>
         private void bwInitListView_DoWork(object sender, DoWorkEventArgs e)
         {
-            ChangePanelAccount(false, "Executing query...");
+            ChangePanelAccount(false, "Loading all table from database...");
             LoadDataFromGymPackItems();
             LoadDataFromUserInfo();
             LoadDataFromPaymentManager();

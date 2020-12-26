@@ -134,7 +134,7 @@ CREATE TABLE QuanLyGiaoDich (
 	-- Ngày hết hạn gói
 	PackExpDate datetime NOT NULL DEFAULT GETDATE(),
 	-- Ghi chú (nếu có)
-	Note nvarchar(max),
+	Note nvarchar(max) DEFAULT NULL,
 	-- Liên kết cột UserID với cột ID của bảng ThongTinNguoiDung
 	FOREIGN KEY (UserID) REFERENCES ThongTinNguoiDung(ID),
 	-- Liên kết cột PackID với cột ID của bảng GoiDichVu

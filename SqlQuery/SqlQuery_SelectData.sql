@@ -50,3 +50,7 @@ SELECT ID AS PaymentID
 FROM dbo.QuanLyGiaoDich
 WHERE UserID = 3 AND PackExpDate > GETDATE()
 GO
+
+USE QuanGymChuot UPDATE ThongTinNguoiDung SET Name = N'Ten', Gender = 0, Phone = N'0123456789' WHERE ID = 12345
+USE QuanGymChuot INSERT INTO ThongTinNguoiDung (Name, Gender, Phone) VALUES({0})
+USE QuanGymChuot SELECT * FROM ThongTinNguoiDung WHERE NAME LIKE N'%{0}%'
