@@ -192,9 +192,9 @@ namespace QuanGymChuot
             {
                 lvcPaymentManager.ClearAll();
                 lvcPaymentManager.ListView.Columns.Add("Payment ID", 80);
-                lvcPaymentManager.ListView.Columns.Add("User Name", 318);
+                lvcPaymentManager.ListView.Columns.Add("User Name", 280);
                 lvcPaymentManager.ListView.Columns.Add("Package Name", 214);
-                lvcPaymentManager.ListView.Columns.Add("Purchased Date", 156);
+                lvcPaymentManager.ListView.Columns.Add("Registered Date", 156);
                 lvcPaymentManager.ListView.Columns.Add("Expired in", 156);
                 lvcPaymentManager.ListView.Columns.Add("System Note", 318);
 
