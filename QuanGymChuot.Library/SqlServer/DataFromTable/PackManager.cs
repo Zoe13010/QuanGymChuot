@@ -8,7 +8,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
     public class PackManager
     {
         /// <summary>
-        /// Lấy tất cả dữ liệu từ bảng ComboPack.
+        /// Lấy tất cả dữ liệu.
         /// </summary>
         public static List<PackItem> GetAll()
         {
@@ -54,7 +54,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Xóa dữ liệu từ bảng ComboPack theo truy vấn tìm kiếm.
+        /// Xóa dữ liệu theo truy vấn tìm kiếm.
         /// </summary>
         /// <param name="query">Truy vấn tìm kiếm kết quả cần xóa</param>
         public static void Delete(Dictionary<string, string> query)
@@ -93,7 +93,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Thay đổi thuộc tính của gói dịch vụ từ bảng ComboPack theo truy vấn tìm kiếm.
+        /// Thay đổi thuộc tính của gói dịch vụ theo truy vấn tìm kiếm.
         /// </summary>
         /// <param name="query">Truy vấn tìm kiếm của gói dịch vụ cần thay đổi</param>
         /// <param name="newComboInfo">Giá trị sẽ thay đổi vào gói dịch vụ từ kết quả có được từ truy vấn đó</param>
@@ -249,7 +249,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 
 
         /// <summary>
-        /// Lấy gói dịch vụ đầu tiên của bảng ComboPack theo truy vấn tìm kiếm.
+        /// Lấy gói dịch vụ đầu tiên theo truy vấn tìm kiếm.
         /// </summary>
         /// <param name="query">Truy vấn tìm kiếm gói dịch vụ cần lấy</param>
         public static PackItem GetFirstObject(Dictionary<string, string> query)
@@ -258,7 +258,7 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
         }
 
         /// <summary>
-        /// Tạo một gói dịch vụ mới vào bảng ComboPack.
+        /// Tạo một gói dịch vụ mới.
         /// </summary>
         /// <param name="cpitem">Gói dịch vụ sẽ được tạo</param>
         public static void Create(PackItem cpitem)

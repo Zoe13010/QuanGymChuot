@@ -7,6 +7,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
 {
     public class PaymentManager
     {
+        /// <summary>
+        /// Xuất toàn bộ dữ liệu từ bảng QuanLyGiaoDich.
+        /// (có dùng 2 bảng GoiDichVu và ThongTinNguoiDung để tải nội dung tương ứng)
+        /// </summary>
+        /// <returns></returns>
         public static List<PaymentItem> GetAll()
         {
             List<PaymentItem> result = null;
@@ -54,6 +59,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return result;
         }
 
+        /// <summary>
+        /// Lấy các đối tượng từ bảng QuanLyGiaoDich từ các truy vấn mang tính tuyệt đối.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static List<PaymentItem> GetObjects(Dictionary<string, string> query)
         {
             List<PaymentItem> upiItem = new List<PaymentItem>();
@@ -113,11 +123,21 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return upiItem;
         }
 
+        /// <summary>
+        /// Lấy duy nhất một đối tượng từ bảng QuanLyGiaoDich từ các truy vấn mang tính tuyệt đối.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static PaymentItem GetFirstObject(Dictionary<string, string> query)
         {
             return GetObjects(query)[0];
         }
 
+        /// <summary>
+        /// Tìm các đối tượng theo tên.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static List<PaymentItem> FindObjectsByName(string name)
         {
             List<PaymentItem> upiItem = new List<PaymentItem>();
@@ -167,6 +187,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return upiItem;
         }
 
+        /// <summary>
+        /// Lấy số giao dịch còn hiệu lực của đối tượng theo UserID.
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
         public static List<int> GetRemainPaymentByUserID(int UserID)
         {
             List<int> result = new List<int>();
@@ -201,6 +226,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             return result;
         }
 
+        /// <summary>
+        /// Đặt toàn bộ giao dịch của UserID thành hết hạn.
+        /// </summary>
+        /// <param name="UserID"></param>
         public static void SetRemainPaymentToExpiredByUserID(int UserID)
         {
             if (Account.CurrentAccount.Check().Completed)
@@ -223,6 +252,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
+        /// <summary>
+        /// Tạo một giao dịch.
+        /// </summary>
+        /// <param name="upiItem"></param>
         public static void Create(PaymentItem upiItem)
         {
             if (Account.CurrentAccount.Check().Completed)
@@ -252,6 +285,10 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
+        /// <summary>
+        /// Xóa các giao dịch theo truy vấn tìm kiếm.
+        /// </summary>
+        /// <param name="query"></param>
         public static void Delete(Dictionary<string, string> query)
         {
             if (Account.CurrentAccount.Check().Completed)
@@ -286,6 +323,11 @@ namespace QuanGymChuot.Library.SqlServer.DataFromTable
             }
         }
 
+        /// <summary>
+        /// Cập nhật các giao dịch theo truy vấn tìm kiếm.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="upiItem"></param>
         public static void Update(Dictionary<string, string> query, PaymentItem upiItem)
         {
             if (Account.CurrentAccount.Check().Completed)

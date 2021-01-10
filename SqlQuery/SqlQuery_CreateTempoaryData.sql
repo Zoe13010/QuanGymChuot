@@ -53,6 +53,25 @@ CREATE TABLE GoiDichVu (
 )
 GO
 
+-- [Trigger] Kiểm tra gói tồn tại
+----  + Nếu không có Trigger, tạo Trigger mới.
+----  + Nếu đã có Trigger này, xóa Trigger cũ và tạo mới.
+----  + Nội dung: Nếu có tên gói tồn tại thì xóa
+DROP TRIGGER IF EXISTS dbo.GoiDichVu_Check_Add
+GO
+CREATE TRIGGER dbo.GoiDichVu_Check_Add
+ON GoiDichVu
+FOR INSERT
+AS
+BEGIN
+	DECLARE @Name nvarchar(max)
+	SELECT @Name = Name FROM inserted
+	IF (EXISTS(SELECT Name FROM GoiDichVu WHERE Name = @Name))
+	-- SELECT * FROM dbo.ThongTinDangNhap WHERE Username = N'admin'
+		ROLLBACK TRANSACTION
+END
+GO
+
 -- [Bảng] Thông tin người dùng
 -- Gồm thông tin của người dùng khi đến tập để liên lạc nếu cần thiết.
 -- Lưu ý: Nếu muốn xóa bảng này, hãy xóa bảng UserManager trước. Sao lưu dữ liệu trước khi xóa.

@@ -141,10 +141,10 @@
             // 
             this.tabPageUserInfo.BackColor = System.Drawing.Color.White;
             this.tabPageUserInfo.Controls.Add(this.lvcUserInfo);
-            this.tabPageUserInfo.Location = new System.Drawing.Point(4, 22);
+            this.tabPageUserInfo.Location = new System.Drawing.Point(4, 26);
             this.tabPageUserInfo.Name = "tabPageUserInfo";
             this.tabPageUserInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUserInfo.Size = new System.Drawing.Size(1054, 526);
+            this.tabPageUserInfo.Size = new System.Drawing.Size(1054, 522);
             this.tabPageUserInfo.TabIndex = 2;
             this.tabPageUserInfo.Text = "User Information";
             // 
@@ -158,7 +158,7 @@
             this.lvcUserInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lvcUserInfo.MsgBoxDelTitle = "Quán Gym Chuột";
             this.lvcUserInfo.Name = "lvcUserInfo";
-            this.lvcUserInfo.Size = new System.Drawing.Size(1048, 520);
+            this.lvcUserInfo.Size = new System.Drawing.Size(1048, 516);
             this.lvcUserInfo.TabIndex = 4;
             this.lvcUserInfo.Title = "User Information";
             this.lvcUserInfo.RequestCreate += new System.EventHandler(this.lvcUserInfo_RequestCreate);
